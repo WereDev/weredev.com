@@ -1,0 +1,39 @@
+.app {
+  text-align: center;
+  min-width: 450px;
+}
+
+.app-header {
+  padding: 20px;
+  padding-bottom: 0px;
+  text-transform: uppercase;
+}
+
+.app-title {
+  font-size: 2em;
+  margin-top: -58px;
+}
+
+.col-title {
+  font-size: 1.5em;
+}
+
+@media only screen and (max-width: 768px) {
+  .app-body-col {
+    display: block;
+    margin: 20px;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  .app-body {
+    padding: 10px;
+  }
+
+  .app-body-col {
+    display: inline-block;
+    width: calc(33% - 20px);
+    margin: 10px;
+  }
+}
+
