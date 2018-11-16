@@ -4,7 +4,7 @@ class Index extends React.Component {
   public render() {
     return (
       <div>
-        Coming soon...
+        geek goodness coming soon...
       </div>
     );
   }

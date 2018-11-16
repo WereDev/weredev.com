@@ -1,4 +1,7 @@
 import * as React from 'react';
+import {
+  NavLink
+  } from 'react-router-dom';
 
 class Index extends React.Component {
   public render() {
@@ -11,7 +14,7 @@ class Index extends React.Component {
             And sometimes create things to help.
           </p>
           <p>
-            <a href="/geek">Would you like to know more?</a>
+            <NavLink to="/geek">Would you like to know more?</NavLink>
           </p>
         </div>
         <div className="app-body-col">
@@ -21,7 +24,7 @@ class Index extends React.Component {
             And sometimes because I want stuff.
           </p>
           <p>
-          <a href="/developer">Would you like to know more?</a>
+            <NavLink to="/developer">Would you like to know more?</NavLink>
           </p>
         </div>
         <div className="app-body-col">
@@ -31,7 +34,7 @@ class Index extends React.Component {
             And make sure there's pictures.
           </p>
           <p>
-          <a href="/traveler">Would you like to see more?</a>
+            <NavLink to="/traveler">Would you like to see more?</NavLink>
           </p>
         </div>
       </div>
