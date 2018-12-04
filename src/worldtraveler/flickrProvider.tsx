@@ -3,15 +3,15 @@ const getCollectionsMethod = "flickr.collections.getTree";
 
 export class FlickrProvider {
   
-  public collections : IFlickrCollection[];
+  private collections : IFlickrCollection[];
 
   public getCollections() {
-      let t = this;
+    const t = this;  
 
       return fetch(flickrUrl + getCollectionsMethod)
       .then(response => response.json())
       .then(json => {
-        let thing = (json as IFlickrCollectionResponse);
+        const thing = (json as IFlickrCollectionResponse);
         t.collections = thing.collections.collection;
         return t.collections;
       });
