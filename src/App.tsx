@@ -3,7 +3,7 @@ import {
   HashRouter,
   Route
   } from 'react-router-dom';
-import './App.css';
+import './App.scss';
 import * as Developer from './developer/index';
 import * as Geek from './geek/index';
 import * as Home from './home/index';
