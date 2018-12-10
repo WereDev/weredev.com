@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as Flickr from './flickrProvider';
+import { IFlickrCollection } from './services/collectionTreeModels';
 
 class Collection extends React.Component<ICollectionProps, any, any> {
   
@@ -7,7 +7,7 @@ class Collection extends React.Component<ICollectionProps, any, any> {
     return (
       <div className="travel-collection">
         <img src={this.props.collection.iconlarge} />
-        <h2>{this.props.collection.title}</h2>        
+        <h3>{this.props.collection.title}</h3>        
       </div>
     );
   }
@@ -16,5 +16,5 @@ class Collection extends React.Component<ICollectionProps, any, any> {
 export default Collection;
 
 export interface ICollectionProps {
-    collection: Flickr.IFlickrCollection
+    collection: IFlickrCollection
 }

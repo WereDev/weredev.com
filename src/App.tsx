@@ -17,7 +17,7 @@ class App extends React.Component {
             <div className="header-image">
                 <img src="./images/header.jpg" style={{ "width": "100%" }} />
             </div>
-            <h1 className="app-title">weredev</h1>
+            <h1 className="app-title"><a href="/">weredev</a></h1>
         </header>
         <div className="app-body">
           <HashRouter>

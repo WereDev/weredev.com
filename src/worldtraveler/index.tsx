@@ -1,14 +1,15 @@
 import * as React from 'react';
 import * as Collection from './collection';
-import * as Flickr from './flickrProvider';
 import './index.scss';
+import { IFlickrCollection } from './services/collectionTreeModels';
+import { FlickrProvider } from './services/flickrProvider';
 
 class Index extends React.Component<any, IndexState, any> {
   
   public componentWillMount() {
     this.setState({
       flickrCollections: [],
-      flickrProvider: new Flickr.FlickrProvider()
+      flickrProvider: new FlickrProvider()
     });
   }
 
@@ -20,7 +21,7 @@ class Index extends React.Component<any, IndexState, any> {
   }
 
   public render() {
-    let sortedCollections : Flickr.IFlickrCollection[] = [];
+    let sortedCollections : IFlickrCollection[] = [];
     if (this.state.flickrCollections) {
       sortedCollections = this.state.flickrCollections.sort((n1, n2) => {
         if (n1.title > n2.title) { return 1; }
@@ -35,7 +36,18 @@ class Index extends React.Component<any, IndexState, any> {
     });
 
     return (
-      <div className="travel-collections">{ collectionTags }</div>
+      <div>
+        <h1>world traveler</h1>
+        <p>
+          I love to travel and along the way I've become a bit of a photographer.  I'm not particularly good<br />
+          though there are some pictures I'm proud of.  They're hosted at Flickr, but I'm making them available<br />
+          here too.  Enjoy!
+        </p>
+        <p>
+          Note: This site is a work in progress so not everything is clickable yet.
+        </p>
+        <div className="travel-collections">{ collectionTags }</div>
+      </div>
     );
   }
 }
@@ -43,6 +55,6 @@ class Index extends React.Component<any, IndexState, any> {
 export default Index;
 
 interface IndexState {
-  flickrProvider: Flickr.FlickrProvider,
-  flickrCollections: Flickr.IFlickrCollection[]
+  flickrProvider: FlickrProvider,
+  flickrCollections: IFlickrCollection[]
 }

@@ -10,12 +10,11 @@
 }
 
 .app-title {
-  font-size: 2em;
   margin-top: -58px;
-}
-
-.col-title {
-  font-size: 1.5em;
+  a {
+    text-decoration: none;
+    color: white;
+  }
 }
 
 @media only screen and (max-width: 768px) {
