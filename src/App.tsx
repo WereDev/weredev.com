@@ -13,7 +13,7 @@ class App extends React.Component {
   public render() {
     return (
       <div className="app">
-        <header className="app-header">
+        <header className="app-header text-center">
             <div className="header-image">
                 <img src="./images/header.jpg" style={{ "width": "100%" }} />
             </div>
@@ -21,7 +21,7 @@ class App extends React.Component {
         </header>
         <div className="app-body">
           <HashRouter>
-            <div>
+            <div className="container">
               <Route path="//" component={Home.default}/>
               <Route path="/geek/" component={Geek.default}/>
               <Route path="/developer/" component={Developer.default}/>

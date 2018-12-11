@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
-import './index.scss';
 
 class Index extends React.Component {
   public render() {
     return (
-      <div>
-        <div className="app-body-col">
+      <div className="row text-center">
+        <div className="col-lg-4 col-12 mt-4">
           <h2>geek</h2>
           <p>
             I play games.  I roll dice.<br />
@@ -17,7 +16,7 @@ class Index extends React.Component {
             * coming soon...
           </p>
         </div>
-        <div className="app-body-col">
+        <div className="col-lg-4 col-12 mt-4">
           <h2>developer</h2>
           <p>
             I write software for paychecks.<br />
@@ -28,14 +27,14 @@ class Index extends React.Component {
             * coming soon...
           </p>
         </div>
-        <div className="app-body-col">
+        <div className="col-lg-4 col-12 mt-4">
           <h2>world traveler</h2>
           <p>
             Work to live, don't live to work.<br />
             And make sure there's pictures.
           </p>
           <p>
-            <NavLink to="/traveler" className="button">Would you like to see more?</NavLink>
+            <NavLink to="/traveler" className="btn btn-secondary">Would you like to see more?</NavLink>
           </p>
         </div>
       </div>

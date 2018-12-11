@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as Collection from './collection';
-import './index.scss';
 import { IFlickrCollection } from './services/collectionTreeModels';
 import { FlickrProvider } from './services/flickrProvider';
 
@@ -36,8 +35,8 @@ class Index extends React.Component<any, IndexState, any> {
     });
 
     return (
-      <div>
-        <h1>world traveler</h1>
+      <div className="text-center pt-4">
+        <h2>world traveler</h2>
         <p>
           I love to travel and along the way I've become a bit of a photographer.  I'm not particularly good<br />
           though there are some pictures I'm proud of.  They're hosted at Flickr, but I'm making them available<br />
@@ -46,7 +45,7 @@ class Index extends React.Component<any, IndexState, any> {
         <p>
           Note: This site is a work in progress so not everything is clickable yet.
         </p>
-        <div className="travel-collections">{ collectionTags }</div>
+        <div className="row">{ collectionTags }</div>
       </div>
     );
   }

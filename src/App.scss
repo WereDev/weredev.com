@@ -1,38 +1,8 @@
-.app {
-  text-align: center;
-  min-width: 450px;
-}
-
-.app-header {
-  padding: 20px;
-  padding-bottom: 0px;
-  text-transform: uppercase;
-}
-
 .app-title {
   margin-top: -58px;
+  margin-bottom: calc(58px - 2rem);
   a {
     text-decoration: none;
     color: white;
   }
 }
-
-@media only screen and (max-width: 768px) {
-  .app-body-col {
-    display: block;
-    margin: 20px;
-  }
-}
-
-@media only screen and (min-width: 769px) {
-  .app-body {
-    padding: 10px;
-  }
-
-  .app-body-col {
-    display: inline-block;
-    width: calc(33% - 20px);
-    margin: 10px;
-  }
-}
-

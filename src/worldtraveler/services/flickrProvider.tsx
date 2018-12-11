@@ -1,7 +1,6 @@
 import { IFlickrCollectionInfoResponse } from './collectionInfoModels';
-import { FlickrCollectionRequest, IFlickrCollectionResponse } from './collectionTreeModels';
 import { FlickrCollectionInfoRequest } from './collectionInfoModels';
-
+import { FlickrCollectionRequest, IFlickrCollectionResponse } from './collectionTreeModels';
 
 const flickrUrl = 'https://api.flickr.com/services/rest/?';
 
