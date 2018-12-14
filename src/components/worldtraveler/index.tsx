@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as Collection from './collection';
-import { IFlickrCollection } from './services/collectionTreeModels';
-import { FlickrProvider } from './services/flickrProvider';
+import { IFlickrCollection } from '../../services/flickr/collectionTreeModels';
+import { FlickrProvider } from '../../services/flickr/flickrProvider';
 
 class Index extends React.Component<any, IndexState, any> {
   

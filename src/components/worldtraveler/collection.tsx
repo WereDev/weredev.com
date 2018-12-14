@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IFlickrCollection } from './services/collectionTreeModels';
+import { IFlickrCollection } from '../../services/flickr/collectionTreeModels';
 
 class Collection extends React.Component<ICollectionProps, any, any> {
   
