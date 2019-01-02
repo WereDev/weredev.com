@@ -1,6 +1,6 @@
-import * as Base from './flickrModelsBase';
+import FlickrRequestBase from './flickrModelsBase';
 
-export class FlickrCollectionRequest extends Base.FlickrRequestBase {
+export class FlickrCollectionRequest extends FlickrRequestBase {
     public method = "flickr.collections.getTree";
 }
 

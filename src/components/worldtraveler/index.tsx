@@ -1,37 +1,48 @@
 import * as React from 'react';
-import * as Collection from './collection';
-import { IFlickrCollection } from '../../services/flickr/collectionTreeModels';
-import { FlickrProvider } from '../../services/flickr/flickrProvider';
+import { ICountry } from 'src/models/worldTraveler';
+import WorldTravelerActions from '../../services/flux/actions/worldTravelerActions';
+import WorldTravelerStore from '../../services/flux/stores/worldTravelerStore';
+import { WorldTravelerStoreEvents } from '../../services/flux/stores/worldTravelerStoreEvents';
+import Country from './country';
 
 class Index extends React.Component<any, IndexState, any> {
-  
+
   public componentWillMount() {
     this.setState({
-      flickrCollections: [],
-      flickrProvider: new FlickrProvider()
+      countries: []
     });
+
+    this.updateCountries = this.updateCountries.bind(this);
+    WorldTravelerStore.addListener(WorldTravelerStoreEvents.COUNTRIES_CHANGED, this.updateCountries);
   }
 
   public componentDidMount() {
-    this.state.flickrProvider.getCollections()
-    .then(response => {
-      this.setState({ flickrCollections: response });
-    });
+    WorldTravelerActions.loadCountries();
+  }
+
+  public componentWillUnmount() {
+    WorldTravelerStore.removeListener(WorldTravelerStoreEvents.COUNTRIES_CHANGED, this.updateCountries);
+  }
+
+  public updateCountries() {
+    this.setState({
+      countries: WorldTravelerStore.getCountries()
+    })
   }
 
   public render() {
-    let sortedCollections : IFlickrCollection[] = [];
-    if (this.state.flickrCollections) {
-      sortedCollections = this.state.flickrCollections.sort((n1, n2) => {
-        if (n1.title > n2.title) { return 1; }
-        if (n1.title < n2.title) { return -1; }
+    let sortedCollections : ICountry[] = [];
+    if (this.state.countries) {
+      sortedCollections = this.state.countries.sort((n1, n2) => {
+        if (n1.name > n2.name) { return 1; }
+        if (n1.name < n2.name) { return -1; }
         return 0;
       })
     }
 
     const collectionTags : any[] = [];
     sortedCollections.forEach(element => {
-          collectionTags.push(<Collection.default collection={element} />)
+        collectionTags.push(<Country country={element} />)
     });
 
     return (
@@ -54,6 +65,5 @@ class Index extends React.Component<any, IndexState, any> {
 export default Index;
 
 interface IndexState {
-  flickrProvider: FlickrProvider,
-  flickrCollections: IFlickrCollection[]
+  countries: ICountry[];
 }

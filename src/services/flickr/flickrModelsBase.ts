@@ -1,7 +1,7 @@
 // Disabling naming warning because it's part of the Flickr schema
 /* tslint:disable:variable-name */
 
-export abstract class FlickrRequestBase {
+export default abstract class FlickrRequestBase {
     public api_key = "d15bbd08117fc0ecf6bc7ef1a66a0240";
     public user_id = "29735288%40N05";
     public format = "json";

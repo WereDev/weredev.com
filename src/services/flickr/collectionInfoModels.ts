@@ -1,9 +1,9 @@
 // Disabling naming warning because it's part of the Flickr schema
 /* tslint:disable:variable-name */
 
-import * as Base from './flickrModelsBase';
+import FlickrRequestBase from './flickrModelsBase';
 
-export class FlickrCollectionInfoRequest extends Base.FlickrRequestBase {    
+export class FlickrCollectionInfoRequest extends FlickrRequestBase {    
     public method = "flickr.collections.getInfo";
     public collection_id : string;
 
