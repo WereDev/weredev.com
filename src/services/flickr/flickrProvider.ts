@@ -1,5 +1,5 @@
-import { FlickrCollectionInfoRequest, IFlickrCollectionInfo, IFlickrCollectionInfoResponse } from './collectionInfoModels';
-import { FlickrCollectionRequest, IFlickrCollection, IFlickrCollectionResponse } from './collectionTreeModels';
+import { FlickrCollectionInfoRequest, IFlickrCollectionInfo, IFlickrCollectionInfoResponse } from './models/collectionInfoModels';
+import { FlickrCollectionRequest, IFlickrCollection, IFlickrCollectionResponse } from './models/collectionTreeModels';
 
 const flickrUrl = 'https://api.flickr.com/services/rest/?';
 

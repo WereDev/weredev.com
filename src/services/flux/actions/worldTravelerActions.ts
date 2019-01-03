@@ -1,15 +1,16 @@
 import { ICountry } from 'src/models/worldTraveler';
-import FlickrProvider from '../../flickr/flickrProvider'
+import FlickrTestProvider from '../../flickr/flickrTestProvider'
 import Dispatcher from '../dispatcher';
 import LoadCountriesBeginAction from './models/worldTraveler/loadCountriesBeginAction';
 import LoadCountriesFailResponse from './models/worldTraveler/loadCountriesFailResponse';
 import LoadCountriesSuccessResponse from './models/worldTraveler/loadCountriesSuccessResponse';
 
+// TODO: figure out how to DI (or factory?) the flickr provider
 class WorldTravelerActions {
     public loadCountries() {
         Dispatcher.dispatch(new LoadCountriesBeginAction);
 
-        const flickr = new FlickrProvider();
+        const flickr = new FlickrTestProvider();
         flickr.getCollections().then((collections) => {
             const countries: ICountry[] = [];
             collections.forEach((collection, index, array) => {

@@ -1,5 +1,5 @@
-import { IFlickrCollectionInfo } from './collectionInfoModels';
-import { IFlickrCollection } from './collectionTreeModels';
+import { IFlickrCollectionInfo } from './models/collectionInfoModels';
+import { IFlickrCollection } from './models/collectionTreeModels';
 
 export default class FlickrTestProvider {
   
