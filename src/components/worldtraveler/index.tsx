@@ -42,7 +42,7 @@ class Index extends React.Component<any, IndexState, any> {
 
     const collectionTags : any[] = [];
     sortedCollections.forEach(element => {
-        collectionTags.push(<Country country={element} key={element.name}/>)
+        collectionTags.push(<Country country={element} key={element.key}/>)
     });
 
     return (

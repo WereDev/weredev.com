@@ -6,5 +6,6 @@ export interface ICityAlbum {
 
 export interface ICountry {
     name: string;
+    key: string;
     cities: ICityAlbum[];
 }

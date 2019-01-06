@@ -16,10 +16,13 @@ class WorldTravelerActions {
             collections.forEach((collection, index, array) => {
                 const parts = collection.title.split(',');
                 const countryName = parts[parts.length - 1].trim();
+                const countryKey = this.createKey(countryName);
                 let country = countries.find((x) => x.name === countryName);
+
                 if (country === null || country === undefined) {
                     country = {
                         cities: [],
+                        key: countryKey,
                         name: countryName
                     };
                     countries.push(country);
@@ -41,6 +44,10 @@ class WorldTravelerActions {
         }).catch((err) => {
             Dispatcher.dispatch(new LoadCountriesFailResponse)
         })
+    }
+
+    private createKey(name: string):string {
+        return name.toLowerCase().replace(' ', '_');
     }
 }
 
