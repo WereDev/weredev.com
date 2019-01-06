@@ -42,7 +42,7 @@ class Index extends React.Component<any, IndexState, any> {
 
     const collectionTags : any[] = [];
     sortedCollections.forEach(element => {
-        collectionTags.push(<Country country={element} />)
+        collectionTags.push(<Country country={element} key={element.name}/>)
     });
 
     return (
@@ -57,6 +57,9 @@ class Index extends React.Component<any, IndexState, any> {
           Note: This site is a work in progress so not everything is clickable yet.
         </p>
         <div className="row">{ collectionTags }</div>
+        <p className="mt-4">
+          Country maps courtesy of <a href='https://freevectormaps.com/' target='_blank'>Free Vector Maps</a>.
+        </p>
       </div>
     );
   }

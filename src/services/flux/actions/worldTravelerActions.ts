@@ -1,5 +1,5 @@
 import { ICountry } from 'src/models/worldTraveler';
-import FlickrTestProvider from '../../flickr/flickrTestProvider'
+import FlickrProvider from '../../flickr/flickrProvider'
 import Dispatcher from '../dispatcher';
 import LoadCountriesBeginAction from './models/worldTraveler/loadCountriesBeginAction';
 import LoadCountriesFailResponse from './models/worldTraveler/loadCountriesFailResponse';
@@ -10,7 +10,7 @@ class WorldTravelerActions {
     public loadCountries() {
         Dispatcher.dispatch(new LoadCountriesBeginAction);
 
-        const flickr = new FlickrTestProvider();
+        const flickr = new FlickrProvider();
         flickr.getCollections().then((collections) => {
             const countries: ICountry[] = [];
             collections.forEach((collection, index, array) => {
