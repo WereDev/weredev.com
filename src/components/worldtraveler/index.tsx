@@ -49,9 +49,8 @@ class Index extends React.Component<any, IndexState, any> {
       <div className="text-center pt-4">
         <h2>world traveler</h2>
         <p>
-          I love to travel and along the way I've become a bit of a photographer.  I'm not particularly good<br />
-          though there are some pictures I'm proud of.  They're hosted at Flickr, but I'm making them available<br />
-          here too.  Enjoy!
+          I love to travel and along the way I've become a bit of a photographer.  I'm not particularly good though
+          there are some pictures I'm proud of.  They're hosted at Flickr, but I'm making them available here too.  Enjoy!
         </p>
         <p>
           Note: This site is a work in progress so not everything is clickable yet.
