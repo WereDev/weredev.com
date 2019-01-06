@@ -7,8 +7,8 @@ class Country extends React.Component<ICountryProps, any, any> {
     const imageUrl = '/images/countries/' + this.props.country.name.toLowerCase() + '.png';
     return (
       <div className="col-lg-3 col-md-4 col-sm-6 col-12 mt-3">
-        <img src={imageUrl} />
-        <h3>{this.props.country.name}</h3>        
+        <img src={imageUrl} className='border border-dark' />
+        <h3 className='mt-1'>{this.props.country.name}</h3>
       </div>
     );
   }
