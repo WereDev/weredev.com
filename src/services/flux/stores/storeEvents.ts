@@ -1,3 +1,3 @@
-export enum WorldTravelerStoreEvents {
+export enum StoreEvents {
     COUNTRIES_CHANGED = "COUNTRIES_CHANGED"
 }

@@ -1,33 +1,43 @@
 import * as React from 'react';
 import { ICountry } from 'src/models/worldTraveler';
 import WorldTravelerActions from '../../services/flux/actions/worldTravelerActions';
+import { StoreEvents } from '../../services/flux/stores/storeEvents';
 import WorldTravelerStore from '../../services/flux/stores/worldTravelerStore';
-import { WorldTravelerStoreEvents } from '../../services/flux/stores/worldTravelerStoreEvents';
-import Country from './country';
+import RoutesHelper from '../routesHelper';
+import CountryLink from './countryLink';
 
 class Index extends React.Component<any, IndexState, any> {
 
-  public componentWillMount() {
-    this.setState({
+  constructor(props: any) {
+    super(props);
+    this.state = {
       countries: []
-    });
+    };
+  }
 
+  public componentWillMount() {
     this.updateCountries = this.updateCountries.bind(this);
-    WorldTravelerStore.addListener(WorldTravelerStoreEvents.COUNTRIES_CHANGED, this.updateCountries);
+    WorldTravelerStore.addListener(StoreEvents.COUNTRIES_CHANGED, this.updateCountries);
   }
 
   public componentDidMount() {
-    WorldTravelerActions.loadCountries();
+    if (WorldTravelerStore.getCountries().length === 0)
+    {
+      WorldTravelerActions.loadCountries();
+    } else {
+      this.updateCountries();
+    }
   }
 
   public componentWillUnmount() {
-    WorldTravelerStore.removeListener(WorldTravelerStoreEvents.COUNTRIES_CHANGED, this.updateCountries);
+    WorldTravelerStore.removeListener(StoreEvents.COUNTRIES_CHANGED, this.updateCountries);
   }
 
   public updateCountries() {
+    const storeCountries = WorldTravelerStore.getCountries();
     this.setState({
-      countries: WorldTravelerStore.getCountries()
-    })
+      countries: storeCountries
+    });
   }
 
   public render() {
@@ -42,7 +52,8 @@ class Index extends React.Component<any, IndexState, any> {
 
     const collectionTags : any[] = [];
     sortedCollections.forEach(element => {
-        collectionTags.push(<Country country={element} key={element.key}/>)
+      const siteNav = RoutesHelper.getCountryNavProps(this.props.location.pathname).find((route) => route.name === element.name);
+      collectionTags.push(<CountryLink country={element} siteNav={siteNav} key={element.key} />)
     });
 
     return (

@@ -1,8 +1,10 @@
 import { EventEmitter } from "events";
 import { ICountry } from 'src/models/worldTraveler';
+import IFluxAction from '../actions/models/fluxAction';
+import { WorldTravelerActionTypeKeys } from '../actions/models/worldTraveler/actionTypeKeys';
 import LoadCountriesSuccessResponse from '../actions/models/worldTraveler/loadCountriesSuccessResponse';
 import Dispatcher from '../dispatcher';
-import { WorldTravelerStoreEvents } from './worldTravelerStoreEvents';
+import { StoreEvents } from './storeEvents';
 
 class WorldTravelerStore extends EventEmitter {
     private countries: ICountry[] = [];
@@ -15,10 +17,15 @@ class WorldTravelerStore extends EventEmitter {
         return this.countries;
     }
 
-    public handleCollectionUpdate(response: LoadCountriesSuccessResponse)
+    public handleCollectionUpdate(response: IFluxAction)
     {
-        this.countries = response.payload;
-        this.emit(WorldTravelerStoreEvents.COUNTRIES_CHANGED);
+        switch(response.type)
+        {
+            case WorldTravelerActionTypeKeys.LOAD_COUNTRIES_SUCCESS:
+                this.countries = (response as LoadCountriesSuccessResponse).payload;
+                this.emit(StoreEvents.COUNTRIES_CHANGED);
+            break;
+        }
     }
 }
 
