@@ -1,11 +1,17 @@
 export interface ICityAlbum {
-    id: string;
-    name: string;
     iconUrl: string;
+    id: string;
+    description: string;
+    name: string;
+
 }
 
 export interface ICountry {
-    name: string;
-    key: string;
     cities: ICityAlbum[];
+    key: string;
+    name: string;
+}
+
+export interface IUrlParams {
+    countryName: string;
 }

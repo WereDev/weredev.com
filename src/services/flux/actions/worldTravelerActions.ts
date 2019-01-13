@@ -33,7 +33,8 @@ class WorldTravelerActions {
                     parts.pop();                    
                 }
                 country.cities.push({
-                    iconUrl: collection.iconsmall,
+                    description: collection.description,
+                    iconUrl: collection.iconlarge,
                     id: collection.id,
                     name: cityName
                 });

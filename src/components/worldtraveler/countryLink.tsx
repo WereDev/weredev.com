@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { NavLink } from 'react-router-dom';
-import { ISiteNavProps } from 'src/models';
+import { NavLink, RouteComponentProps } from 'react-router-dom';
 import { ICountry } from 'src/models/worldTraveler';
 
 class CountryLink extends React.Component<ICountryLinkProps, any, any> {
@@ -8,13 +7,10 @@ class CountryLink extends React.Component<ICountryLinkProps, any, any> {
   
   public render() {
     const imageUrl = '/images/countries/' + this.props.country.name.toLowerCase() + '.png';
-    let path : string = "";
-    if (this.props.siteNav) {
-      path = this.props.siteNav.path;
-    }
+    const countryUrl = this.props.match.path + '/' + this.props.country.name;
     return (
       <div className="col-lg-3 col-md-4 col-sm-6 col-12 mt-3">
-        <NavLink to={path}>
+        <NavLink to={countryUrl}>
           <div>
             <img src={imageUrl} className='border border-dark' />
             <h3 className='mt-1'>{this.props.country.name}</h3>
@@ -27,7 +23,6 @@ class CountryLink extends React.Component<ICountryLinkProps, any, any> {
 
 export default CountryLink;
 
-export interface ICountryLinkProps {
+export interface ICountryLinkProps extends RouteComponentProps {
   country: ICountry;
-  siteNav: ISiteNavProps | undefined
 }

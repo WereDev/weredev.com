@@ -1,0 +1,14 @@
+.city-list-table {
+    width: 100%;
+
+    & tr td {
+        padding: 10px;
+        width: 50%;
+    }
+    & .city-list-cell-left {
+        text-align: right;
+    }
+    & .city-list-cell-right {
+        text-align: left;
+    }
+}
