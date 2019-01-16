@@ -18,7 +18,7 @@ class App extends React.Component<any, IAppState> {
                     <img src="/images/header.jpg" style={{ "width": "100%" }} />
                 </div>
                 <h1 className="app-title">
-                  <NavLink to="/">weredev</NavLink> 
+                  <NavLink to="/">weredev 2</NavLink> 
                 </h1>
             </header>
             <div className="app-body">
