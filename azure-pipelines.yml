@@ -9,12 +9,7 @@ steps:
 - script: dotnet build
   displayName: "Build"
 
-- script: dotnet publish --output $(Build.ArtifactStagingDirectory)/app/pkg
+- script: dotnet publish --output $(Build.ArtifactStagingDirectory)
   displayName: "Publish"
 
 - task: PublishBuildArtifacts@1
-  displayName: "Publish artifacts"
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/app'
-    ArtifactName: app
-    publishLocation: Container
