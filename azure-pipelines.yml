@@ -3,34 +3,14 @@ pool:
 
 steps:
 
-- task: DotNetCoreInstaller@0
-  displayName: ".Net Core Install"
-  inputs:
-    version: '2.1.503'
+- script: dotnet restore
+  displayName: "Restore .Net dependencies"
 
-- task: DotNetCoreCLI@2
-  displayName: ".NET build"
-  inputs:
-    projects: '**/*.csproj'
-    arguments: --configuration $(BuildConfiguration) --no-restore
+- script: dotnet build
+  displayName: "Build"
 
-# Run your unit tests
-
-#- task: DotNetCoreCLI@2
-#  displayName: ".NET test"
-#  inputs:
-#    command: test
-#    projects: 'test\**.csproj'
-
-# Create the deployment package for your web project
-
-- task: DotNetCoreCLI@2
-  displayName: ".NET publish package"
-  inputs:
-    command: publish
-    arguments: '--configuration $(BuildConfiguration) --no-restore --output $(Build.ArtifactStagingDirectory)/app/pkg'
-
-# Publish your web project deployment packages as named artifact 'app'
+- script: dotnet publish --output $(Build.ArtifactStagingDirectory)/app/pkg
+  displayName: "Publish"
 
 - task: PublishBuildArtifacts@1
   displayName: "Publish artifacts"
