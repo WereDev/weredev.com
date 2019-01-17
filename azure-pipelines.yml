@@ -1,26 +1,40 @@
-# Node.js with React
-# Build a Node.js project that uses React.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
-
 pool:
-  vmImage: 'Ubuntu 16.04'
+  vmImage: 'ubuntu-16.04' # other options: 'macOS-10.13', 'vs2017-win2016'
 
 steps:
-- task: NodeTool@0
+
+- task: DotNetCoreInstaller@0
+  displayName: ".Net Core Install"
   inputs:
-    versionSpec: '8.x'
-  displayName: 'Install Node.js'
+    version: '2.1.503'
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
-
-- task: CopyFiles@2
+- task: DotNetCoreCLI@2
+  displayName: ".NET build"
   inputs:
-    SourceFolder: '$(System.DefaultWorkingDirectory)/build'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    projects: '**/*.csproj'
+    arguments: --configuration $(BuildConfiguration) --no-restore
 
+# Run your unit tests
+
+#- task: DotNetCoreCLI@2
+#  displayName: ".NET test"
+#  inputs:
+#    command: test
+#    projects: 'test\**.csproj'
+
+# Create the deployment package for your web project
+
+- task: DotNetCoreCLI@2
+  displayName: ".NET publish package"
+  inputs:
+    command: publish
+    arguments: '--configuration $(BuildConfiguration) --no-restore --output $(Build.ArtifactStagingDirectory)/app/pkg'
+
+# Publish your web project deployment packages as named artifact 'app'
 
 - task: PublishBuildArtifacts@1
+  displayName: "Publish artifacts"
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/app'
+    ArtifactName: app
+    publishLocation: Container
