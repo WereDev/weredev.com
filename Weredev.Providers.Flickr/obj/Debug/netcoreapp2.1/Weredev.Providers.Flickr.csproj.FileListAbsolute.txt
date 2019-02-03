@@ -1,0 +1,12 @@
+/home/daniel/Documents/_Code/weredev.com/Weredev.Providers.Flickr/obj/Debug/netcoreapp2.1/Weredev.Providers.Flickr.csprojAssemblyReference.cache
+/home/daniel/Documents/_Code/weredev.com/Weredev.Providers.Flickr/obj/Debug/netcoreapp2.1/Weredev.Providers.Flickr.csproj.CoreCompileInputs.cache
+/home/daniel/Documents/_Code/weredev.com/Weredev.Providers.Flickr/obj/Debug/netcoreapp2.1/Weredev.Providers.Flickr.AssemblyInfoInputs.cache
+/home/daniel/Documents/_Code/weredev.com/Weredev.Providers.Flickr/obj/Debug/netcoreapp2.1/Weredev.Providers.Flickr.AssemblyInfo.cs
+/home/daniel/Documents/_Code/weredev.com/Weredev.Providers.Flickr/bin/Debug/netcoreapp2.1/Weredev.Providers.Flickr.deps.json
+/home/daniel/Documents/_Code/weredev.com/Weredev.Providers.Flickr/bin/Debug/netcoreapp2.1/Weredev.Providers.Flickr.dll
+/home/daniel/Documents/_Code/weredev.com/Weredev.Providers.Flickr/bin/Debug/netcoreapp2.1/Weredev.Providers.Flickr.pdb
+/home/daniel/Documents/_Code/weredev.com/Weredev.Providers.Flickr/bin/Debug/netcoreapp2.1/Weredev.UI.Domain.dll
+/home/daniel/Documents/_Code/weredev.com/Weredev.Providers.Flickr/bin/Debug/netcoreapp2.1/Weredev.UI.Domain.pdb
+/home/daniel/Documents/_Code/weredev.com/Weredev.Providers.Flickr/obj/Debug/netcoreapp2.1/Weredev.Providers.Flickr.csproj.CopyComplete
+/home/daniel/Documents/_Code/weredev.com/Weredev.Providers.Flickr/obj/Debug/netcoreapp2.1/Weredev.Providers.Flickr.dll
+/home/daniel/Documents/_Code/weredev.com/Weredev.Providers.Flickr/obj/Debug/netcoreapp2.1/Weredev.Providers.Flickr.pdb

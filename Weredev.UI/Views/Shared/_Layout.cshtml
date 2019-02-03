@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>weredev | @ViewData["Title"]</title>
+    <base href="~/" />
+
+    <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/dist/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div>
+        <header className="app-header text-center">
+            <div className="header-image">
+                <img src="/images/header.jpg" />
+            </div>
+            <h1 className="app-title">
+                <a href="/">weredev</a> 
+            </h1>
+        </header>
+        <div className="app-body">
+            @RenderBody()        
+        </div>
+    </div>
+    <script src="~/dist/vendor.js" asp-append-version="true"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
