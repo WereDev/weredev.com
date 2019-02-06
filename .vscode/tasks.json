@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/weredev.csproj"
+                "${workspaceFolder}/Weredev.UI/Weredev.UI.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

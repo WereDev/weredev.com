@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Weredev.Providers.Flickr;
+using Weredev.UI.Domain.Interfaces;
 
 namespace Weredev
 {
@@ -21,6 +23,10 @@ namespace Weredev
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            
+            var flickrApiKey = Configuration.GetValue<string>("Flickr.ApiKey");
+            var flickrUserId = Configuration.GetValue<string>("Flickr.UserId");
+            services.AddSingleton<ITravelImageProvider>(new FlickrProvider(flickrApiKey, flickrUserId));
 
             // In production, the React files will be served from this directory
             // services.AddSpaStaticFiles(configuration =>
@@ -52,6 +58,8 @@ namespace Weredev
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            
 
             // app.UseSpa(spa =>
             // {

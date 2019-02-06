@@ -1,0 +1,14 @@
+{
+  "ProjectFilePath": "/home/daniel/_Code/weredev.com/Weredev.UI.Domain/Weredev.UI.Domain.csproj",
+  "TargetFramework": "netcoreapp2.2",
+  "TagHelpers": [],
+  "Configuration": {
+    "ConfigurationName": "UnsupportedRazor",
+    "LanguageVersion": "1.0",
+    "Extensions": [
+      {
+        "ExtensionName": "UnsupportedRazorExtension"
+      }
+    ]
+  }
+}

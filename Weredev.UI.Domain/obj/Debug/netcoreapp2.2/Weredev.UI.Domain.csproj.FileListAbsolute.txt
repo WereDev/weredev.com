@@ -1,0 +1,9 @@
+/home/daniel/_Code/weredev.com/Weredev.UI.Domain/bin/Debug/netcoreapp2.2/Weredev.UI.Domain.deps.json
+/home/daniel/_Code/weredev.com/Weredev.UI.Domain/bin/Debug/netcoreapp2.2/Weredev.UI.Domain.dll
+/home/daniel/_Code/weredev.com/Weredev.UI.Domain/bin/Debug/netcoreapp2.2/Weredev.UI.Domain.pdb
+/home/daniel/_Code/weredev.com/Weredev.UI.Domain/obj/Debug/netcoreapp2.2/Weredev.UI.Domain.csprojAssemblyReference.cache
+/home/daniel/_Code/weredev.com/Weredev.UI.Domain/obj/Debug/netcoreapp2.2/Weredev.UI.Domain.csproj.CoreCompileInputs.cache
+/home/daniel/_Code/weredev.com/Weredev.UI.Domain/obj/Debug/netcoreapp2.2/Weredev.UI.Domain.AssemblyInfoInputs.cache
+/home/daniel/_Code/weredev.com/Weredev.UI.Domain/obj/Debug/netcoreapp2.2/Weredev.UI.Domain.AssemblyInfo.cs
+/home/daniel/_Code/weredev.com/Weredev.UI.Domain/obj/Debug/netcoreapp2.2/Weredev.UI.Domain.dll
+/home/daniel/_Code/weredev.com/Weredev.UI.Domain/obj/Debug/netcoreapp2.2/Weredev.UI.Domain.pdb

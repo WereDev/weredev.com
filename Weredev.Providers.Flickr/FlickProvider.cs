@@ -1,19 +1,25 @@
 
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
+using Weredev.Providers.Flickr.Mappers;
+using Weredev.UI.Domain.Interfaces;
+using Weredev.UI.Domain.Models.Traveler;
 
 namespace Weredev.Providers.Flickr {
 
-    public class FlickrProvider {
+    public class FlickrProvider : IDisposable, ITravelImageProvider {
         
-        private readonly string _RequestBaseUrl = "https://api.flickr.com/services/rest/?";
-        private readonly string _Format = "json";
-        private readonly string _NoJsonCallback = "1";
+        private const string _RequestBaseUrl = "https://api.flickr.com/services/rest/?";
+        private const string _Format = "json";
+        private const string _NoJsonCallback = "1";
+        private const string _FlickrGetTree = "flickr.collections.getTree";
         private readonly string _ApiKey;
         private readonly string _UserId;
-        private readonly HttpClient _httpClient;
+        private HttpClient _httpClient;
+
 
         public FlickrProvider(string apiKey, string userId) {
             if (string.IsNullOrWhiteSpace(apiKey)) throw new ArgumentNullException(nameof(apiKey));
@@ -24,26 +30,54 @@ namespace Weredev.Providers.Flickr {
             _httpClient = new HttpClient();
         }
 
-        public async void GetCollections_Async() {
-
+        public void Dispose()
+        {
+            if (_httpClient != null) {
+                _httpClient.Dispose();
+                _httpClient = null;
+            }
         }
 
-        private string CreateFlickrRequestUrl(Dictionary<string, string> parameters) {
+        public async Task<Country[]> GetCountries() {
+            var flickrTree = await GetCollectionsAsync();
+            var countries = flickrTree.ToCountries();
+            return countries;
+        }
 
-            var sb = new StringBuilder();
-            foreach(var parameter in parameters) {
-                sb.AppendFormat("&{0}={1}", parameter.Key, System.Net.WebUtility.UrlEncode(parameter.Value));
-            }
+        private async Task<Models.FlickrGetTreeResponse> GetCollectionsAsync() {
+            var response = await ExecuteFlickrRequestAsync(_FlickrGetTree);
+            if (response.StatusCode != HttpStatusCode.OK)
+                throw new HttpRequestException("Could not load Collections from Flickr: " + response.StatusCode);
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var flickrGetTreeResponse = JsonConvert.DeserializeObject<Models.FlickrGetTreeResponse>(responseContent);
+            return flickrGetTreeResponse;
+        }
 
-            return string.Format("{0}&api_key={1}&user_id={1}&format={2}&nojsoncallback={3}{4}",
+        private async Task<HttpResponseMessage> ExecuteFlickrRequestAsync(string flickrMethod) {
+
+            var url = CreateFlickrRequestUrl(flickrMethod);
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+
+            var response = await _httpClient.SendAsync(request);
+
+            return response;
+        }
+
+        private string CreateFlickrRequestUrl(string flickrMethod) {
+
+            if (string.IsNullOrWhiteSpace(flickrMethod))
+                throw new ArgumentNullException(nameof(flickrMethod));
+
+            return string.Format("{0}&api_key={1}&user_id={2}&format={3}&nojsoncallback={4}&method={5}",
                 _RequestBaseUrl,
                 _ApiKey,
                 _UserId,
                 _Format,
                 _NoJsonCallback,
-                sb.ToString()
+                flickrMethod
                 );
-
         }
+
+        
     }
 }
