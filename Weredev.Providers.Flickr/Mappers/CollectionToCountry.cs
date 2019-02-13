@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Weredev.Providers.Flickr.Models;
+using Weredev.UI.Domain.Extensions;
 using Weredev.UI.Domain.Models.Traveler;
 
 namespace Weredev.Providers.Flickr.Mappers
@@ -22,7 +23,7 @@ namespace Weredev.Providers.Flickr.Mappers
 
             var nameParts = collectionItem.Title.Split(',');
             var countryName = nameParts[nameParts.Length - 1].Trim();
-            var countryKey = CreateCountryKey(countryName);
+            var countryKey = countryName.CreateKey();
             if (!countryDictionary.ContainsKey(countryKey)) {
                 countryDictionary.Add(countryKey, new Country() {
                     Key = countryKey,
@@ -38,10 +39,6 @@ namespace Weredev.Providers.Flickr.Mappers
             };
 
             countryDictionary[countryKey].Cities.Add(city);
-        }
-
-        private static string CreateCountryKey(string countryName) {
-            return countryName.ToLower().Replace(' ', '_');
         }
 
         private static string GetCityName(string[] nameParts)

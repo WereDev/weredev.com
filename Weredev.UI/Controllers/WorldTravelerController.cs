@@ -16,15 +16,28 @@ namespace Weredev.UI.Controllers
             _travelImageProvider = travelImageProvider ?? throw new ArgumentNullException(nameof(travelImageProvider));
         }
 
-        [HttpGet("country")]
-        public async Task<ListCountriesResponse> Country() {
-            var imageCountries = await _travelImageProvider.GetCountries();
-            var response = new ListCountriesResponse();
-            response.Countries = imageCountries.Select(x => new Country() {
-                Key = x.Key,
-                Name = x.Name
-            }).ToArray();
+        [HttpGet]
+        public async Task<ActionResult<ListCountriesResponse>> Index() {
+            var countries = await _travelImageProvider.GetCountries();
+            if (countries == null)
+                return NotFound();
+
+            var response = new ListCountriesResponse(countries);
             return response;
+        }
+
+        [HttpGet("country/{cityid}")]
+        public async Task<ActionResult<ListCitiesResponse>> Cities(string cityId) {
+
+            var countries = await _travelImageProvider.GetCountries();
+            var country = countries?.FirstOrDefault(x => cityId.Equals(x.Key, StringComparison.CurrentCultureIgnoreCase));
+
+            if (country == null)
+                return NotFound();
+
+            var response = new ListCitiesResponse(country.Cities);
+            return response;
+            
         }
     }
 }

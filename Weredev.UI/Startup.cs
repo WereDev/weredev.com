@@ -1,8 +1,9 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Weredev.Providers.Flickr;
@@ -27,6 +28,8 @@ namespace Weredev
             var flickrApiKey = Configuration.GetValue<string>("Flickr.ApiKey");
             var flickrUserId = Configuration.GetValue<string>("Flickr.UserId");
             services.AddSingleton<ITravelImageProvider>(new FlickrProvider(flickrApiKey, flickrUserId));
+
+            //GetCssVersions();
 
             // In production, the React files will be served from this directory
             // services.AddSpaStaticFiles(configuration =>
@@ -70,6 +73,26 @@ namespace Weredev
             //         spa.UseReactDevelopmentServer(npmScript: "start");
             //     }
             // });
+        }
+
+        public void GetJsVersions() {
+
+        }
+
+        public void GetCssVersions() {
+            var currentDir = Directory.GetCurrentDirectory();
+            var cssFolder = "wwwroot/static/css";
+            var fullPath = Path.Combine(currentDir, cssFolder);
+
+            var files = Directory.GetFiles(fullPath);
+
+            var cssFiles = new List<string>();
+            foreach (var file in files) {
+                if (file.EndsWith(".css", StringComparison.CurrentCultureIgnoreCase)) {
+                    var cssFileName = Path.GetFileName(file);
+                    var cssFilePath = Path.Combine("/static/css/", cssFileName);
+                }
+            }
         }
     }
 }
