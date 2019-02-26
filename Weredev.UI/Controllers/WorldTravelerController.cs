@@ -7,7 +7,6 @@ using Weredev.UI.Models.WorldTraveler;
 
 namespace Weredev.UI.Controllers
 {
-    [Route("api/[controller]")]
     public class WorldTravelerController : Controller
     {
         private readonly ITravelImageProvider _travelImageProvider;
@@ -17,27 +16,27 @@ namespace Weredev.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ListCountriesResponse>> Index() {
+        public async Task<ActionResult> Index() {
             var countries = await _travelImageProvider.GetCountries();
             if (countries == null)
                 return NotFound();
 
-            var response = new ListCountriesResponse(countries);
-            return response;
+            var countriesResponse = new ListCountriesResponse(countries);
+            return View(countriesResponse);
         }
 
-        [HttpGet("country/{cityid}")]
-        public async Task<ActionResult<ListCitiesResponse>> Cities(string cityId) {
+        // [HttpGet("country/{cityid}")]
+        // public async Task<ActionResult<ListCitiesResponse>> Cities(string cityId) {
 
-            var countries = await _travelImageProvider.GetCountries();
-            var country = countries?.FirstOrDefault(x => cityId.Equals(x.Key, StringComparison.CurrentCultureIgnoreCase));
+        //     var countries = await _travelImageProvider.GetCountries();
+        //     var country = countries?.FirstOrDefault(x => cityId.Equals(x.Key, StringComparison.CurrentCultureIgnoreCase));
 
-            if (country == null)
-                return NotFound();
+        //     if (country == null)
+        //         return NotFound();
 
-            var response = new ListCitiesResponse(country.Cities);
-            return response;
+        //     var response = new ListCitiesResponse(country.Cities);
+        //     return response;
             
-        }
+        // }
     }
 }
