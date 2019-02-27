@@ -21,22 +21,24 @@ namespace Weredev.UI.Controllers
             if (countries == null)
                 return NotFound();
 
+            ViewData["Title"] = "world traveler";
+
             var countriesResponse = new ListCountriesResponse(countries);
             return View(countriesResponse);
         }
 
-        // [HttpGet("country/{cityid}")]
-        // public async Task<ActionResult<ListCitiesResponse>> Cities(string cityId) {
-
-        //     var countries = await _travelImageProvider.GetCountries();
-        //     var country = countries?.FirstOrDefault(x => cityId.Equals(x.Key, StringComparison.CurrentCultureIgnoreCase));
-
-        //     if (country == null)
-        //         return NotFound();
-
-        //     var response = new ListCitiesResponse(country.Cities);
-        //     return response;
+        [HttpGet("[controller]/{countryId}")]
+        public async Task<ActionResult<ListCitiesResponse>> ListCities(string countryId)
+        {
+            var countries = await _travelImageProvider.GetCountries();
+            var country = countries?.FirstOrDefault(x => x.Key.Equals(countryId, StringComparison.CurrentCultureIgnoreCase));
             
-        // }
+            if (country == null) return NotFound();
+
+            ViewData["Title"] = $"world traveler | {country.Name.ToLower()}";
+
+            var citiesResponse = new ListCitiesResponse(country);
+            return View(citiesResponse);
+        }
     }
 }

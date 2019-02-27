@@ -9,10 +9,7 @@ namespace Weredev.UI.Models.WorldTraveler {
         public ListCountriesResponse(IEnumerable<Country> countries) {
             if (countries == null) throw new ArgumentNullException(nameof(countries));
             
-            Countries = countries.Select(x => new CountryModel() {
-                Key = x.Key,
-                Name = x.Name
-            }).ToArray();
+            Countries = countries.Select(x => new CountryModel(x)).ToArray();
         }
 
         public CountryModel[] Countries { get; set; }

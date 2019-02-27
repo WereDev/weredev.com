@@ -1,23 +1,20 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Weredev.UI.Domain.Models.Traveler;
 
 namespace Weredev.UI.Models.WorldTraveler {
     public class ListCitiesResponse {
 
-        public ListCitiesResponse(IEnumerable<City> cities) {
-            if (cities == null) throw new ArgumentNullException(nameof(cities));
+        public ListCitiesResponse(Country country) {
+            if (country == null) throw new ArgumentNullException(nameof(country));
+            if (!country.Cities.Any()) throw new ArgumentNullException(nameof(country.Cities));
 
-            Cities = cities.Select(x => new CityModel() {
-                Description = x.Description,
-                IconUrl = x.IconUrl,
-                Id = x.Id,
-                Name = x.Name
-            }).ToArray();
+            Country = new CountryModel(country);
 
+            Cities = country.Cities.Select(x => new CityModel(x)).ToArray();
         }
 
-        public CityModel[] Cities { get; set; }
+        public CountryModel Country { get; }
+        public CityModel[] Cities { get; }
     }
 }

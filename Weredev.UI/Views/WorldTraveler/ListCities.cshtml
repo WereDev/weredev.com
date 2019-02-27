@@ -1,0 +1,27 @@
+@{
+    Layout = "_WorldTravelerLayout";
+}
+@model Weredev.UI.Models.WorldTraveler.ListCitiesResponse
+
+<a href="..">
+    <h2>world traveler</h2>
+</a>
+<h3>@(Model.Country.Name)</h3>
+<table class="city-list-table">
+    @foreach(var city in Model.Cities)
+    {
+        <tr>
+            <td class="city-list-cell-left">
+                <!-- <a href="@Context.Request.Path/@city.Id"> -->
+                    <img src="@city.IconUrl" class="border border-dark" />
+                <!-- </a> -->
+            </td>
+            <td class="city-list-cell-right">
+                <!-- <a href="@Context.Request.Path/@city.Id"> -->
+                    <h4 class='mt-1'>@city.Name</h4>
+                <!-- </a> -->
+                @city.Description
+            </td>
+        </tr>
+    }
+</table>
