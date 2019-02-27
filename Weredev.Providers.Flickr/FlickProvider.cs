@@ -22,9 +22,9 @@ namespace Weredev.Providers.Flickr {
 
 
         public FlickrProvider(string apiKey, string userId) {
-            //if (string.IsNullOrWhiteSpace(apiKey)) throw new ArgumentNullException(nameof(apiKey));
+            if (string.IsNullOrWhiteSpace(apiKey)) throw new ArgumentNullException(nameof(apiKey));
             _ApiKey = apiKey;
-            //if (string.IsNullOrWhiteSpace(userId)) throw new ArgumentNullException(nameof(userId));
+            if (string.IsNullOrWhiteSpace(userId)) throw new ArgumentNullException(nameof(userId));
             _UserId = userId;
 
             _httpClient = new HttpClient();
