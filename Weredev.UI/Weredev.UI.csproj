@@ -35,11 +35,12 @@
     <Exec Command="npm install" />
   </Target>
 
-  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
-    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+  <Target Name="BuildCSS" AfterTargets="DebugEnsureNodeEnv">
     <Exec Command="npm install" />
     <Exec Command="npm run build" />
+  </Target>
 
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
