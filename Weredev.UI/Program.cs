@@ -14,10 +14,6 @@ namespace Weredev
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((hostingContext, config) => {
-                    config.SetBasePath(Directory.GetCurrentDirectory());
-                    config.AddJsonFile(Path.Combine(Directory.GetCurrentDirectory(), "../weredev.com.config"), optional: true, reloadOnChange: true);
-                })
-                .UseStartup<Startup>();
+                   .UseStartup<Startup>();
     }
 }
