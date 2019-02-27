@@ -16,7 +16,7 @@ namespace Weredev
             WebHost.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((hostingContext, config) => {
                     config.SetBasePath(Directory.GetCurrentDirectory());
-                    config.AddJsonFile(Path.Combine(Directory.GetCurrentDirectory(), "../weredev.com.config"), optional: false, reloadOnChange: true);
+                    config.AddJsonFile(Path.Combine(Directory.GetCurrentDirectory(), "../weredev.com.config"), optional: true, reloadOnChange: true);
                 })
                 .UseStartup<Startup>();
     }
