@@ -31,11 +31,13 @@ namespace Weredev.Providers.Flickr.Mappers
                 });
             }
 
+            var cityName = GetCityName(nameParts);
             var city = new City() {
                 Description = collectionItem.Description,
                 IconUrl = collectionItem.IconLarge,
                 Id = collectionItem.Id,
-                Name = GetCityName(nameParts)
+                Name = cityName,
+                Key = cityName.CreateKey()
             };
 
             countryDictionary[countryKey].Cities.Add(city);

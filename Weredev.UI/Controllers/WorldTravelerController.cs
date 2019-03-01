@@ -27,11 +27,11 @@ namespace Weredev.UI.Controllers
             return View(countriesResponse);
         }
 
-        [HttpGet("[controller]/{countryId}")]
-        public async Task<ActionResult<ListCitiesResponse>> ListCities(string countryId)
+        [HttpGet("[controller]/{countryKey}")]
+        public async Task<ActionResult<ListCitiesResponse>> ListCities(string countryKey)
         {
             var countries = await _travelImageProvider.GetCountries();
-            var country = countries?.FirstOrDefault(x => x.Key.Equals(countryId, StringComparison.CurrentCultureIgnoreCase));
+            var country = countries?.FirstOrDefault(x => x.Key.Equals(countryKey, StringComparison.CurrentCultureIgnoreCase));
             
             if (country == null) return NotFound();
 
@@ -39,6 +39,20 @@ namespace Weredev.UI.Controllers
 
             var citiesResponse = new ListCitiesResponse(country);
             return View(citiesResponse);
+        }
+
+        [HttpGet("[controller]/{countryKey}/{cityKey}")]
+        public async Task<ActionResult> CityDetails(string countryKey, string cityKey)
+        {
+            var countries = await _travelImageProvider.GetCountries();
+            var country = countries?.FirstOrDefault(x => x.Key.Equals(countryKey, StringComparison.CurrentCultureIgnoreCase));
+            if (country == null) return NotFound();
+
+            var city = country.Cities.FirstOrDefault(x => x.Key.Equals(cityKey, StringComparison.CurrentCultureIgnoreCase));
+            if (city == null) return NotFound();
+            
+
+            return Content(city.Id);
         }
     }
 }
