@@ -5,8 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Weredev.Providers.Flickr;
 using Weredev.UI.Domain.Interfaces;
+using Weredev.UI.Domain.Services;
 
-namespace Weredev
+namespace Weredev.UI
 {
     public class Startup
     {
@@ -20,11 +21,14 @@ namespace Weredev
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMemoryCache();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             
             var flickrApiKey = Configuration.GetValue<string>("Flickr.ApiKey");
             var flickrUserId = Configuration.GetValue<string>("Flickr.UserId");
             services.AddSingleton<ITravelImageProvider>(new FlickrProvider(flickrApiKey, flickrUserId));
+            services.AddSingleton<ICacheProvider, HttpCacheProvider>();
+            services.AddScoped<ITravelService, TravelService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

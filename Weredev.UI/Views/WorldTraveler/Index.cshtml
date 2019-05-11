@@ -12,7 +12,7 @@
     Note: This site is a work in progress so not everything is clickable yet.
 </p>
 <div class="row">
-    @foreach(var country in @Model.Countries) {
+    @foreach(var country in @Model.Countries.OrderBy(x => x.Name)) {
         <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-3">
             <a href="@Context.Request.Path/@country.Key">
                 <div>

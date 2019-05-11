@@ -38,13 +38,13 @@ namespace Weredev.Providers.Flickr {
             }
         }
 
-        public async Task<Country[]> GetCountries() {
-            var flickrTree = await GetCollectionsAsync();
+        public async Task<Country[]> ListCountries() {
+            var flickrTree = await ListCollectionsAsync();
             var countries = flickrTree.ToCountries();
             return countries;
         }
 
-        private async Task<Models.FlickrGetTreeResponse> GetCollectionsAsync() {
+        private async Task<Models.FlickrGetTreeResponse> ListCollectionsAsync() {
             var response = await ExecuteFlickrRequestAsync(_FlickrGetTree);
             if (response.StatusCode != HttpStatusCode.OK)
                 throw new HttpRequestException("Could not load Collections from Flickr: " + response.StatusCode);
@@ -77,7 +77,5 @@ namespace Weredev.Providers.Flickr {
                 flickrMethod
                 );
         }
-
-        
     }
 }

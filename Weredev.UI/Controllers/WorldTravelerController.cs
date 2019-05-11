@@ -9,15 +9,15 @@ namespace Weredev.UI.Controllers
 {
     public class WorldTravelerController : Controller
     {
-        private readonly ITravelImageProvider _travelImageProvider;
+        private readonly ITravelService _travelService;
 
-        public WorldTravelerController(ITravelImageProvider travelImageProvider) {
-            _travelImageProvider = travelImageProvider ?? throw new ArgumentNullException(nameof(travelImageProvider));
+        public WorldTravelerController(ITravelService travelService) {
+            _travelService = travelService ?? throw new ArgumentNullException(nameof(travelService));
         }
 
         [HttpGet]
         public async Task<ActionResult> Index() {
-            var countries = await _travelImageProvider.GetCountries();
+            var countries = await _travelService.ListCountries();
             if (countries == null)
                 return NotFound();
 
@@ -27,11 +27,10 @@ namespace Weredev.UI.Controllers
             return View(countriesResponse);
         }
 
-        [HttpGet("[controller]/{countryId}")]
-        public async Task<ActionResult<ListCitiesResponse>> ListCities(string countryId)
+        [HttpGet("[controller]/{countryKey}")]
+        public async Task<ActionResult<ListCitiesResponse>> ListCities(string countryKey)
         {
-            var countries = await _travelImageProvider.GetCountries();
-            var country = countries?.FirstOrDefault(x => x.Key.Equals(countryId, StringComparison.CurrentCultureIgnoreCase));
+            var country = await _travelService.GetCountry(countryKey);
             
             if (country == null) return NotFound();
 
@@ -39,6 +38,21 @@ namespace Weredev.UI.Controllers
 
             var citiesResponse = new ListCitiesResponse(country);
             return View(citiesResponse);
+        }
+
+        [HttpGet("[controller]/{countryKey}/{cityKey}")]
+        public async Task<ActionResult> CityDetails(string countryKey, string cityKey)
+        {
+            // var countries = await _travelImageProvider.ListCountries();
+            // var country = countries?.FirstOrDefault(x => x.Key.Equals(countryKey, StringComparison.CurrentCultureIgnoreCase));
+            // if (country == null) return NotFound();
+
+            // var city = country.Cities.FirstOrDefault(x => x.Key.Equals(cityKey, StringComparison.CurrentCultureIgnoreCase));
+            // if (city == null) return NotFound();
+            
+
+            // return Content(city.Id);
+            return Content("Not done yet");
         }
     }
 }

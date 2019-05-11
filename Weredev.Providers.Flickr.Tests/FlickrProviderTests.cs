@@ -11,7 +11,7 @@ namespace Weredev.Providers.Flickr.Tests
         public async Task GetCountries_Success()
         {
             var provider = GetFlickrProvider();
-            var countries = await provider.GetCountries();
+            var countries = await provider.ListCountries();
             Assert.IsNotNull(countries);
             Assert.AreNotEqual(0, countries.Length);
             foreach (var country in countries) {
