@@ -26,9 +26,9 @@ namespace Weredev.UI
             
             var flickrApiKey = Configuration.GetValue<string>("Flickr.ApiKey");
             var flickrUserId = Configuration.GetValue<string>("Flickr.UserId");
-            services.AddSingleton<ITravelImageProvider>(new FlickrProvider(flickrApiKey, flickrUserId));
             services.AddSingleton<ICacheProvider, HttpCacheProvider>();
             services.AddScoped<ITravelService, TravelService>();
+            services.AddSingleton<ITravelImageProvider>(new FlickrProvider(flickrApiKey, flickrUserId));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

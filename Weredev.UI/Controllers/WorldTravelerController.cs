@@ -7,7 +7,7 @@ using Weredev.UI.Models.WorldTraveler;
 
 namespace Weredev.UI.Controllers
 {
-    public class WorldTravelerController : Controller
+    public class WorldTravelerController : BaseController
     {
         private readonly ITravelService _travelService;
 
@@ -21,7 +21,7 @@ namespace Weredev.UI.Controllers
             if (countries == null)
                 return NotFound();
 
-            ViewData["Title"] = "world traveler";
+            SetTitle("world traveler");
 
             var countriesResponse = new ListCountriesResponse(countries);
             return View(countriesResponse);
@@ -34,7 +34,7 @@ namespace Weredev.UI.Controllers
             
             if (country == null) return NotFound();
 
-            ViewData["Title"] = $"world traveler | {country.Name.ToLower()}";
+            SetTitle($"world traveler | {country.Name.ToLower()}");
 
             var citiesResponse = new ListCitiesResponse(country);
             return View(citiesResponse);
@@ -43,16 +43,10 @@ namespace Weredev.UI.Controllers
         [HttpGet("[controller]/{countryKey}/{cityKey}")]
         public async Task<ActionResult> CityDetails(string countryKey, string cityKey)
         {
-            // var countries = await _travelImageProvider.ListCountries();
-            // var country = countries?.FirstOrDefault(x => x.Key.Equals(countryKey, StringComparison.CurrentCultureIgnoreCase));
-            // if (country == null) return NotFound();
-
-            // var city = country.Cities.FirstOrDefault(x => x.Key.Equals(cityKey, StringComparison.CurrentCultureIgnoreCase));
-            // if (city == null) return NotFound();
+            var city = await _travelService.GetCity(countryKey, cityKey);
+            if (city == null) return NotFound();
             
-
-            // return Content(city.Id);
-            return Content("Not done yet");
+            return Json(city);
         }
     }
 }

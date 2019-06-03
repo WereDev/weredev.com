@@ -1,6 +1,8 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using Weredev.UI.Domain.Interfaces;
 
 namespace Weredev.Providers.Flickr.Tests
 {
@@ -8,19 +10,27 @@ namespace Weredev.Providers.Flickr.Tests
     public class FlickrProviderTests
     {
         [TestMethod]
-        public async Task GetCountries_Success()
+        public async Task GetNavigationList_Success()
         {
             var provider = GetFlickrProvider();
-            var countries = await provider.ListCountries();
-            Assert.IsNotNull(countries);
-            Assert.AreNotEqual(0, countries.Length);
-            foreach (var country in countries) {
-                Assert.IsFalse(string.IsNullOrWhiteSpace(country.Key));
-                Assert.IsFalse(string.IsNullOrWhiteSpace(country.Name));
-                Assert.IsNotNull(country.Cities);
-                Assert.AreNotEqual(0, country.Cities.Count);
+            var navList = await provider.ListCollections();
+            Assert.IsNotNull(navList);
+            Assert.AreNotEqual(0, navList.Length);
+            foreach (var navItem in navList) {
+                Assert.IsFalse(string.IsNullOrWhiteSpace(navItem.Icon));
+                Assert.IsFalse(string.IsNullOrWhiteSpace(navItem.Id));
+                Assert.IsFalse(string.IsNullOrWhiteSpace(navItem.Title));
             }
         }
+
+        // [TestMethod]
+        // public async Task GetCountryInfo() {
+        //     var provider = GetFlickrProvider();
+        //     var countries = await provider.ListCountries();
+        //     var countryKey = countries[0].Key;
+        //     var cityKey = countries[0].Cities[0].Key;
+        //     await provider.GetCityInfo(countryKey, cityKey);
+        // }
 
         private FlickrProvider GetFlickrProvider() {
                 var config = new ConfigurationBuilder()
@@ -29,6 +39,12 @@ namespace Weredev.Providers.Flickr.Tests
                 var apiKey = config.GetValue<string>("Flickr.ApiKey");
                 var userId = config.GetValue<string>("Flickr.UserId");
                 return new FlickrProvider(apiKey, userId);
+        }
+
+
+        private ICacheProvider GenerateMoqCacheProvider() {
+            var provider = new Mock<ICacheProvider>();
+            return provider.Object;
         }
     }
 }

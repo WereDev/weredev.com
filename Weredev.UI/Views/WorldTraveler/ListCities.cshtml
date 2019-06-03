@@ -3,7 +3,11 @@
 }
 @model Weredev.UI.Models.WorldTraveler.ListCitiesResponse
 
-<a href="..">
+@{
+    var currentPath = Context.Request.Path.Value.TrimEnd('/');
+}
+
+<a href="@(currentPath)/..">
     <h2>world traveler</h2>
 </a>
 <h3>@(Model.Country.Name)</h3>
@@ -12,12 +16,12 @@
     {
         <tr>
             <td class="city-list-cell-left">
-                <a href="@Context.Request.Path/@city.Key">
+                <a href="@(currentPath)/@city.Key">
                     <img src="@city.IconUrl" class="border border-dark" />
                 </a>
             </td>
             <td class="city-list-cell-right">
-                <a href="@Context.Request.Path/@city.Key">
+                <a href="@(currentPath)/@city.Key">
                     <h4 class='mt-1'>@city.Name</h4>
                 </a>
                 @city.Description
