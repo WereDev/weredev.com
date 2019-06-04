@@ -1,6 +1,6 @@
 namespace Weredev.Providers.Flickr.Models
 {
-    public class PhotoSetsGetListResponse
+    public class PhotosetsGetListResponse
     {
         public SetList Photosets { get; set; }
 
@@ -19,11 +19,19 @@ namespace Weredev.Providers.Flickr.Models
             public int Photos { get; set; }
             public Content Title { get; set; }
             public Content Description { get; set; }
+            public PrimaryPhotoExtras Primary_Photo_Extras { get; set; }
         }
 
         public class Content
         {
             public string _Content { get; set; }
+        }
+
+        public class PrimaryPhotoExtras
+        {
+            public string url_s { get; set; }
+            public int? height_s { get; set; }
+            public int? width_s { get; set; }
         }
     }
 }

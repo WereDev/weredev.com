@@ -47,7 +47,7 @@ namespace Weredev.Providers.Flickr
             }
         }
 
-        public async Task<CollectionDomainModel[]> ListCollections()
+        public async Task<CollectionProviderModel[]> ListCollections()
         {
             var flickrTree = await ExecuteFlickrRequestAsync<Models.CollectionsGetTreeResponse>(_FlickrGetTree);
             var domainModels = flickrTree.Collections.Collection.Select(x => x.ParseTreeResponse())
@@ -55,20 +55,16 @@ namespace Weredev.Providers.Flickr
             return domainModels;
         }
 
-        public async Task<AlbumDomainModel[]> ListAlbums(string collectionId)
-        {
-            return null;
-        }
-
-        public async Task<AlbumDomainModel> GetAlbumDetails(string id)
+        public async Task<PhotosetProviderModel[]> ListPhotosets()
         {
             var parameters = new Dictionary<string, string>
             {
-                { "photo_ids", id }
+                { "primary_photo_extras", "url_s" }
             };
-            var photoset = await ExecuteFlickrRequestAsync<Models.PhotoSetsGetListResponse>(_FlickrGetList, parameters);
-            var albumSet = photoset.Photosets.PhotoSet.FirstOrDefault(x => x.Id == id);
-            return albumSet?.ToAlbumModel();
+
+            var photoset = await ExecuteFlickrRequestAsync<Models.PhotosetsGetListResponse>(_FlickrGetList, parameters);
+            var models = photoset.ToProviderModel();
+            return models;
         }
 
         private async Task<T> ExecuteFlickrRequestAsync<T>(string flickrMethod, Dictionary<string, string> parameters = null)

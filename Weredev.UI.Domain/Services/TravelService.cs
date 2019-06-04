@@ -14,7 +14,8 @@ namespace Weredev.UI.Domain.Services
         private readonly ICacheProvider _cacheProvider;
 
         const string _countryDomainsCacheKey = "Country Dictionary Cache Key";
-        const string _navigationListCacheKey = "Navigation List";
+        const string _collectListCacheKey = "Collection List";
+        const string _photosetListCacheKey = "Photoset List";
         const string _albumCachKey = "Album ";
 
         public TravelService(ITravelImageProvider travelImageProvider, ICacheProvider cacheProvider)
@@ -39,12 +40,21 @@ namespace Weredev.UI.Domain.Services
 
         public async Task<CityDomainModel> GetCity(string countryKey, string cityKey)
         {
-            var collection = await ListCollections();
-            var item = collection.FirstOrDefault(x => x.CountryKey.Equals(countryKey, StringComparison.CurrentCultureIgnoreCase)
+            var collections = await ListCollections();
+            var collection = collections.FirstOrDefault(x => x.CountryKey.Equals(countryKey, StringComparison.CurrentCultureIgnoreCase)
                                                         && x.CityKey.Equals(cityKey, StringComparison.CurrentCultureIgnoreCase));
-            if (item == null) return null;
+            if (collection == null) return null;
 
-            var city = item.ToCityDomainModel();
+            var photosets = await ListPhotosets();
+
+            var city = collection.ToCityDomainModel();
+
+            foreach (var album in city.Albums)
+            {
+                var photoset = photosets.FirstOrDefault(x => x.Id == album.Id);
+                album.IconUrl = photoset?.IconUrl;
+            }
+
             return city;
         }
 
@@ -60,28 +70,26 @@ namespace Weredev.UI.Domain.Services
             return countryDomains;
         }
 
-        private async Task<CollectionDomainModel[]> ListCollections()
+        private async Task<CollectionProviderModel[]> ListCollections()
         {
-            var navList = _cacheProvider.Get<CollectionDomainModel[]>(_navigationListCacheKey);
+            var navList = _cacheProvider.Get<CollectionProviderModel[]>(_collectListCacheKey);
             if (navList == null)
             {
                 navList = await _travelImageProvider.ListCollections();
-                _cacheProvider.Set(_navigationListCacheKey, navList);
+                _cacheProvider.Set(_collectListCacheKey, navList);
             }
             return navList;
         }
 
-        private async Task<AlbumDomainModel> GetAlbumInfo(string albumId)
+        private async Task<PhotosetProviderModel[]> ListPhotosets()
         {
-            // var cacheKey = _albumCachKey + albumId.ToLower().Trim();
-            // var album = _cacheProvider.Get<AlbumDomainModel>(cacheKey);
-            // if (album == null)
-            // {
-            //     album = await _travelImageProvider.GetAlbumDetails(albumId);
-            //     _cacheProvider.Set(cacheKey, album);
-            // }
-            // return album;
-            return null;
+            var photosets = _cacheProvider.Get<PhotosetProviderModel[]>(_photosetListCacheKey);
+            if (photosets == null)
+            {
+                photosets = await _travelImageProvider.ListPhotosets();
+                _cacheProvider.Set(_photosetListCacheKey, photosets);
+            }
+            return photosets;
         }
     }
 }

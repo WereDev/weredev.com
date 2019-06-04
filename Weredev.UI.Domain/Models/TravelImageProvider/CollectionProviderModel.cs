@@ -3,7 +3,7 @@ using Weredev.UI.Domain.Extensions;
 
 namespace Weredev.UI.Domain.Models.TravelImageProvider
 {
-    public class CollectionDomainModel
+    public class CollectionProviderModel
     {
         public string Id { get; set; }
         public string Description { get; set; }

@@ -10,7 +10,7 @@ namespace Weredev.UI.Domain.Mappers
 {
     public static class TravelServiceMapper
     {
-        public static CountryDomainModel[] ToCountryDomainModels(this CollectionDomainModel[] navModels)
+        public static CountryDomainModel[] ToCountryDomainModels(this CollectionProviderModel[] navModels)
         {
             var countryDictionary = new Dictionary<string, CountryDomainModel>();
 
@@ -22,7 +22,7 @@ namespace Weredev.UI.Domain.Mappers
             return countryDictionary.Values.ToArray();
         }
 
-        private static void ParseNavigationModel(CollectionDomainModel navModel, Dictionary<string, CountryDomainModel> countryDictionary)
+        private static void ParseNavigationModel(CollectionProviderModel navModel, Dictionary<string, CountryDomainModel> countryDictionary)
         {
             if (!countryDictionary.ContainsKey(navModel.CountryKey))
             {
@@ -45,24 +45,25 @@ namespace Weredev.UI.Domain.Mappers
             countryDictionary[navModel.CountryKey].Cities.Add(city);
         }
 
-        public static CityDomainModel ToCityDomainModel(this CollectionDomainModel item)
+        public static CityDomainModel ToCityDomainModel(this CollectionProviderModel item)
         {
             return new CityDomainModel
             {
                 Albums = item.Albums.Select(x => x.ToAlbum()).ToArray(),
                 Description = item.Description,
                 Name = item.CityName,
-                Key = item.CityKey
+                Key = item.CityKey,
             };
         }
 
-        private static CityDomainModel.Album ToAlbum(this CollectionDomainModel.Album album)
+        private static CityDomainModel.Album ToAlbum(this CollectionProviderModel.Album album)
         {
             return new CityDomainModel.Album
             {
                 Description = album.Description,
                 Key = album.Key,
-                Name = album.Name
+                Name = album.Name,
+                Id = album.Id
             };
         }
     }

@@ -14,6 +14,7 @@ namespace Weredev.UI.Domain.Models.Traveler
             public string Id { get; set; }
             public string Name { get; set; }
             public string Key { get; set; }
+            public string IconUrl { get; set; }
         }
     }
 }
