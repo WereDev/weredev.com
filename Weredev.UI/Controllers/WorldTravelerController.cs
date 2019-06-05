@@ -41,12 +41,16 @@ namespace Weredev.UI.Controllers
         }
 
         [HttpGet("[controller]/{countryKey}/{cityKey}")]
-        public async Task<ActionResult> CityDetails(string countryKey, string cityKey)
+        public async Task<ActionResult> ListAlbums(string countryKey, string cityKey)
         {
             var city = await _travelService.GetCity(countryKey, cityKey);
             if (city == null) return NotFound();
+
+            SetTitle($"world traveler | {city.CountryName.ToLower()} | {city.CityName.ToLower()}");
             
-            return Json(city);
+            var response = new ListAlbumsResponse(city);
+
+            return View(response);
         }
     }
 }

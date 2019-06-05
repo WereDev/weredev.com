@@ -10,7 +10,7 @@
 <a href="@(currentPath)/..">
     <h2>world traveler</h2>
 </a>
-<h3>@(Model.Country.Name)</h3>
+<h3>@(Model.CountryName)</h3>
 <table class="city-list-table">
     @foreach(var city in Model.Cities.OrderBy(x => x.Name))
     {

@@ -11,26 +11,15 @@ namespace Weredev.UI.Models.WorldTraveler
             if (country == null) throw new ArgumentNullException(nameof(country));
             if (!country.Cities.Any()) throw new ArgumentNullException(nameof(country.Cities));
 
-            Country = new CountryViewModel(country);
+            CountryKey = country.Key;
+            CountryName = country.Name;
 
             Cities = country.Cities.Select(x => new CityViewModel(x)).ToArray();
         }
 
-        public CountryViewModel Country { get; }
+        public string CountryKey { get; }
+        public string CountryName { get; }
         public CityViewModel[] Cities { get; }
-
-        public class CountryViewModel
-        {
-            public CountryViewModel(CountryDomainModel country)
-            {
-                if (country == null) throw new ArgumentNullException(nameof(country));
-                Key = country.Key;
-                Name = country.Name;
-            }
-
-            public string Key { get; }
-            public string Name { get; }
-        }
 
         public class CityViewModel
         {

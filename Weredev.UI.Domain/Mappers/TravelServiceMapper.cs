@@ -51,8 +51,10 @@ namespace Weredev.UI.Domain.Mappers
             {
                 Albums = item.Albums.Select(x => x.ToAlbum()).ToArray(),
                 Description = item.Description,
-                Name = item.CityName,
-                Key = item.CityKey,
+                CityKey = item.CityKey,
+                CityName = item.CityName,
+                CountryKey = item.CountryKey,
+                CountryName = item.CountryName
             };
         }
 
