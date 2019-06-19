@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Net.Http.Headers;
 using Weredev.Providers.Flickr;
 using Weredev.UI.Domain.Interfaces;
 using Weredev.UI.Domain.Services;
@@ -11,19 +12,19 @@ namespace Weredev.UI
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMemoryCache();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            
+
             var flickrApiKey = Configuration.GetValue<string>("Flickr.ApiKey");
             var flickrUserId = Configuration.GetValue<string>("Flickr.UserId");
             services.AddSingleton<ICacheProvider, HttpCacheProvider>();
@@ -45,7 +46,16 @@ namespace Weredev.UI
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    const int durationInSeconds = 60 * 60 * 24;
+                    ctx.Context.Response.Headers[HeaderNames.CacheControl] =
+                        "public,max-age=" + durationInSeconds;
+                }
+            });
 
             app.UseMvc(routes =>
             {
@@ -55,7 +65,8 @@ namespace Weredev.UI
             });
         }
 
-        public void GetJsVersions() {
+        public void GetJsVersions()
+        {
 
         }
     }

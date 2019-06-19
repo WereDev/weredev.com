@@ -32,7 +32,9 @@ namespace Weredev.UI.Controllers
         {
             var country = await _travelService.GetCountry(countryKey);
             
-            if (country == null) return NotFound();
+            if (country == null || !country.Cities.Any()) return NotFound();
+
+            if (country.Cities.Count == 1) return Redirect($"{countryKey}/{country.Cities[0].Key}");
 
             SetTitle($"world traveler | {country.Name.ToLower()}");
 

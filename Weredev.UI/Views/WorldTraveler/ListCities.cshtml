@@ -16,14 +16,10 @@
     {
         <tr>
             <td class="city-list-cell-left">
-                <a href="@(currentPath)/@city.Key">
-                    <img src="@city.IconUrl" class="border border-dark" />
-                </a>
+                <a href="@(currentPath)/@city.Key"><img src="@city.IconUrl" class="border border-dark" /></a>
             </td>
             <td class="city-list-cell-right">
-                <a href="@(currentPath)/@city.Key">
-                    <h4 class='mt-1'>@city.Name</h4>
-                </a>
+                <h4 class='mt-1'><a href="@(currentPath)/@city.Key">@city.Name</a></h4>
                 @city.Description
             </td>
         </tr>

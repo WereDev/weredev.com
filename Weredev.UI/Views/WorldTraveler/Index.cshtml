@@ -18,16 +18,13 @@
 <div class="row">
     @foreach(var country in @Model.Countries.OrderBy(x => x.Name)) {
         <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-3">
-            <a href="@(currentPath)/@country.Key">
-                <div>
-                    @{
-                        var imageUrl = "/images/countries/" + country.Key.ToLower() + ".png";
-                    }
-                    <img src='@imageUrl' class='border border-dark' />
-                    <h3 class='mt-1'>@country.Name</h3>
-                    
-                </div>
-            </a>
+            @{
+                var imageUrl = "/images/countries/" + country.Key.ToLower() + ".png";
+            }
+            <a href="@(currentPath)/@country.Key"><img src='@imageUrl' class='border border-dark' /></a>
+            <h3 class='mt-1'>
+                <a href="@(currentPath)/@country.Key">@country.Name</a>
+            </h3>
         </div>
     }
 </div>

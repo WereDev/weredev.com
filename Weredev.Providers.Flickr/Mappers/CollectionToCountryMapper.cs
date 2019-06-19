@@ -18,8 +18,13 @@ namespace Weredev.Providers.Flickr.Mappers
                 Icon = collection.IconLarge,
                 Id = collection.Id,
                 Title = collection.Title
-
             };
+
+            if (!model.Icon.StartsWith("http"))
+            {
+                model.Icon = "https://www.flickr.com/" + model.Icon;
+            }
+
             return model;
         }
         
