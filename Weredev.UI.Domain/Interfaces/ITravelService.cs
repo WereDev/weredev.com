@@ -3,7 +3,8 @@ using Weredev.UI.Domain.Models.Traveler;
 
 namespace Weredev.UI.Domain.Interfaces {
     public interface ITravelService {
-        Task<Country[]> ListCountries();
-        Task<Country> GetCountry(string countryKey);
+        Task<CountryDomainModel[]> ListCountries();
+        Task<CountryDomainModel> GetCountry(string countryKey);
+        Task<CityDomainModel> GetCity(string countryKey, string cityKey);
     }
 }

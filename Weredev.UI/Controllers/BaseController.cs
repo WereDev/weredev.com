@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace Weredev.UI.Controllers
 {
 
-    public class HomeController : BaseController
+    [RequireHttps]
+    public abstract class BaseController : Controller
     {
-        public IActionResult Index()
+        public void SetTitle(string title)
         {
-            SetTitle(string.Empty);
-            return View();
+            ViewData["Title"] = title;
         }
     }
 }

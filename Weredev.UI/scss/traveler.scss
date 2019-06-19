@@ -7,6 +7,10 @@
     }
     & .city-list-cell-left {
         text-align: right;
+        & img {
+            height: 134px;
+            width: 179px;
+        }
     }
     & .city-list-cell-right {
         text-align: left;
