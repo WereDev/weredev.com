@@ -11,17 +11,16 @@
     <h2>world traveler</h2>
 </a>
 <h3>@(Model.CountryName)</h3>
-<table class="city-list-table">
-    @foreach(var city in Model.Cities.OrderBy(x => x.Name))
-    {
-        <tr>
-            <td class="city-list-cell-left">
-                <a href="@(currentPath)/@city.Key"><img src="@city.IconUrl" class="border border-dark" /></a>
-            </td>
-            <td class="city-list-cell-right">
-                <h4 class='mt-1'><a href="@(currentPath)/@city.Key">@city.Name</a></h4>
-                @city.Description
-            </td>
-        </tr>
+<div class="row list-table">
+    @foreach (var city in @Model.Cities.OrderBy(x => x.Name)) {
+        <div class="col-lg-6 col-sm-12 mt-3 list-row">
+            <div class="col-lg-4 col-sm-12 list-cell-image">
+                <a href="@(currentPath)/@(city.Key)"><img src='@(city.IconUrl)' class='border border-dark' /></a>
+            </div>
+            <div class="col-lg-8 col-sm-12 list-cell-name">
+                <h4 class='mt-1'><a href="@(currentPath)/@(city.Key)">@(city.Name)</a></h4>
+                <div class="list-cell-name-description">@(city.Description)</div>
+            </div>
+        </div>
     }
-</table>
+</div>
