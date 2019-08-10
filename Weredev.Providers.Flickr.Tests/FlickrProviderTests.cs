@@ -1,9 +1,6 @@
-using System;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-using Moq;
 using NUnit.Framework;
-using Weredev.UI.Domain.Interfaces;
+using System.Threading.Tasks;
 
 namespace Weredev.Providers.Flickr.Tests
 {
@@ -43,15 +40,6 @@ namespace Weredev.Providers.Flickr.Tests
                 }
             }
         }
-
-        // [Test]
-        // public async Task GetCountryInfo() {
-        //     var provider = GetFlickrProvider();
-        //     var countries = await provider.ListCountries();
-        //     var countryKey = countries[0].Key;
-        //     var cityKey = countries[0].Cities[0].Key;
-        //     await provider.GetCityInfo(countryKey, cityKey);
-        // }
 
         private FlickrProvider GetFlickrProvider()
         {

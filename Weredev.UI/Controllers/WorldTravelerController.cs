@@ -1,7 +1,7 @@
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Weredev.UI.Domain.Interfaces;
 using Weredev.UI.Models.WorldTraveler;
 
@@ -11,12 +11,14 @@ namespace Weredev.UI.Controllers
     {
         private readonly ITravelService _travelService;
 
-        public WorldTravelerController(ITravelService travelService) {
+        public WorldTravelerController(ITravelService travelService)
+        {
             _travelService = travelService ?? throw new ArgumentNullException(nameof(travelService));
         }
 
         [HttpGet]
-        public async Task<ActionResult> Index() {
+        public async Task<ActionResult> Index()
+        {
             var countries = await _travelService.ListCountries();
             if (countries == null)
                 return NotFound();
@@ -31,10 +33,12 @@ namespace Weredev.UI.Controllers
         public async Task<ActionResult<ListCitiesResponse>> ListCities(string countryKey)
         {
             var country = await _travelService.GetCountry(countryKey);
-            
-            if (country == null || !country.Cities.Any()) return NotFound();
 
-            if (country.Cities.Count == 1) return Redirect($"{countryKey}/{country.Cities[0].Key}");
+            if (country == null || !country.Cities.Any())
+                return NotFound();
+
+            if (country.Cities.Count == 1)
+                return Redirect($"{countryKey}/{country.Cities[0].Key}");
 
             SetTitle($"world traveler | {country.Name.ToLower()}");
 
@@ -46,10 +50,11 @@ namespace Weredev.UI.Controllers
         public async Task<ActionResult> ListAlbums(string countryKey, string cityKey)
         {
             var city = await _travelService.GetCity(countryKey, cityKey);
-            if (city == null) return NotFound();
+            if (city == null)
+                return NotFound();
 
             SetTitle($"world traveler | {city.CountryName.ToLower()} | {city.CityName.ToLower()}");
-            
+
             var response = new ListAlbumsResponse(city);
 
             return View(response);
@@ -58,7 +63,7 @@ namespace Weredev.UI.Controllers
         // [HttpGet("[controller]/{countryKey}/{cityKey}/{albumKey}")]
         // public async Task<ActionResult> ViewAlbum(string countryKey, string cityKey, string albumKey)
         // {
-            
+
         // }
     }
 }

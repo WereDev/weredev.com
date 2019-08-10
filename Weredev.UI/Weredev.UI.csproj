@@ -13,11 +13,20 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.1.1" />
-    <!-- <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
-    </PackageReference> -->
+    </PackageReference>
   </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="$(MSBuildProjectDirectory)\..\stylecop.json" Link="stylecop.json" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>$(MSBuildProjectDirectory)\..\stylecop.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup> 
+
 
   <ItemGroup>
     <Content Remove="$(ScssRoot)**" />

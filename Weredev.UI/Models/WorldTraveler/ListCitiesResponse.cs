@@ -8,8 +8,10 @@ namespace Weredev.UI.Models.WorldTraveler
     {
         public ListCitiesResponse(CountryDomainModel country)
         {
-            if (country == null) throw new ArgumentNullException(nameof(country));
-            if (!country.Cities.Any()) throw new ArgumentNullException(nameof(country.Cities));
+            if (country == null)
+                throw new ArgumentNullException(nameof(country));
+            if (!country.Cities.Any())
+                throw new ArgumentNullException(nameof(country.Cities));
 
             CountryKey = country.Key;
             CountryName = country.Name;
@@ -18,14 +20,17 @@ namespace Weredev.UI.Models.WorldTraveler
         }
 
         public string CountryKey { get; }
+
         public string CountryName { get; }
+
         public CityViewModel[] Cities { get; }
 
         public class CityViewModel
         {
             public CityViewModel(CountryDomainModel.City city)
             {
-                if (city == null) throw new ArgumentNullException(nameof(city));
+                if (city == null)
+                    throw new ArgumentNullException(nameof(city));
                 IconUrl = city.IconUrl;
                 Description = city.Description;
                 Name = city.Name;
@@ -33,8 +38,11 @@ namespace Weredev.UI.Models.WorldTraveler
             }
 
             public string IconUrl { get; }
+
             public string Description { get; }
+
             public string Name { get; }
+
             public string Key { get; }
         }
     }

@@ -18,7 +18,7 @@ namespace Weredev.Providers.Flickr.Mappers
                     IconUrl = x.Primary_Photo_Extras?.SmallUrl,
                     IconWidth = x.Primary_Photo_Extras?.SmallWidth,
                     Id = x.Id,
-                    Name = x.Title?.Text
+                    Name = x.Title?.Text,
                 }).ToArray();
         }
 
@@ -33,7 +33,7 @@ namespace Weredev.Providers.Flickr.Mappers
                 PerPage = TryGetInt(photoset.PerPage) ?? 0,
                 Photos = photoset.Photos?.Select(photo => photo.ToProviderModel()).ToArray(),
                 Primary = photoset.PrimaryName,
-                Total = TryGetInt(photoset.TotalPhotos) ?? 0
+                Total = TryGetInt(photoset.TotalPhotos) ?? 0,
             };
         }
 
@@ -56,7 +56,7 @@ namespace Weredev.Providers.Flickr.Mappers
             if (!string.IsNullOrEmpty(response.ThumbnailUrl))
                 scales.Add(response.GetPhotoScale(PhotoListProviderModel.Photo.PhotoScale.ScaleType.Thumbnail));
             photo.Scales = scales.ToArray();
-            
+
             return photo;
         }
 
@@ -91,7 +91,7 @@ namespace Weredev.Providers.Flickr.Mappers
                 Height = TryGetInt(GetScaleValue(response, "height" + suffix)) ?? 0,
                 Scale = scaleType,
                 Url = GetScaleValue(response, "url" + suffix),
-                Width = TryGetInt(GetScaleValue(response, "width" + suffix)) ?? 0
+                Width = TryGetInt(GetScaleValue(response, "width" + suffix)) ?? 0,
             };
         }
 
@@ -116,6 +116,5 @@ namespace Weredev.Providers.Flickr.Mappers
         {
             return response.GetType().GetProperty(propertyName).GetValue(response, null)?.ToString();
         }
-
     }
 }

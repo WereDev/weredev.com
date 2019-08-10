@@ -12,12 +12,12 @@ namespace Weredev.UI
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
+
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -52,9 +52,8 @@ namespace Weredev.UI
                 OnPrepareResponse = ctx =>
                 {
                     const int durationInSeconds = 60 * 60 * 24;
-                    ctx.Context.Response.Headers[HeaderNames.CacheControl] =
-                        "public,max-age=" + durationInSeconds;
-                }
+                    ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + durationInSeconds;
+                },
             });
 
             app.UseMvc(routes =>
@@ -63,11 +62,6 @@ namespace Weredev.UI
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-        }
-
-        public void GetJsVersions()
-        {
-
         }
     }
 }

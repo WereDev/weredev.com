@@ -1,4 +1,3 @@
-
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,34 +6,32 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Weredev.Providers.Flickr.Mappers;
-using Weredev.UI.Domain.Extensions;
 using Weredev.UI.Domain.Interfaces;
-using Weredev.UI.Domain.Models.Traveler;
 using Weredev.UI.Domain.Models.TravelImageProvider;
 
 namespace Weredev.Providers.Flickr
 {
-
     public class FlickrProvider : IDisposable, ITravelImageProvider
     {
-
+        // private const string _FlickrGetInfo= "flickr.collections.getInfo";
         private const string _RequestBaseUrl = "https://api.flickr.com/services/rest/?";
         private const string _Format = "json";
         private const string _NoJsonCallback = "1";
         private const string _FlickrGetTree = "flickr.collections.getTree";
-        // private const string _FlickrGetInfo= "flickr.collections.getInfo";
         private const string _FlickrGetList = "flickr.photosets.getList";
         private const string _FlickrGetPhotos = "flickr.photosets.getPhotos";
-        private readonly string _ApiKey;
-        private readonly string _UserId;
+        private readonly string _apiKey;
+        private readonly string _userId;
         private HttpClient _httpClient;
 
         public FlickrProvider(string apiKey, string userId)
         {
-            if (string.IsNullOrWhiteSpace(apiKey)) throw new ArgumentNullException(nameof(apiKey));
-            _ApiKey = apiKey;
-            if (string.IsNullOrWhiteSpace(userId)) throw new ArgumentNullException(nameof(userId));
-            _UserId = userId;
+            if (string.IsNullOrWhiteSpace(apiKey))
+                throw new ArgumentNullException(nameof(apiKey));
+            _apiKey = apiKey;
+            if (string.IsNullOrWhiteSpace(userId))
+                throw new ArgumentNullException(nameof(userId));
+            _userId = userId;
             _httpClient = new HttpClient();
         }
 
@@ -59,7 +56,7 @@ namespace Weredev.Providers.Flickr
         {
             var parameters = new Dictionary<string, string>
             {
-                { "primary_photo_extras", "url_s" }
+                { "primary_photo_extras", "url_s" },
             };
 
             var photoset = await ExecuteFlickrRequestAsync<Models.PhotosetsGetListResponse>(_FlickrGetList, parameters);
@@ -69,12 +66,13 @@ namespace Weredev.Providers.Flickr
 
         public async Task<PhotoListProviderModel> ListPhotos(string photosetId)
         {
-            if (string.IsNullOrWhiteSpace(photosetId)) throw new ArgumentNullException(photosetId);
+            if (string.IsNullOrWhiteSpace(photosetId))
+                throw new ArgumentNullException(photosetId);
 
             var parameters = new Dictionary<string, string>
             {
                 { "photoset_id", photosetId },
-                { "extras", "date_taken, o_dims, url_t, url_s, url_m, url_o" }
+                { "extras", "date_taken, o_dims, url_t, url_s, url_m, url_o" },
             };
 
             var photos = await ExecuteFlickrRequestAsync<Models.PhotosetsGetPhotosResponse>(_FlickrGetPhotos, parameters);
@@ -98,18 +96,10 @@ namespace Weredev.Providers.Flickr
 
         private string CreateFlickrRequestUrl(string flickrMethod, Dictionary<string, string> parameters)
         {
-
             if (string.IsNullOrWhiteSpace(flickrMethod))
                 throw new ArgumentNullException(nameof(flickrMethod));
 
-            var queryString = string.Format("{0}&api_key={1}&user_id={2}&format={3}&nojsoncallback={4}&method={5}",
-                _RequestBaseUrl,
-                _ApiKey,
-                _UserId,
-                _Format,
-                _NoJsonCallback,
-                flickrMethod
-                );
+            var queryString = $"{_RequestBaseUrl}&api_key={_apiKey}&user_id={_userId}&format={_Format}&nojsoncallback={_NoJsonCallback}&method={flickrMethod}";
 
             if (parameters != null && parameters.Any())
             {

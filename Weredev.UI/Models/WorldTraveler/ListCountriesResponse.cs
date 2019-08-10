@@ -9,7 +9,8 @@ namespace Weredev.UI.Models.WorldTraveler
     {
         public ListCountriesResponse(IEnumerable<CountryDomainModel> countries)
         {
-            if (countries == null) throw new ArgumentNullException(nameof(countries));
+            if (countries == null)
+                throw new ArgumentNullException(nameof(countries));
             Countries = countries.Select(x => new CountryViewModel(x)).ToArray();
         }
 
@@ -19,12 +20,14 @@ namespace Weredev.UI.Models.WorldTraveler
         {
             public CountryViewModel(CountryDomainModel country)
             {
-                if (country == null) throw new ArgumentNullException(nameof(country));
+                if (country == null)
+                    throw new ArgumentNullException(nameof(country));
                 Key = country.Key;
                 Name = country.Name;
             }
 
             public string Key { get; }
+
             public string Name { get; }
         }
     }
