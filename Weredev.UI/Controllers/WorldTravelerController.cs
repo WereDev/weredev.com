@@ -54,5 +54,11 @@ namespace Weredev.UI.Controllers
 
             return View(response);
         }
+
+        // [HttpGet("[controller]/{countryKey}/{cityKey}/{albumKey}")]
+        // public async Task<ActionResult> ViewAlbum(string countryKey, string cityKey, string albumKey)
+        // {
+            
+        // }
     }
 }

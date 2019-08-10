@@ -22,29 +22,6 @@ namespace Weredev.UI.Domain.Mappers
             return countryDictionary.Values.ToArray();
         }
 
-        private static void ParseNavigationModel(CollectionProviderModel navModel, Dictionary<string, CountryDomainModel> countryDictionary)
-        {
-            if (!countryDictionary.ContainsKey(navModel.CountryKey))
-            {
-                countryDictionary.Add(navModel.CountryKey,
-                                      new CountryDomainModel
-                                      {
-                                          Key = navModel.CountryKey,
-                                          Name = navModel.CountryName
-                                      });
-            }
-
-            var city = new CountryDomainModel.City()
-            {
-                Description = navModel.Description,
-                IconUrl = navModel.Icon,
-                Name = navModel.CityName,
-                Key = navModel.CityKey
-            };
-
-            countryDictionary[navModel.CountryKey].Cities.Add(city);
-        }
-
         public static CityDomainModel ToCityDomainModel(this CollectionProviderModel item)
         {
             return new CityDomainModel
@@ -54,8 +31,32 @@ namespace Weredev.UI.Domain.Mappers
                 CityKey = item.CityKey,
                 CityName = item.CityName,
                 CountryKey = item.CountryKey,
-                CountryName = item.CountryName
+                CountryName = item.CountryName,
             };
+        }
+
+        private static void ParseNavigationModel(CollectionProviderModel navModel, Dictionary<string, CountryDomainModel> countryDictionary)
+        {
+            if (!countryDictionary.ContainsKey(navModel.CountryKey))
+            {
+                countryDictionary.Add(
+                    navModel.CountryKey,
+                    new CountryDomainModel
+                    {
+                        Key = navModel.CountryKey,
+                        Name = navModel.CountryName,
+                    });
+            }
+
+            var city = new CountryDomainModel.City
+            {
+                Description = navModel.Description,
+                IconUrl = navModel.Icon,
+                Name = navModel.CityName,
+                Key = navModel.CityKey,
+            };
+
+            countryDictionary[navModel.CountryKey].Cities.Add(city);
         }
 
         private static CityDomainModel.Album ToAlbum(this CollectionProviderModel.Album album)
@@ -65,7 +66,7 @@ namespace Weredev.UI.Domain.Mappers
                 Description = album.Description,
                 Key = album.Key,
                 Name = album.Name,
-                Id = album.Id
+                Id = album.Id,
             };
         }
     }

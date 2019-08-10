@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace Weredev.Providers.Flickr.Models
 {
     public class PhotosetsGetListResponse
@@ -24,14 +26,19 @@ namespace Weredev.Providers.Flickr.Models
 
         public class Content
         {
-            public string _Content { get; set; }
+            public string Text { get; set; }
         }
 
         public class PrimaryPhotoExtras
         {
-            public string url_s { get; set; }
-            public int? height_s { get; set; }
-            public int? width_s { get; set; }
+            [JsonProperty(PropertyName="url_s")]
+            public string SmallUrl { get; set; }
+            
+            [JsonProperty(PropertyName="height_s")]
+            public int? SmallHeight { get; set; }
+            
+            [JsonProperty(PropertyName="width_s")]
+            public int? SmallWidth { get; set; }
         }
     }
 }

@@ -10,13 +10,12 @@ namespace Weredev.UI.Domain.Services
 {
     public class TravelService : ITravelService
     {
+        private const string CountryDomainsCacheKey = "Country Dictionary Cache Key";
+        private const string CollectListCacheKey = "Collection List";
+        private const string PhotosetListCacheKey = "Photoset List";
+
         private readonly ITravelImageProvider _travelImageProvider;
         private readonly ICacheProvider _cacheProvider;
-
-        const string _countryDomainsCacheKey = "Country Dictionary Cache Key";
-        const string _collectListCacheKey = "Collection List";
-        const string _photosetListCacheKey = "Photoset List";
-        const string _albumCachKey = "Album ";
 
         public TravelService(ITravelImageProvider travelImageProvider, ICacheProvider cacheProvider)
         {
@@ -43,7 +42,8 @@ namespace Weredev.UI.Domain.Services
             var collections = await ListCollections();
             var collection = collections.FirstOrDefault(x => x.CountryKey.Equals(countryKey, StringComparison.CurrentCultureIgnoreCase)
                                                         && x.CityKey.Equals(cityKey, StringComparison.CurrentCultureIgnoreCase));
-            if (collection == null) return null;
+            if (collection == null)
+                return null;
 
             var photosets = await ListPhotosets();
 
@@ -58,37 +58,45 @@ namespace Weredev.UI.Domain.Services
             return city;
         }
 
+        public Task<AlbumDomainModel> GetAlbum(string countryKey, string cityKey, string albumKey)
+        {
+            throw new NotImplementedException();
+        }
+
         private async Task<CountryDomainModel[]> ListCountryDomains()
         {
-            var countryDomains = _cacheProvider.Get<CountryDomainModel[]>(_countryDomainsCacheKey);
+            var countryDomains = _cacheProvider.Get<CountryDomainModel[]>(CountryDomainsCacheKey);
             if (countryDomains == null)
             {
                 var navList = await ListCollections();
                 countryDomains = navList.ToCountryDomainModels();
-                _cacheProvider.Set(_countryDomainsCacheKey, countryDomains);
+                _cacheProvider.Set(CountryDomainsCacheKey, countryDomains);
             }
+
             return countryDomains;
         }
 
         private async Task<CollectionProviderModel[]> ListCollections()
         {
-            var navList = _cacheProvider.Get<CollectionProviderModel[]>(_collectListCacheKey);
+            var navList = _cacheProvider.Get<CollectionProviderModel[]>(CollectListCacheKey);
             if (navList == null)
             {
                 navList = await _travelImageProvider.ListCollections();
-                _cacheProvider.Set(_collectListCacheKey, navList);
+                _cacheProvider.Set(CollectListCacheKey, navList);
             }
+
             return navList;
         }
 
         private async Task<PhotosetProviderModel[]> ListPhotosets()
         {
-            var photosets = _cacheProvider.Get<PhotosetProviderModel[]>(_photosetListCacheKey);
+            var photosets = _cacheProvider.Get<PhotosetProviderModel[]>(PhotosetListCacheKey);
             if (photosets == null)
             {
                 photosets = await _travelImageProvider.ListPhotosets();
-                _cacheProvider.Set(_photosetListCacheKey, photosets);
+                _cacheProvider.Set(PhotosetListCacheKey, photosets);
             }
+
             return photosets;
         }
     }

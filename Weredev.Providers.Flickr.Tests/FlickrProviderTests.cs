@@ -1,29 +1,50 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using NUnit.Framework;
 using Weredev.UI.Domain.Interfaces;
 
 namespace Weredev.Providers.Flickr.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class FlickrProviderTests
     {
-        [TestMethod]
+        [Test]
+        [Explicit]
         public async Task GetNavigationList_Success()
         {
-            var provider = GetFlickrProvider();
-            var navList = await provider.ListCollections();
-            Assert.IsNotNull(navList);
-            Assert.AreNotEqual(0, navList.Length);
-            foreach (var navItem in navList) {
-                Assert.IsFalse(string.IsNullOrWhiteSpace(navItem.Icon));
-                Assert.IsFalse(string.IsNullOrWhiteSpace(navItem.Id));
-                Assert.IsFalse(string.IsNullOrWhiteSpace(navItem.Title));
+            using (var provider = GetFlickrProvider())
+            {
+                var navList = await provider.ListCollections();
+                Assert.IsNotNull(navList);
+                Assert.Greater(navList.Length, 0);
+                foreach (var navItem in navList)
+                {
+                    Assert.IsFalse(string.IsNullOrWhiteSpace(navItem.Icon));
+                    Assert.IsFalse(string.IsNullOrWhiteSpace(navItem.Id));
+                    Assert.IsFalse(string.IsNullOrWhiteSpace(navItem.Title));
+                }
             }
         }
 
-        // [TestMethod]
+        [Test]
+        [Explicit]
+        public async Task GetPhotosetPhotos()
+        {
+            using (var provider = GetFlickrProvider())
+            {
+                var photos = await provider.ListPhotos("72157675450153882");
+                Assert.IsNotNull(photos?.Photos);
+                foreach (var photo in photos.Photos)
+                {
+                    Assert.IsNotNull(photo.Scales);
+                    Assert.Greater(photo.Scales.Length, 0);
+                }
+            }
+        }
+
+        // [Test]
         // public async Task GetCountryInfo() {
         //     var provider = GetFlickrProvider();
         //     var countries = await provider.ListCountries();
@@ -32,19 +53,14 @@ namespace Weredev.Providers.Flickr.Tests
         //     await provider.GetCityInfo(countryKey, cityKey);
         // }
 
-        private FlickrProvider GetFlickrProvider() {
-                var config = new ConfigurationBuilder()
-                            .AddJsonFile("weredev.com.config")
-                            .Build();
-                var apiKey = config.GetValue<string>("Flickr.ApiKey");
-                var userId = config.GetValue<string>("Flickr.UserId");
-                return new FlickrProvider(apiKey, userId);
-        }
-
-
-        private ICacheProvider GenerateMoqCacheProvider() {
-            var provider = new Mock<ICacheProvider>();
-            return provider.Object;
+        private FlickrProvider GetFlickrProvider()
+        {
+            var config = new ConfigurationBuilder()
+                        .AddJsonFile("weredev.com.config")
+                        .Build();
+            var apiKey = config.GetValue<string>("Flickr.ApiKey");
+            var userId = config.GetValue<string>("Flickr.UserId");
+            return new FlickrProvider(apiKey, userId);
         }
     }
 }

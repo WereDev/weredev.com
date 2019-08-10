@@ -18,10 +18,9 @@ namespace Weredev.UI {
             
             var standardizedKey = StandardizeKey(key);
 
-            T t;
-            if (_memoryCache.TryGetValue<T>(standardizedKey, out t))
-                return t;
-            return default(T);
+            return _memoryCache.TryGetValue<T>(standardizedKey, out T t)
+                    ? t
+                    : default;
         }
 
         public void Set<T>(string key, T item)
@@ -37,9 +36,8 @@ namespace Weredev.UI {
 
             if (item == null)
                 _memoryCache.Remove(standardizedKey);
-            else {
+            else
                 _memoryCache.Set(standardizedKey, item, expiration);
-            }
         }
 
         private string StandardizeKey(string key) {
