@@ -85,31 +85,14 @@ namespace Weredev.Providers.Flickr.Mappers
             this PhotosetsGetPhotosResponse.PhotoSet.Photo response,
             PhotoListProviderModel.Photo.PhotoScale.ScaleType scaleType)
         {
-            var suffix = GetScaleSufix(scaleType);
+            var prefix = scaleType.ToString();
             return new PhotoListProviderModel.Photo.PhotoScale()
             {
-                Height = TryGetInt(GetScaleValue(response, "height" + suffix)) ?? 0,
+                Height = TryGetInt(GetScaleValue(response, prefix + "Height")) ?? 0,
                 Scale = scaleType,
-                Url = GetScaleValue(response, "url" + suffix),
-                Width = TryGetInt(GetScaleValue(response, "width" + suffix)) ?? 0,
+                Url = GetScaleValue(response, prefix + "Url"),
+                Width = TryGetInt(GetScaleValue(response, prefix + "Width")) ?? 0,
             };
-        }
-
-        private static string GetScaleSufix(PhotoListProviderModel.Photo.PhotoScale.ScaleType scaleType)
-        {
-            switch (scaleType)
-            {
-                case PhotoListProviderModel.Photo.PhotoScale.ScaleType.Medium:
-                    return "_m";
-                case PhotoListProviderModel.Photo.PhotoScale.ScaleType.Original:
-                    return "_o";
-                case PhotoListProviderModel.Photo.PhotoScale.ScaleType.Small:
-                    return "_s";
-                case PhotoListProviderModel.Photo.PhotoScale.ScaleType.Thumbnail:
-                    return "_t";
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(scaleType), "Photo scale not implemented: " + scaleType.ToString());
-            }
         }
 
         private static string GetScaleValue(this PhotosetsGetPhotosResponse.PhotoSet.Photo response, string propertyName)

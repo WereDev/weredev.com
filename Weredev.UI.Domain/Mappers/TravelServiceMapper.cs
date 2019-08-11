@@ -35,6 +35,18 @@ namespace Weredev.UI.Domain.Mappers
             };
         }
 
+        public static AlbumDomainModel ToAlbumDomainModel(this PhotoListProviderModel model, CollectionProviderModel city)
+        {
+            return new AlbumDomainModel
+            {
+                CityKey = city.CityKey,
+                CityName = city.CityName,
+                CountryKey = city.CountryKey,
+                CountryName = city.CountryName,
+                Photos = model.Photos.Select(x => x.ToPhoto()).ToArray(),
+            };
+        }
+
         private static void ParseNavigationModel(CollectionProviderModel navModel, Dictionary<string, CountryDomainModel> countryDictionary)
         {
             if (!countryDictionary.ContainsKey(navModel.CountryKey))
@@ -67,6 +79,24 @@ namespace Weredev.UI.Domain.Mappers
                 Key = album.Key,
                 Name = album.Name,
                 Id = album.Id,
+            };
+        }
+
+        private static AlbumDomainModel.Photo ToPhoto(this PhotoListProviderModel.Photo photo)
+        {
+            return new AlbumDomainModel.Photo
+            {
+                DateTaken = photo.DateTaken,
+                Name = photo.Name,
+                Scales = photo.Scales.Select(x => new AlbumDomainModel.Photo.PhotoScale
+                    {
+                        Height = x.Height,
+                        Scale = Enum.Parse<AlbumDomainModel.Photo.PhotoScale.ScaleType>(x.Scale.ToString()),
+                        Url = x.Url,
+                        Width = x.Width,
+                    }).ToArray(),
+                Secret = photo.Secret,
+                Tags = photo.Tags,
             };
         }
     }

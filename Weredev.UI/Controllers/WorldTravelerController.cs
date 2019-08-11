@@ -60,10 +60,16 @@ namespace Weredev.UI.Controllers
             return View(response);
         }
 
-        // [HttpGet("[controller]/{countryKey}/{cityKey}/{albumKey}")]
-        // public async Task<ActionResult> ViewAlbum(string countryKey, string cityKey, string albumKey)
-        // {
+        [HttpGet("[controller]/{countryKey}/{cityKey}/{albumKey}")]
+        public async Task<ActionResult> ViewAlbum(string countryKey, string cityKey, string albumKey)
+        {
+            var album = await _travelService.GetAlbum(countryKey, cityKey, albumKey);
+            if (album == null)
+                return NotFound();
 
-        // }
+            SetTitle($"world traveler | {album.CountryName.ToLower()} | {album.CityName.ToLower()} | {album.AlbumName.ToLower()}");
+
+            return Json(album);
+        }
     }
 }

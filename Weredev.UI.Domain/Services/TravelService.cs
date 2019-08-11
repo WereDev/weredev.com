@@ -10,9 +10,10 @@ namespace Weredev.UI.Domain.Services
 {
     public class TravelService : ITravelService
     {
-        private const string CountryDomainsCacheKey = "Country Dictionary Cache Key";
+        private const string CountryDomainsCacheKey = "Countries List";
         private const string CollectListCacheKey = "Collection List";
         private const string PhotosetListCacheKey = "Photoset List";
+        private const string PhotosetDetailsCacheKey = "Photoset Detail ";
 
         private readonly ITravelImageProvider _travelImageProvider;
         private readonly ICacheProvider _cacheProvider;
@@ -32,8 +33,7 @@ namespace Weredev.UI.Domain.Services
         public async Task<CountryDomainModel> GetCountry(string countryKey)
         {
             var countries = await ListCountries();
-            countryKey = countryKey?.ToLower();
-            var country = countries.FirstOrDefault(x => x.Key.ToLower() == countryKey);
+            var country = countries.FirstOrDefault(x => x.Key.Equals(countryKey, StringComparison.CurrentCultureIgnoreCase));
             return country;
         }
 
@@ -45,10 +45,9 @@ namespace Weredev.UI.Domain.Services
             if (collection == null)
                 return null;
 
-            var photosets = await ListPhotosets();
-
             var city = collection.ToCityDomainModel();
 
+            var photosets = await ListPhotosets();
             foreach (var album in city.Albums)
             {
                 var photoset = photosets.FirstOrDefault(x => x.Id == album.Id);
@@ -58,9 +57,22 @@ namespace Weredev.UI.Domain.Services
             return city;
         }
 
-        public Task<AlbumDomainModel> GetAlbum(string countryKey, string cityKey, string albumKey)
+        public async Task<AlbumDomainModel> GetAlbum(string countryKey, string cityKey, string albumKey)
         {
-            throw new NotImplementedException();
+            var collections = await ListCollections();
+            var collection = collections.FirstOrDefault(x => x.CountryKey.Equals(countryKey, StringComparison.CurrentCultureIgnoreCase)
+                                                        && x.CityKey.Equals(cityKey, StringComparison.CurrentCultureIgnoreCase));
+
+            var album = collection?.Albums?.FirstOrDefault(x => x.Key.Equals(albumKey, StringComparison.CurrentCultureIgnoreCase));
+            if (album == null)
+                return null;
+
+            var photoset = await GetPhotosetDetails(album.Id);
+
+            var returnModel = photoset.ToAlbumDomainModel(collection);
+            returnModel.AlbumKey = album.Name;
+            returnModel.AlbumName = album.Name;
+            return returnModel;
         }
 
         private async Task<CountryDomainModel[]> ListCountryDomains()
@@ -98,6 +110,20 @@ namespace Weredev.UI.Domain.Services
             }
 
             return photosets;
+        }
+
+        private async Task<PhotoListProviderModel> GetPhotosetDetails(string photosetId)
+        {
+            photosetId = photosetId.ToLower().Trim();
+            var cacheKey = PhotosetDetailsCacheKey + photosetId;
+            var photoset = _cacheProvider.Get<PhotoListProviderModel>(cacheKey);
+            if (photoset == null)
+            {
+                photoset = await _travelImageProvider.ListPhotos(photosetId);
+                _cacheProvider.Set(cacheKey, photoset);
+            }
+
+            return photoset;
         }
     }
 }
