@@ -3,10 +3,6 @@
 }
 @model Weredev.UI.Models.WorldTraveler.ListCountriesResponse
 
-@{
-    var currentPath = Context.Request.Path.Value.TrimEnd('/');
-}
-
 <h2>world traveler</h2>
 <p>
     I love to travel and along the way I've become a bit of a photographer.  I'm not particularly good though
@@ -16,18 +12,15 @@
     Note: This site is a work in progress so not everything is clickable yet.
 </p>
 <div class="row">
-    @foreach(var country in @Model.Countries.OrderBy(x => x.Name)) {
+    @foreach(var country in @Model.Countries.OrderBy(x => x.CountryName)) {
         <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-3">
-            <a href="@(currentPath)/@country.Key">
-                <div>
-                    @{
-                        var imageUrl = "/images/countries/" + country.Key.ToLower() + ".png";
-                    }
-                    <img src='@imageUrl' class='border border-dark' />
-                    <h3 class='mt-1'>@country.Name</h3>
-                    
-                </div>
-            </a>
+            @{
+                var imageUrl = "/images/countries/" + country.CountryKey.ToLower() + ".png";
+            }
+            <a href="@(country.CountryUrl)"><img src='@imageUrl' class='border border-dark' /></a>
+            <h3 class='mt-1'>
+                <a href="@(country.CountryUrl)">@(country.CountryName)</a>
+            </h3>
         </div>
     }
 </div>

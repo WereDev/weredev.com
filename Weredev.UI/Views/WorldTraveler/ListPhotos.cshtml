@@ -1,0 +1,27 @@
+@{
+    Layout = "_WorldTravelerLayout";
+}
+@model Weredev.UI.Models.WorldTraveler.ListPhotosResponse
+@using static Weredev.UI.Models.WorldTraveler.ListPhotosResponse.Photo.PhotoScale;
+
+<a href="@(Model.BaseUrl)">
+    <h2>world traveler</h2>
+</a>
+<h3>
+    <a href="@(Model.CountryUrl)">@(Model.CountryName)</a>
+     | <a href="@(Model.CityUrl)">@(Model.CityName)</a>
+     | @(Model.AlbumName)
+</h3>
+<div class="masonry-wrapper">
+    <div class="masonry">
+        @foreach (var photo in Model.Photos)
+        {
+            <div class="masonry-item">
+                <img src="@(photo.Scales.FirstOrDefault(x => x.Scale == ScaleType.Medium).Url)" class="masonry-content" />
+            </div>
+        }
+<script src="//unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+<script src="/js/masonry.js"></script>
+<script>
+  initializeMasonry();
+</script>

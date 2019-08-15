@@ -3,29 +3,23 @@
 }
 @model Weredev.UI.Models.WorldTraveler.ListAlbumsResponse
 
-@{
-    var currentPath = Context.Request.Path.Value.TrimEnd('/');
-}
-
-<a href="@(currentPath)/..">
+<a href="@(Model.BaseUrl)">
     <h2>world traveler</h2>
 </a>
-<h3>@(Model.CountryName) | @(Model.CityName)</h3>
-<table class="city-list-table">
-    @foreach(var album in Model.Albums.OrderBy(x => x.Name))
-    {
-        <tr>
-            <td class="city-list-cell-left">
-                <a href="@(currentPath)/@album.Key">
-                    <img src="@album.IconUrl" class="border border-dark" />
-                </a>
-            </td>
-            <td class="city-list-cell-right">
-                <a href="@(currentPath)/@album.Key">
-                    <h4 class='mt-1'>@album.Name</h4>
-                </a>
-                @album.Description
-            </td>
-        </tr>
+<h3>
+    <a href="@(Model.CountryUrl)">@(Model.CountryName)</a>
+     | @(Model.CityName)
+</h3>
+<div class="row list-table">
+    @foreach (var album in Model.Albums.OrderBy(x => x.AlbumName)) {
+        <div class="col-lg-6 col-md-12 mt-3 list-row">
+            <div class="col-lg-4 col-sm-12 list-cell-image">
+                <a href="@(album.AlbumUrl)"><img src="@(album.IconUrl)" class="border border-dark" /></a>
+            </div>
+            <div class="col-lg-8 col-md-12 list-cell-name">
+                <h4 class='mt-1'><a href="@(album.AlbumUrl)">@(album.AlbumName)</a></h4>
+                <div class="list-cell-name-description">@(album.Description)</div>
+            </div>
+        </div>
     }
-</table>
+</div>
