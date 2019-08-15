@@ -3,22 +3,18 @@
 }
 @model Weredev.UI.Models.WorldTraveler.ListCitiesResponse
 
-@{
-    var currentPath = Context.Request.Path.Value.TrimEnd('/');
-}
-
-<a href="@(currentPath)/..">
+<a href="@(Model.BaseUrl)">
     <h2>world traveler</h2>
 </a>
 <h3>@(Model.CountryName)</h3>
 <div class="row list-table">
-    @foreach (var city in @Model.Cities.OrderBy(x => x.Name)) {
+    @foreach (var city in @Model.Cities.OrderBy(x => x.CityName)) {
         <div class="col-lg-6 col-sm-12 mt-3 list-row">
             <div class="col-lg-4 col-sm-12 list-cell-image">
-                <a href="@(currentPath)/@(city.Key)"><img src='@(city.IconUrl)' class='border border-dark' /></a>
+                <a href="@(city.CityUrl)"><img src='@(city.IconUrl)' class='border border-dark' /></a>
             </div>
             <div class="col-lg-8 col-sm-12 list-cell-name">
-                <h4 class='mt-1'><a href="@(currentPath)/@(city.Key)">@(city.Name)</a></h4>
+                <h4 class='mt-1'><a href="@(city.CityUrl)">@(city.CityName)</a></h4>
                 <div class="list-cell-name-description">@(city.Description)</div>
             </div>
         </div>

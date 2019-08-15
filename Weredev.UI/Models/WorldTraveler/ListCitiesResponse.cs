@@ -4,7 +4,7 @@ using Weredev.UI.Domain.Models.Traveler;
 
 namespace Weredev.UI.Models.WorldTraveler
 {
-    public class ListCitiesResponse
+    public class ListCitiesResponse : BaseTravelerResponse
     {
         public ListCitiesResponse(CountryDomainModel country)
         {
@@ -15,35 +15,28 @@ namespace Weredev.UI.Models.WorldTraveler
 
             CountryKey = country.Key;
             CountryName = country.Name;
-
-            Cities = country.Cities.Select(x => new CityViewModel(x)).ToArray();
+            Cities = country.Cities.Select(x => new CityViewModel(country, x)).ToArray();
         }
-
-        public string CountryKey { get; }
-
-        public string CountryName { get; }
 
         public CityViewModel[] Cities { get; }
 
-        public class CityViewModel
+        public class CityViewModel : BaseTravelerResponse
         {
-            public CityViewModel(CountryDomainModel.City city)
+            public CityViewModel(CountryDomainModel country, CountryDomainModel.City city)
             {
                 if (city == null)
                     throw new ArgumentNullException(nameof(city));
                 IconUrl = city.IconUrl;
                 Description = city.Description;
-                Name = city.Name;
-                Key = city.Key;
+                CityName = city.Name;
+                CityKey = city.Key;
+                CountryKey = country.Key;
+                CountryName = country.Name;
             }
 
             public string IconUrl { get; }
 
             public string Description { get; }
-
-            public string Name { get; }
-
-            public string Key { get; }
         }
     }
 }

@@ -61,7 +61,7 @@ namespace Weredev.UI.Controllers
         }
 
         [HttpGet("[controller]/{countryKey}/{cityKey}/{albumKey}")]
-        public async Task<ActionResult> ViewAlbum(string countryKey, string cityKey, string albumKey)
+        public async Task<ActionResult> ListPhotos(string countryKey, string cityKey, string albumKey)
         {
             var album = await _travelService.GetAlbum(countryKey, cityKey, albumKey);
             if (album == null)
@@ -69,7 +69,8 @@ namespace Weredev.UI.Controllers
 
             SetTitle($"world traveler | {album.CountryName.ToLower()} | {album.CityName.ToLower()} | {album.AlbumName.ToLower()}");
 
-            return Json(album);
+            var response = new ListPhotosResponse(album);
+            return View(response);
         }
     }
 }
