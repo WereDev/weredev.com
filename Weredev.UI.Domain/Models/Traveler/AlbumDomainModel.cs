@@ -34,6 +34,10 @@ namespace Weredev.UI.Domain.Models.Traveler
 
             public DateTime? DateTaken { get; set; }
 
+            public int Rotation { get; set; }
+
+            public string Description { get; set; }
+
             public class PhotoScale
             {
                 public enum ScaleType

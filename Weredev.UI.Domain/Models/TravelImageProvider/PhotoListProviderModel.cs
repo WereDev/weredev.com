@@ -20,6 +20,8 @@ namespace Weredev.UI.Domain.Models.TravelImageProvider
 
         public class Photo
         {
+            public string Id { get; set; }
+
             public string Name { get; set; }
 
             public string[] Tags { get; set; }
@@ -29,6 +31,10 @@ namespace Weredev.UI.Domain.Models.TravelImageProvider
             public string Secret { get; set; }
 
             public DateTime? DateTaken { get; set; }
+
+            public string Title { get; set; }
+
+            public int Rotation { get; set; }
 
             public class PhotoScale
             {

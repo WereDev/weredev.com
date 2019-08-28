@@ -41,6 +41,17 @@ namespace Weredev.Providers.Flickr.Tests
             }
         }
 
+        [Test]
+        [Explicit]
+        public async Task GetPhotoInfo()
+        {
+            using (var provider = GetFlickrProvider())
+            {
+                var photo = await provider.GetPhotoInfo("24293698110", "e0099b3948");
+                Assert.IsNotNull(photo?.Tags);
+            }
+        }
+
         private FlickrProvider GetFlickrProvider()
         {
             var config = new ConfigurationBuilder()
