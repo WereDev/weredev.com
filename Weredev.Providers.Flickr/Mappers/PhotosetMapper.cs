@@ -42,6 +42,7 @@ namespace Weredev.Providers.Flickr.Mappers
             var photo = new PhotoListProviderModel.Photo()
             {
                 DateTaken = TryGetDateTime(response.DateTaken),
+                Id = response.Id,
                 Name = response.Title,
                 Secret = response.Secret,
             };
@@ -58,6 +59,27 @@ namespace Weredev.Providers.Flickr.Mappers
             photo.Scales = scales.ToArray();
 
             return photo;
+        }
+
+        public static PhotoInfoProviderModel ToProviderModel(this PhotosetsGetInfoResponse response)
+        {
+            var info = response.Photo;
+
+            var model = new PhotoInfoProviderModel()
+            {
+                Id = info.Id,
+                Title = info.Title.Content,
+            };
+
+            if (DateTime.TryParse(info.Dates.Taken, out var dateTaken))
+                model.DateTaken = dateTaken;
+
+            if (int.TryParse(info.Rotation, out var rotation))
+                model.Rotation = rotation;
+
+            model.Tags = info.Tags?.Tags?.Select(x => x.Raw)?.ToArray();
+
+            return model;
         }
 
         public static int? TryGetInt(string value)

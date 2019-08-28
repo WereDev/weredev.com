@@ -13,13 +13,13 @@ namespace Weredev.Providers.Flickr
 {
     public class FlickrProvider : IDisposable, ITravelImageProvider
     {
-        // private const string _FlickrGetInfo= "flickr.collections.getInfo";
         private const string _RequestBaseUrl = "https://api.flickr.com/services/rest/?";
         private const string _Format = "json";
         private const string _NoJsonCallback = "1";
         private const string _FlickrGetTree = "flickr.collections.getTree";
         private const string _FlickrGetList = "flickr.photosets.getList";
         private const string _FlickrGetPhotos = "flickr.photosets.getPhotos";
+        private const string _FlickrGetPhotoInfo = "flickr.photos.getInfo";
         private readonly string _apiKey;
         private readonly string _userId;
         private HttpClient _httpClient;
@@ -67,7 +67,7 @@ namespace Weredev.Providers.Flickr
         public async Task<PhotoListProviderModel> ListPhotos(string photosetId)
         {
             if (string.IsNullOrWhiteSpace(photosetId))
-                throw new ArgumentNullException(photosetId);
+                throw new ArgumentNullException(nameof(photosetId));
 
             var parameters = new Dictionary<string, string>
             {
@@ -77,6 +77,24 @@ namespace Weredev.Providers.Flickr
 
             var photos = await ExecuteFlickrRequestAsync<Models.PhotosetsGetPhotosResponse>(_FlickrGetPhotos, parameters);
             var model = photos.ToProviderModel();
+            return model;
+        }
+
+        public async Task<PhotoInfoProviderModel> GetPhotoInfo(string photoId, string secret)
+        {
+            if (string.IsNullOrWhiteSpace(photoId))
+                throw new ArgumentNullException(nameof(photoId));
+            if (string.IsNullOrWhiteSpace(secret))
+                throw new ArgumentNullException(nameof(secret));
+
+            var parameters = new Dictionary<string, string>
+            {
+                { "photo_id", photoId },
+                { "secret", secret },
+            };
+
+            var photoInfo = await ExecuteFlickrRequestAsync<Models.PhotosetsGetInfoResponse>(_FlickrGetPhotoInfo, parameters);
+            var model = photoInfo.ToProviderModel();
             return model;
         }
 

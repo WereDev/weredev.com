@@ -120,10 +120,20 @@ namespace Weredev.UI.Domain.Services
             if (photoset == null)
             {
                 photoset = await _travelImageProvider.ListPhotos(photosetId);
+                Parallel.ForEach(photoset.Photos, (photo) => SetPhotoDetails(ref photo));
                 _cacheProvider.Set(cacheKey, photoset);
             }
 
             return photoset;
+        }
+
+        private void SetPhotoDetails(ref PhotoListProviderModel.Photo photo)
+        {
+            var details = _travelImageProvider.GetPhotoInfo(photo.Id, photo.Secret).Result;
+            photo.DateTaken = details.DateTaken;
+            photo.Rotation = details.Rotation;
+            photo.Tags = details.Tags;
+            photo.Title = details.Title;
         }
     }
 }

@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Weredev.UI.Domain.Extensions;
-using Weredev.UI.Domain.Interfaces;
 using Weredev.UI.Domain.Models.Traveler;
 using Weredev.UI.Domain.Models.TravelImageProvider;
 
@@ -97,6 +95,7 @@ namespace Weredev.UI.Domain.Mappers
                     }).ToArray(),
                 Secret = photo.Secret,
                 Tags = photo.Tags,
+                Rotation = photo.Rotation,
             };
         }
     }

@@ -12,16 +12,28 @@
      | <a href="@(Model.CityUrl)">@(Model.CityName)</a>
      | @(Model.AlbumName)
 </h3>
-<div class="masonry-wrapper">
-    <div class="masonry">
-        @foreach (var photo in Model.Photos)
-        {
-            <div class="masonry-item">
-                <img src="@(photo.Scales.FirstOrDefault(x => x.Scale == ScaleType.Medium).Url)" class="masonry-content" />
-            </div>
-        }
-<script src="//unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
-<script src="/js/masonry.js"></script>
-<script>
-  initializeMasonry();
+<div class="album-grid row no-gutters">
+    @foreach (var photo in Model.Photos.OrderBy(x => x.Name))
+    {
+        var originalPhoto = photo.Scales.FirstOrDefault(x => x.Scale == ScaleType.Original);
+        var mediumPhoto = photo.Scales.FirstOrDefault(x => x.Scale == ScaleType.Medium);
+        <div class="col col-12 col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <a class="album-item swipebox" href="@(originalPhoto.Url)" title="@(photo.Description)" data-style="transform: rotate(@(photo.Rotatation)deg);">
+                <img src="@(mediumPhoto.Url)" class="album-image" alt="test" style="left: -@(mediumPhoto.Width / 2)px;"/>
+            </a>
+        </div>
+    }
+</div>
+
+<!-- <script src="//unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script> -->
+<!-- <script src="/js/masonry.js"></script> -->
+<!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css"> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/swipebox.js"></script>
+<script type="text/javascript">
+    $( document ).ready(function() {
+        $('.swipebox').swipebox({
+            hideBarsDelay:-1
+        });
+    });
 </script>

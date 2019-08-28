@@ -28,6 +28,7 @@ namespace Weredev.UI.Models.WorldTraveler
                 Scales = photo.Scales.Select(x => new PhotoScale(x)).ToArray();
                 Secret = photo.Secret;
                 Tags = photo.Tags;
+                Rotatation = photo.Rotation;
             }
 
             public string Name { get; set; }
@@ -39,6 +40,23 @@ namespace Weredev.UI.Models.WorldTraveler
             public string Secret { get; set; }
 
             public DateTime? DateTaken { get; set; }
+
+            public int Rotatation { get; set; }
+
+            public string Description
+            {
+                get
+                {
+                    var description = Name;
+                    if ((Tags?.Length ?? 0) > 0)
+                        description += " | " + string.Join(" | ", Tags);
+
+                    if (DateTaken.HasValue)
+                        description += " | " + DateTaken.Value.ToString("dd MMM yyyy");
+
+                    return description;
+                }
+            }
 
             public class PhotoScale
             {
