@@ -47,9 +47,9 @@ namespace Weredev.UI.Models.WorldTraveler
             {
                 get
                 {
-                    var description = Name;
+                    var description = string.Empty;
                     if ((Tags?.Length ?? 0) > 0)
-                        description += " | " + string.Join(" | ", Tags);
+                        description += string.Join(" | ", Tags);
 
                     if (DateTaken.HasValue)
                         description += " | " + DateTaken.Value.ToString("dd MMM yyyy");
