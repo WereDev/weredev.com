@@ -4,3 +4,5 @@ weredev\.com\.config
 Weredev\.Providers\.Flickr/bin/
 
 Weredev\.UI\.Domain/bin/
+
+Weredev.UI/wwwroot/js/*.min.js
