@@ -1,0 +1,11 @@
+[{
+    "outputFileName": "wwwroot/js/swipebox.min.js",
+    "inputFiles": [
+        "wwwroot/js/swipebox.js"
+    ],
+    "minify": {
+        "enabled": true,
+        "renameLocals": true
+    },
+    "sourceMap": false
+}]

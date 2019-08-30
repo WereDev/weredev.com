@@ -1,3 +1,3 @@
 #!/bin/bash
-env ASPNETCORE_ENVIRONMENT=Development
+export ASPNETCORE_ENVIRONMENT=Development
 dotnet watch --project ./Weredev.UI/Weredev.UI.csproj run

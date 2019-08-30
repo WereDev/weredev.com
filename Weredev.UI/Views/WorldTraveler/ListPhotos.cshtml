@@ -25,15 +25,19 @@
     }
 </div>
 
-<!-- <script src="//unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script> -->
-<!-- <script src="/js/masonry.js"></script> -->
-<!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css"> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="/js/swipebox.js"></script>
+<environment include="Development">
+    <script src="~/js/swipebox.js"></script>
+</environment>
+<environment include="Production">
+    <script src="~/js/swipebox.min.js"></script>
+</environment>
+
 <script type="text/javascript">
     $( document ).ready(function() {
         $('.swipebox').swipebox({
-            hideBarsDelay:-1
+            hideBarsDelay: -1,
+            removeBarsOnMobile: false
         });
     });
 </script>
