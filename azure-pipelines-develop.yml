@@ -1,0 +1,15 @@
+trigger:
+  branches:
+    exclude:
+    - master
+
+pool:
+  vmImage: 'ubuntu-latest' # other options: 'macOS-10.13', 'vs2017-win2016'
+
+steps:
+
+- script: dotnet restore
+  displayName: "Restore .Net dependencies"
+
+- script: dotnet build Weredev.UI/Weredev.UI.csproj
+  displayName: "Build"
