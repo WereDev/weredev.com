@@ -19,6 +19,11 @@ namespace Weredev.UI
                     config.SetBasePath(Directory.GetCurrentDirectory());
                     config.AddJsonFile(Path.Combine(Directory.GetCurrentDirectory(), "../weredev.com.config"), optional: false, reloadOnChange: true);
                 })
+                .UseKestrel(serverOptions =>
+                {
+                    // Set properties and call methods on options
+                })
+                .UseIISIntegration()
                 .UseStartup<Startup>();
     }
 }
