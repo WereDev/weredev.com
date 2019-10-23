@@ -128,7 +128,8 @@
 						elements.push( {
 							href: href,
                             title: title,
-                            style: $(this).data("style")
+							style: $(this).data("style"),
+							class: $(this).data("class")
 						} );
 					} );
 
@@ -182,8 +183,13 @@
 					$( '#swipebox-bottom-bar, #swipebox-top-bar' ).remove();
 				}
 
-				$.each( elements,  function() {
-					$( '#swipebox-slider' ).append( '<div class="slide"></div>' );
+				$.each( elements,  function(index, value) {
+					var divElement = $('<div class="slide"></div>');
+
+					divElement.attr( 'style', elements[index].style);
+					divElement.addClass(elements[index].class);
+
+					$( '#swipebox-slider' ).append(divElement);
 				} );
 
 				$this.setDim();
@@ -613,9 +619,6 @@
                 $( '#swipebox-slider .slide' ).removeClass( 'current' );
 				$( '#swipebox-slider .slide' ).eq( index ).addClass( 'current' );
                 this.setTitle( index );
-                
-                var style = elements[index].style;
-                $( '#swipebox-slider .slide').eq( index ).attr( 'style', style);
                 
 				if ( isFirst ) {
 					slider.fadeIn();

@@ -17,8 +17,11 @@
     {
         var originalPhoto = photo.Scales.FirstOrDefault(x => x.Scale == ScaleType.Original);
         var mediumPhoto = photo.Scales.FirstOrDefault(x => x.Scale == ScaleType.Medium);
+
+        var rotationClass = "rot-" + photo.Rotatation.ToString();
+
         <div class="col col-12 col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a class="album-item swipebox" href="@(originalPhoto.Url)" title="@(photo.Description)" data-style="transform: rotate(@(photo.Rotatation)deg);">
+            <a class="album-item swipebox" href="@(originalPhoto.Url)" title="@(photo.Description)" data-class="@(rotationClass)">
                 <img src="@(mediumPhoto.Url)" class="album-image" alt="test" style="left: -@(mediumPhoto.Width / 2)px;"/>
             </a>
         </div>
