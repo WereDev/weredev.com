@@ -11,17 +11,15 @@ namespace Weredev.Providers.Flickr.Tests
         [Explicit]
         public async Task GetNavigationList_Success()
         {
-            using (var provider = GetFlickrProvider())
+            using var provider = GetFlickrProvider();
+            var navList = await provider.ListCollections();
+            Assert.IsNotNull(navList);
+            Assert.Greater(navList.Length, 0);
+            foreach (var navItem in navList)
             {
-                var navList = await provider.ListCollections();
-                Assert.IsNotNull(navList);
-                Assert.Greater(navList.Length, 0);
-                foreach (var navItem in navList)
-                {
-                    Assert.IsFalse(string.IsNullOrWhiteSpace(navItem.Icon));
-                    Assert.IsFalse(string.IsNullOrWhiteSpace(navItem.Id));
-                    Assert.IsFalse(string.IsNullOrWhiteSpace(navItem.Title));
-                }
+                Assert.IsFalse(string.IsNullOrWhiteSpace(navItem.Icon));
+                Assert.IsFalse(string.IsNullOrWhiteSpace(navItem.Id));
+                Assert.IsFalse(string.IsNullOrWhiteSpace(navItem.Title));
             }
         }
 
@@ -29,15 +27,13 @@ namespace Weredev.Providers.Flickr.Tests
         [Explicit]
         public async Task GetPhotosetPhotos()
         {
-            using (var provider = GetFlickrProvider())
+            using var provider = GetFlickrProvider();
+            var photos = await provider.ListPhotos("72157675450153882");
+            Assert.IsNotNull(photos?.Photos);
+            foreach (var photo in photos.Photos)
             {
-                var photos = await provider.ListPhotos("72157675450153882");
-                Assert.IsNotNull(photos?.Photos);
-                foreach (var photo in photos.Photos)
-                {
-                    Assert.IsNotNull(photo.Scales);
-                    Assert.Greater(photo.Scales.Length, 0);
-                }
+                Assert.IsNotNull(photo.Scales);
+                Assert.Greater(photo.Scales.Length, 0);
             }
         }
 
@@ -45,11 +41,9 @@ namespace Weredev.Providers.Flickr.Tests
         [Explicit]
         public async Task GetPhotoInfo()
         {
-            using (var provider = GetFlickrProvider())
-            {
-                var photo = await provider.GetPhotoInfo("24293698110", "e0099b3948");
-                Assert.IsNotNull(photo?.Tags);
-            }
+            using var provider = GetFlickrProvider();
+            var photo = await provider.GetPhotoInfo("24293698110", "e0099b3948");
+            Assert.IsNotNull(photo?.Tags);
         }
 
         private FlickrProvider GetFlickrProvider()

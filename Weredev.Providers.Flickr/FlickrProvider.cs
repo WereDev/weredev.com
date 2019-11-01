@@ -102,14 +102,12 @@ namespace Weredev.Providers.Flickr
         {
             var url = CreateFlickrRequestUrl(flickrMethod, parameters);
             var request = new HttpRequestMessage(HttpMethod.Get, url);
-            using (var response = await _httpClient.SendAsync(request))
-            {
-                if (response.StatusCode != HttpStatusCode.OK)
-                    throw new HttpRequestException($"Could not get response from Flickr Request {flickrMethod}: {response.StatusCode}");
-                var responseContent = await response.Content.ReadAsStringAsync();
-                var deserialized = JsonConvert.DeserializeObject<T>(responseContent);
-                return deserialized;
-            }
+            using var response = await _httpClient.SendAsync(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+                throw new HttpRequestException($"Could not get response from Flickr Request {flickrMethod}: {response.StatusCode}");
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var deserialized = JsonConvert.DeserializeObject<T>(responseContent);
+            return deserialized;
         }
 
         private string CreateFlickrRequestUrl(string flickrMethod, Dictionary<string, string> parameters)
