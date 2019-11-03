@@ -24,7 +24,7 @@ namespace Weredev.UI.Domain.Mappers
         {
             return new CityDomainModel
             {
-                Albums = item.Albums.Select(x => x.ToAlbum()).ToArray(),
+                Albums = item.Albums.Select(x => x.ToAlbum()).ToList(),
                 Description = item.Description,
                 CityKey = item.CityKey,
                 CityName = item.CityName,
@@ -66,7 +66,7 @@ namespace Weredev.UI.Domain.Mappers
                 Key = navModel.CityKey,
             };
 
-            countryDictionary[navModel.CountryKey].Cities.Append(city);
+            countryDictionary[navModel.CountryKey].Cities.Add(city);
         }
 
         private static CityDomainModel.Album ToAlbum(this CollectionProviderModel.Album album)
