@@ -66,7 +66,7 @@ namespace Weredev.UI.Domain.Mappers
                 Key = navModel.CityKey,
             };
 
-            countryDictionary[navModel.CountryKey].Cities.Add(city);
+            countryDictionary[navModel.CountryKey].Cities.Append(city);
         }
 
         private static CityDomainModel.Album ToAlbum(this CollectionProviderModel.Album album)

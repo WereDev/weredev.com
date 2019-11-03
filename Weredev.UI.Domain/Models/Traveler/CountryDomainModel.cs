@@ -1,16 +1,8 @@
-using System;
-using System.Collections.Generic;
-
 namespace Weredev.UI.Domain.Models.Traveler
 {
     public class CountryDomainModel
     {
-        public CountryDomainModel()
-        {
-            this.Cities = new List<City>();
-        }
-
-        public List<City> Cities { get; }
+        public City[] Cities { get; }
 
         public string Key { get; set; }
 
