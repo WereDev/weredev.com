@@ -38,7 +38,7 @@ namespace Weredev.UI.Controllers
                 return NotFound();
 
             if (country.Cities.Count() == 1)
-                return Redirect($"{countryKey}/{country.Cities[0].Key}");
+                return Redirect($"{Request.Path.Value}/{country.Cities[0].Key}");
 
             SetTitle($"world traveler | {country.Name.ToLower()}");
 
@@ -55,7 +55,7 @@ namespace Weredev.UI.Controllers
                 return NotFound();
 
             if (city.Albums.Count() == 1)
-                return Redirect($"{countryKey}/{cityKey}/{city.Albums[0].Key}");
+                return Redirect($"{Request.Path.Value}/{city.Albums[0].Key}");
 
             SetTitle($"world traveler | {city.CountryName.ToLower()} | {city.CityName.ToLower()}");
 
