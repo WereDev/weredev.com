@@ -4,7 +4,7 @@ using Weredev.UI.Domain.Models.Traveler;
 
 namespace Weredev.UI.Models.WorldTraveler
 {
-    public class ListAlbumsResponse : BaseTravelerResponse
+    public class ListAlbumsResponse
     {
         public ListAlbumsResponse(CityDomainModel city)
         {
@@ -20,9 +20,17 @@ namespace Weredev.UI.Models.WorldTraveler
             Albums = city.Albums.Select(x => new Album(city, x)).ToArray();
         }
 
+        public string CountryKey { get; set; }
+
+        public string CountryName { get; set; }
+
+        public string CityKey { get; set; }
+
+        public string CityName { get; set; }
+
         public Album[] Albums { get; }
 
-        public class Album : BaseTravelerResponse
+        public class Album
         {
             public Album(CityDomainModel city, CityDomainModel.Album album)
             {
@@ -42,6 +50,18 @@ namespace Weredev.UI.Models.WorldTraveler
             public string Description { get; }
 
             public string IconUrl { get; }
+
+            public string CountryKey { get; set; }
+
+            public string CountryName { get; set; }
+
+            public string CityKey { get; set; }
+
+            public string CityName { get; set; }
+
+            public string AlbumKey { get; set; }
+
+            public string AlbumName { get; set; }
         }
     }
 }

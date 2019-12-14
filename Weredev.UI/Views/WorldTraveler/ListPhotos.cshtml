@@ -1,15 +1,16 @@
+@using static Weredev.UI.Models.WorldTraveler.ListPhotosResponse.Photo.PhotoScale;
+@using Weredev.UI.Controllers
 @{
     Layout = "_WorldTravelerLayout";
 }
 @model Weredev.UI.Models.WorldTraveler.ListPhotosResponse
-@using static Weredev.UI.Models.WorldTraveler.ListPhotosResponse.Photo.PhotoScale;
 
-<a href="@(Model.BaseUrl)">
+<a asp-action="Index">
     <h2>world traveler</h2>
 </a>
 <h3>
-    <a href="@(Model.CountryUrl)">@(Model.CountryName)</a>
-     | <a href="@(Model.CityUrl)">@(Model.CityName)</a>
+    <a asp-action="@nameof(WorldTravelerController.ListCities)" asp-route-countrykey="@Model.CountryKey">@(Model.CountryName)</a>
+     | <a asp-action="@nameof(WorldTravelerController.ListAlbums)" asp-route-countrykey="@Model.CountryKey" asp-route-citykey="@Model.CityKey">@(Model.CityName)</a>
      | @(Model.AlbumName)
 </h3>
 <div class="album-grid row no-gutters">

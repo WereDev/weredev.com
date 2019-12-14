@@ -4,7 +4,7 @@ using Weredev.UI.Domain.Models.Traveler;
 
 namespace Weredev.UI.Models.WorldTraveler
 {
-    public class ListPhotosResponse : BaseTravelerResponse
+    public class ListPhotosResponse
     {
         public ListPhotosResponse(AlbumDomainModel album)
         {
@@ -16,6 +16,18 @@ namespace Weredev.UI.Models.WorldTraveler
             CountryName = album.CountryName;
             Photos = album.Photos.Select(x => new Photo(x)).ToArray();
         }
+
+        public string CountryKey { get; set; }
+
+        public string CountryName { get; set; }
+
+        public string CityKey { get; set; }
+
+        public string CityName { get; set; }
+
+        public string AlbumKey { get; set; }
+
+        public string AlbumName { get; set; }
 
         public Photo[] Photos { get; }
 

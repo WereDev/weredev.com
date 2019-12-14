@@ -38,7 +38,15 @@ namespace Weredev.UI.Controllers
                 return NotFound();
 
             if (country.Cities.Count() == 1)
-                return Redirect($"{Request.Path.Value}/{country.Cities[0].Key}");
+            {
+                return RedirectToAction(
+                    nameof(ListAlbums),
+                    new
+                    {
+                        countryKey = country.Key,
+                        cityKey = country.Cities[0].Key,
+                    });
+            }
 
             SetTitle($"world traveler | {country.Name.ToLower()}");
 
@@ -55,7 +63,16 @@ namespace Weredev.UI.Controllers
                 return NotFound();
 
             if (city.Albums.Count() == 1)
-                return Redirect($"{Request.Path.Value}/{city.Albums[0].Key}");
+            {
+                return RedirectToAction(
+                    nameof(ListPhotos),
+                    new
+                    {
+                        countryKey = city.CountryKey,
+                        cityKey = city.CityKey,
+                        albumKey = city.Albums[0].Key,
+                    });
+            }
 
             SetTitle($"world traveler | {city.CountryName.ToLower()} | {city.CityName.ToLower()}");
 
