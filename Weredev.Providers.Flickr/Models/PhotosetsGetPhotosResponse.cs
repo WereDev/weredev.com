@@ -1,105 +1,87 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Weredev.Providers.Flickr.Models
 {
     public class PhotosetsGetPhotosResponse
     {
-        [JsonProperty(PropertyName = "photoset")]
+        [JsonPropertyName("photoset")]
         public PhotoSet Set { get; set; }
 
-        [JsonProperty(PropertyName = "stat")]
+        [JsonPropertyName("stat")]
         public string Status { get; set; }
 
         public class PhotoSet
         {
-            [JsonProperty(PropertyName = "id")]
+            [JsonPropertyName("id")]
             public string Id { get; set; }
 
-            [JsonProperty(PropertyName = "primary")]
+            [JsonPropertyName("primary")]
             public string PrimaryName { get; set; }
 
-            [JsonProperty(PropertyName = "page")]
-            public string Page { get; set; }
+            [JsonPropertyName("page")]
+            public int Page { get; set; }
 
-            [JsonProperty(PropertyName = "perpage")]
-            public string PerPage { get; set; }
+            [JsonPropertyName("perpage")]
+            public int PerPage { get; set; }
 
-            [JsonProperty(PropertyName = "pages")]
-            public string TotalPages { get; set; }
+            [JsonPropertyName("pages")]
+            public int TotalPages { get; set; }
 
-            [JsonProperty(PropertyName = "total")]
-            public string TotalPhotos { get; set; }
+            [JsonPropertyName("total")]
+            public int TotalPhotos { get; set; }
 
-            [JsonProperty(PropertyName = "photo")]
+            [JsonPropertyName("photo")]
             public Photo[] Photos { get; set; }
 
             public class Photo
             {
-                [JsonProperty(PropertyName = "id")]
+                [JsonPropertyName("id")]
                 public string Id { get; set; }
 
-                [JsonProperty(PropertyName = "secret")]
+                [JsonPropertyName("secret")]
                 public string Secret { get; set; }
 
-                [JsonProperty(PropertyName = "server")]
-                public string Server { get; set; }
-
-                [JsonProperty(PropertyName = "farm")]
-                public string Farm { get; set; }
-
-                [JsonProperty(PropertyName = "title")]
+                [JsonPropertyName("title")]
                 public string Title { get; set; }
 
-                [JsonProperty(PropertyName = "isprimary")]
-                public string IsPrimary { get; set; }
-
-                [JsonProperty(PropertyName = "ispublic")]
-                public string IsPublic { get; set; }
-
-                [JsonProperty(PropertyName = "isfriend")]
-                public string IsFriend { get; set; }
-
-                [JsonProperty(PropertyName = "isfamily")]
-                public string IsFamily { get; set; }
-
-                [JsonProperty(PropertyName = "datetaken")]
+                [JsonPropertyName("datetaken")]
                 public string DateTaken { get; set; }
 
-                [JsonProperty(PropertyName = "url_t")]
+                [JsonPropertyName("url_t")]
                 public string ThumbnailUrl { get; set; }
 
-                [JsonProperty(PropertyName = "height_t")]
-                public string ThumbnailHeight { get; set; }
+                [JsonPropertyName("height_t")]
+                public int ThumbnailHeight { get; set; }
 
-                [JsonProperty(PropertyName = "width_t")]
-                public string ThumbnailWidth { get; set; }
+                [JsonPropertyName("width_t")]
+                public int ThumbnailWidth { get; set; }
 
-                [JsonProperty(PropertyName = "url_s")]
+                [JsonPropertyName("url_s")]
                 public string SmallUrl { get; set; }
 
-                [JsonProperty(PropertyName = "height_s")]
-                public string SmallHeight { get; set; }
+                [JsonPropertyName("height_s")]
+                public int SmallHeight { get; set; }
 
-                [JsonProperty(PropertyName = "width_s")]
-                public string SmallWidth { get; set; }
+                [JsonPropertyName("width_s")]
+                public int SmallWidth { get; set; }
 
-                [JsonProperty(PropertyName = "url_m")]
+                [JsonPropertyName("url_m")]
                 public string MediumUrl { get; set; }
 
-                [JsonProperty(PropertyName = "height_m")]
-                public string MediumHeight { get; set; }
+                [JsonPropertyName("height_m")]
+                public int MediumHeight { get; set; }
 
-                [JsonProperty(PropertyName = "width_m")]
-                public string MediumWidth { get; set; }
+                [JsonPropertyName("width_m")]
+                public int MediumWidth { get; set; }
 
-                [JsonProperty(PropertyName = "url_o")]
+                [JsonPropertyName("url_o")]
                 public string OriginalUrl { get; set; }
 
-                [JsonProperty(PropertyName = "height_o")]
-                public string OriginalHeight { get; set; }
+                [JsonPropertyName("height_o")]
+                public int OriginalHeight { get; set; }
 
-                [JsonProperty(PropertyName = "width_o")]
-                public string OriginalWidth { get; set; }
+                [JsonPropertyName("width_o")]
+                public int OriginalWidth { get; set; }
             }
         }
     }

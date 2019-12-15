@@ -28,12 +28,12 @@ namespace Weredev.Providers.Flickr.Mappers
             return new PhotoListProviderModel()
             {
                 Id = photoset.Id,
-                Page = TryGetInt(photoset.Page) ?? 0,
-                Pages = TryGetInt(photoset.TotalPages) ?? 0,
-                PerPage = TryGetInt(photoset.PerPage) ?? 0,
+                Page = photoset.Page,
+                Pages = photoset.TotalPages,
+                PerPage = photoset.PerPage,
                 Photos = photoset.Photos?.Select(photo => photo.ToProviderModel()).ToArray(),
                 Primary = photoset.PrimaryName,
-                Total = TryGetInt(photoset.TotalPhotos) ?? 0,
+                Total = photoset.TotalPhotos,
             };
         }
 
@@ -74,8 +74,7 @@ namespace Weredev.Providers.Flickr.Mappers
             if (DateTime.TryParse(info.Dates.Taken, out var dateTaken))
                 model.DateTaken = dateTaken;
 
-            if (int.TryParse(info.Rotation, out var rotation))
-                model.Rotation = rotation;
+            model.Rotation = info.Rotation;
 
             model.Tags = info.Tags?.Tags?.Select(x => x.Raw)?.ToArray();
 
