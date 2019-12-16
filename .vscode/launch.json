@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/Weredev.UI/bin/Debug/netcoreapp3.0/Weredev.UI.dll",
+            "program": "${workspaceFolder}/Weredev.UI/bin/Debug/netcoreapp3.1/Weredev.UI.dll",
             "args": [],
             "cwd": "${workspaceFolder}/Weredev.UI",
             "stopAtEntry": false,

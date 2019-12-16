@@ -26,7 +26,6 @@
     <CodeAnalysisRuleSet>$(MSBuildProjectDirectory)\..\stylecop.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup> 
 
-
   <ItemGroup>
     <Content Remove="$(ScssRoot)**" />
     <None Include="$(ScssRoot)**" />
@@ -35,6 +34,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Weredev.UI.Domain\Weredev.UI.Domain.csproj" />
     <ProjectReference Include="..\Weredev.Providers.Flickr\Weredev.Providers.Flickr.csproj" />
+    <ProjectReference Include="..\Weredev.Providers.GitHub\Weredev.Providers.GitHub.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('node_modules') "> 

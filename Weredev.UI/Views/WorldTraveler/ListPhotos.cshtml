@@ -11,7 +11,7 @@
 <h3>
     <a asp-action="@nameof(WorldTravelerController.ListCities)" asp-route-countrykey="@Model.CountryKey">@(Model.CountryName)</a>
      | <a asp-action="@nameof(WorldTravelerController.ListAlbums)" asp-route-countrykey="@Model.CountryKey" asp-route-citykey="@Model.CityKey">@(Model.CityName)</a>
-     | @(Model.AlbumName)
+     | @(Model.AlbumName) test
 </h3>
 <div class="album-grid row no-gutters">
     @foreach (var photo in Model.Photos.OrderBy(x => x.Name))
@@ -31,13 +31,8 @@
 
 <link rel="stylesheet" type="text/css" href="~/css/swipebox.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<environment include="Development">
-    <script src="~/js/swipebox.js"></script>
-</environment>
-<environment include="Production">
-    <script src="~/js/swipebox.min.js"></script>
-</environment>
-
+<script src="~/js/swipebox.min.js"></script>
+<h3>hello world</h3>
 <script type="text/javascript">
     $( document ).ready(function() {
         $('.swipebox').swipebox({
