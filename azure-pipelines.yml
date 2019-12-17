@@ -3,15 +3,23 @@ pool:
 
 steps:
 
-- script: dotnet restore
-  displayName: "Restore .Net dependencies"
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    projects: 'Weredev.UI/Weredev.UI.csproj'
+    feedsToUse: 'select'
 
-- script: dotnet build Weredev.UI/Weredev.UI.csproj
-  displayName: "Build"
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: 'Weredev.UI/Weredev.UI.csproj'
+    arguments: '--configuration Release'
 
-- script: dotnet publish --output $(Build.ArtifactStagingDirectory) Weredev.UI/Weredev.UI.csproj
-  displayName: "Publish"
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    arguments: '--output $(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
