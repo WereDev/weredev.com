@@ -3,6 +3,13 @@ pool:
 
 steps:
 
+- task: UseDotNet@2
+  displayName: 'Install .net core 3.0 (preview)'
+  inputs:
+    packageType: sdk
+    version: '3.1.100'
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+
 - script: dotnet restore Weredev.UI/Weredev.UI.csproj
   displayName: "Restore .Net dependencies"
 
