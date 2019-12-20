@@ -5,7 +5,7 @@ using Weredev.UI.Domain.Models.Traveler;
 
 namespace Weredev.UI.Models.WorldTraveler
 {
-    public class ListCountriesResponse : BaseTravelerResponse
+    public class ListCountriesResponse
     {
         public ListCountriesResponse(IEnumerable<CountryDomainModel> countries)
         {
@@ -16,7 +16,7 @@ namespace Weredev.UI.Models.WorldTraveler
 
         public CountryViewModel[] Countries { get; set; }
 
-        public class CountryViewModel : BaseTravelerResponse
+        public class CountryViewModel
         {
             public CountryViewModel(CountryDomainModel country)
             {
@@ -25,6 +25,10 @@ namespace Weredev.UI.Models.WorldTraveler
                 CountryKey = country.Key;
                 CountryName = country.Name;
             }
+
+            public string CountryKey { get; set; }
+
+            public string CountryName { get; set; }
         }
     }
 }

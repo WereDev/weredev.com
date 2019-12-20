@@ -23,7 +23,7 @@ namespace Weredev.UI.Domain.Extensions
                 return value;
 
             var nameParts = value.Split(',');
-            var countryName = nameParts[nameParts.Length - 1].Trim();
+            var countryName = nameParts[^1].Trim();
             return countryName;
         }
 

@@ -1,7 +1,14 @@
+using System.Collections.Generic;
+
 namespace Weredev.UI.Domain.Models.Traveler
 {
     public class CityDomainModel
     {
+        public CityDomainModel()
+        {
+            Albums = new List<Album>();
+        }
+
         public string Description { get; set; }
 
         public string IconUrl { get; set; }
@@ -14,7 +21,7 @@ namespace Weredev.UI.Domain.Models.Traveler
 
         public string CityName { get; set; }
 
-        public Album[] Albums { get; set; }
+        public List<Album> Albums { get; set; }
 
         public class Album
         {

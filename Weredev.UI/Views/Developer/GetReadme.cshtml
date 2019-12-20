@@ -1,0 +1,12 @@
+@{
+    Layout = "_DeveloperLayout";
+}
+@model Weredev.UI.Models.Developer.GetReadmeResponse
+
+<a asp-action="Index">
+    <h2>developer</h2>
+</a>
+
+<div class="text-left">
+    @Html.Raw(Model.HtmlContent)
+</div>

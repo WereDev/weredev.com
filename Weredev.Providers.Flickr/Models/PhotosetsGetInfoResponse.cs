@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Weredev.Providers.Flickr.Models
 {
@@ -11,7 +10,7 @@ namespace Weredev.Providers.Flickr.Models
         {
             public string Id { get; set; }
 
-            public string Rotation { get; set; }
+            public int Rotation { get; set; }
 
             public ContentModel Title { get; set; }
 
@@ -23,7 +22,7 @@ namespace Weredev.Providers.Flickr.Models
 
             public class ContentModel
             {
-                [JsonProperty(PropertyName = "_content")]
+                [JsonPropertyName("_content")]
                 public string Content { get; set; }
             }
 
@@ -34,7 +33,7 @@ namespace Weredev.Providers.Flickr.Models
 
             public class TagsModel
             {
-                [JsonProperty("tag")]
+                [JsonPropertyName("tag")]
                 public TagInfoModel[] Tags { get; set; }
                 public class TagInfoModel
                 {

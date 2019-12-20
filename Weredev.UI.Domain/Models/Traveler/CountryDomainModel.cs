@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace Weredev.UI.Domain.Models.Traveler
@@ -7,7 +6,7 @@ namespace Weredev.UI.Domain.Models.Traveler
     {
         public CountryDomainModel()
         {
-            this.Cities = new List<City>();
+            Cities = new List<City>();
         }
 
         public List<City> Cities { get; }

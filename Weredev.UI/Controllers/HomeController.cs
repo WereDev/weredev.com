@@ -4,9 +4,9 @@ namespace Weredev.UI.Controllers
 {
     public class HomeController : BaseController
     {
+        [HttpGet]
         public IActionResult Index()
         {
-            SetTitle(string.Empty);
             return View();
         }
     }

@@ -1,3 +1,3 @@
-#!/bin/bash
-dotnet build
-dotnet test
+# dotnet clean ./Weredev.UI
+dotnet build ./Weredev.UI
+# dotnet test

@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Weredev.Providers.Flickr.Models
 {
@@ -39,13 +39,13 @@ namespace Weredev.Providers.Flickr.Models
 
         public class PrimaryPhotoExtras
         {
-            [JsonProperty(PropertyName = "url_s")]
+            [JsonPropertyName("url_s")]
             public string SmallUrl { get; set; }
 
-            [JsonProperty(PropertyName = "height_s")]
+            [JsonPropertyName("height_s")]
             public int? SmallHeight { get; set; }
 
-            [JsonProperty(PropertyName = "width_s")]
+            [JsonPropertyName("width_s")]
             public int? SmallWidth { get; set; }
         }
     }

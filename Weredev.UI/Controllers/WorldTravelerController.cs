@@ -37,8 +37,16 @@ namespace Weredev.UI.Controllers
             if (country == null || !country.Cities.Any())
                 return NotFound();
 
-            if (country.Cities.Count == 1)
-                return Redirect($"{countryKey}/{country.Cities[0].Key}");
+            if (country.Cities.Count() == 1)
+            {
+                return RedirectToAction(
+                    nameof(ListAlbums),
+                    new
+                    {
+                        countryKey = country.Key,
+                        cityKey = country.Cities[0].Key,
+                    });
+            }
 
             SetTitle($"world traveler | {country.Name.ToLower()}");
 
@@ -50,8 +58,21 @@ namespace Weredev.UI.Controllers
         public async Task<ActionResult> ListAlbums(string countryKey, string cityKey)
         {
             var city = await _travelService.GetCity(countryKey, cityKey);
-            if (city == null)
+
+            if (city == null || !city.Albums.Any())
                 return NotFound();
+
+            if (city.Albums.Count() == 1)
+            {
+                return RedirectToAction(
+                    nameof(ListPhotos),
+                    new
+                    {
+                        countryKey = city.CountryKey,
+                        cityKey = city.CityKey,
+                        albumKey = city.Albums[0].Key,
+                    });
+            }
 
             SetTitle($"world traveler | {city.CountryName.ToLower()} | {city.CityName.ToLower()}");
 

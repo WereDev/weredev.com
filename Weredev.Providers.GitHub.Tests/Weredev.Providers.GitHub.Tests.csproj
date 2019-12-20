@@ -1,10 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <ItemGroup>
-    <ProjectReference Include="..\Weredev.UI.Domain\Weredev.UI.Domain.csproj" />
-  </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Language>8.0</Language>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="nunit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0"/>
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
@@ -19,9 +24,8 @@
     <CodeAnalysisRuleSet>$(MSBuildProjectDirectory)\..\stylecop.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup> 
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <LangVersion>8.0</LangVersion>
-  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Weredev.Providers.GitHub\Weredev.Providers.GitHub.csproj" />
+  </ItemGroup>
 
 </Project>

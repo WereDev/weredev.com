@@ -1,9 +1,9 @@
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Weredev.Providers.Flickr.Mappers;
 using Weredev.UI.Domain.Interfaces;
@@ -20,6 +20,7 @@ namespace Weredev.Providers.Flickr
         private const string _FlickrGetList = "flickr.photosets.getList";
         private const string _FlickrGetPhotos = "flickr.photosets.getPhotos";
         private const string _FlickrGetPhotoInfo = "flickr.photos.getInfo";
+        private readonly JsonSerializerOptions _jsonSerializerOptions;
         private readonly string _apiKey;
         private readonly string _userId;
         private HttpClient _httpClient;
@@ -32,6 +33,10 @@ namespace Weredev.Providers.Flickr
             if (string.IsNullOrWhiteSpace(userId))
                 throw new ArgumentNullException(nameof(userId));
             _userId = userId;
+            _jsonSerializerOptions = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                };
             _httpClient = new HttpClient();
         }
 
@@ -102,14 +107,12 @@ namespace Weredev.Providers.Flickr
         {
             var url = CreateFlickrRequestUrl(flickrMethod, parameters);
             var request = new HttpRequestMessage(HttpMethod.Get, url);
-            using (var response = await _httpClient.SendAsync(request))
-            {
-                if (response.StatusCode != HttpStatusCode.OK)
-                    throw new HttpRequestException($"Could not get response from Flickr Request {flickrMethod}: {response.StatusCode}");
-                var responseContent = await response.Content.ReadAsStringAsync();
-                var deserialized = JsonConvert.DeserializeObject<T>(responseContent);
-                return deserialized;
-            }
+            using var response = await _httpClient.SendAsync(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+                throw new HttpRequestException($"Could not get response from Flickr Request {flickrMethod}: {response.StatusCode}");
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var deserialized = JsonSerializer.Deserialize<T>(responseContent, _jsonSerializerOptions);
+            return deserialized;
         }
 
         private string CreateFlickrRequestUrl(string flickrMethod, Dictionary<string, string> parameters)
