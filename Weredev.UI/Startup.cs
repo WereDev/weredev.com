@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Net.Http.Headers;
 using Weredev.Providers.Flickr;
+using Weredev.Providers.GitHub;
 using Weredev.UI.Domain.Interfaces;
 using Weredev.UI.Domain.Services;
 
@@ -34,8 +35,10 @@ namespace Weredev.UI
             var flickrApiKey = Configuration.GetValue<string>("Flickr.ApiKey");
             var flickrUserId = Configuration.GetValue<string>("Flickr.UserId");
             services.AddSingleton<ICacheProvider, HttpCacheProvider>();
-            services.AddScoped<ITravelService, TravelService>();
             services.AddSingleton<ITravelImageProvider>(new FlickrProvider(flickrApiKey, flickrUserId));
+            services.AddSingleton<IGitHubProvider, GitHubProvider>();
+            services.AddSingleton<ITravelService, TravelService>();
+            services.AddSingleton<ICodeRepoService, CodeRepoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
