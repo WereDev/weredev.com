@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Weredev.UI.Domain.Models.Developer;
 
 namespace Weredev.UI.Domain.Interfaces
 {
@@ -6,6 +7,6 @@ namespace Weredev.UI.Domain.Interfaces
     {
         Task<string> GetReadmeMarkdown(string repoKey);
 
-        Task GetReleaseInfo(string repoKey);
+        Task<ReleaseNotesDomainModel[]> GetReleaseInfo(string repoKey);
     }
 }

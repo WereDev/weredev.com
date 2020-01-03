@@ -1,9 +1,34 @@
 @{
     Layout = "_Layout";
 }
+@using Weredev.UI.Models.Developer
+@using Weredev.UI.Helpers
+@model DeveloperResponseBase
 
 <div class="text-center pt-4">
     <div>
+        @if(Model != null)
+        {
+            <a asp-action="Index">
+                <h2>developer</h2>
+            </a>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link @Html.SetActive(action: "ReadMe")" asp-action="ReadMe" asp-route-repokey="@(ViewContext.RouteData.Values["repokey"])" >Readme</a>
+                </li>
+                @if(Model.HasReleaseNotes)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link @Html.SetActive(action: "ReleaseNotes")" asp-action="ReleaseNotes" asp-route-repokey="@(ViewContext.RouteData.Values["repokey"])">Releases</a>
+                    </li>
+                }
+                <li class="nav-item mr-0 ml-auto">
+                    <a class="nav-link" href="https://github.com/WereDev/@(Model.RepoName)" target="_blank"
+                        ><img src="/images/developer/github.png" alt="github"
+                    /></a>
+                </li>
+            </ul>
+        }
         @RenderBody()
     </div>
 </div>

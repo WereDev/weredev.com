@@ -1,0 +1,30 @@
+@{
+    Layout = "_DeveloperLayout";
+}
+@model Weredev.UI.Models.Developer.ReleaseNotesResponse
+
+<div class="text-left mt-3" id="release-notes">
+    <h4>@(Model.RepoName)</h4>
+    @foreach(var release in Model.Releases)
+    {
+        <div class="mt-3 clear">
+            <a href="@(release.Url)">
+                <h5>@release.Name<span class="float-right">@(release.PublishedAt.ToString("dd MMMM yyyy"))</span></h5>
+            </a>
+            @(Html.Raw(release.Body))
+            <div class="ml-5">
+                @foreach (var asset in release.Assets)
+                {
+                    <div class="float-left mr-3">
+                        <a href="@(asset.DownloadUrl)" class="btn btn-secondary">
+                            @(asset.Name)
+                            <br />
+                            @(asset.DownloadCount) Downloads
+                        </a>
+                    </div>
+                }
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    }
+</div>

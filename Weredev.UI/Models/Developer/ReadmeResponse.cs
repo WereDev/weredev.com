@@ -1,8 +1,7 @@
 namespace Weredev.UI.Models.Developer
 {
-    public class GetReadmeResponse
+    public class ReadmeResponse : DeveloperResponseBase
     {
-        public string RepoName { get; set; }
         public string HtmlContent { get; set; }
     }
 }

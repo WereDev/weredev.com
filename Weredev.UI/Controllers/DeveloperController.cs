@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Weredev.UI.Domain.Interfaces;
 using Weredev.UI.Models.Developer;
 using MarkdownSharp;
+using System.Linq;
+using AutoMapper;
 
 namespace Weredev.UI.Controllers
 {
@@ -11,11 +13,17 @@ namespace Weredev.UI.Controllers
     {
         private readonly ICodeRepoService _codeRepoService;
         private readonly Markdown _markdown;
+        private readonly Mapper _mapper;
 
         public DeveloperController(ICodeRepoService codeRepoService)
         {
             _codeRepoService = codeRepoService ?? throw new ArgumentNullException(nameof(codeRepoService));
             _markdown = new Markdown();
+            var mapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<DeveloperMapperProfile>();
+            });
+            _mapper = new Mapper(mapperConfig);
         }
 
         [HttpGet]
@@ -26,27 +34,42 @@ namespace Weredev.UI.Controllers
         }
 
         [HttpGet("[controller]/{repoKey}")]
-        public async Task<IActionResult> GetReadme(string repoKey)
+        public async Task<IActionResult> Readme(string repoKey)
         {
             SetTitle($"developer | {repoKey}");
 
             var markdown = await _codeRepoService.GetReadmeMarkdown(repoKey);
 
-            var response = new GetReadmeResponse
-            {
-                HtmlContent = TransformMarkdown(markdown),
-                RepoName = GetRepoName(repoKey),
-            };
+            if (string.IsNullOrWhiteSpace(markdown))
+                return NotFound();
+
+            var response = await CreateResponse<ReadmeResponse>(repoKey);
+            response.HtmlContent = TransformMarkdown(markdown);
+
             return View(response);
         }
 
-        private string GetRepoName(string repoKey)
+        [HttpGet("[controller]/{repoKey}/releases")]
+        public async Task<IActionResult> ReleaseNotes(string repoKey)
         {
-            return repoKey.ToLower() switch
+            SetTitle($"developer | {repoKey} | releases");
+
+            if (string.IsNullOrWhiteSpace(repoKey))
+                return NotFound();
+
+            var response = await CreateResponse<ReleaseNotesResponse>(repoKey);
+
+            if (!response.HasReleaseNotes)
+                return NotFound();
+
+            var notes = await _codeRepoService.GetReleaseHistory(repoKey);
+            response.Releases = notes.Select(x => _mapper.Map<ReleaseNotesResponse.Release>(x)).ToArray();
+            foreach (var release in response.Releases)
             {
-                "wu10man" => "Wu10Man",
-                _ => repoKey?.ToLower(),
-            };
+                release.Body = TransformMarkdown(release.Body);
+            }
+            
+            return View(response);
         }
 
         private string TransformMarkdown(string markdown)
@@ -59,6 +82,15 @@ namespace Weredev.UI.Controllers
             html = html.Replace("<h2", "<h5");
             html = html.Replace("<h3", "<h6");
             return html;
+        }
+
+        private async Task<T> CreateResponse<T>(string repoKey)
+            where T : DeveloperResponseBase
+        {
+            var instance = Activator.CreateInstance<T>();
+            instance.RepoName = repoKey;
+            instance.HasReleaseNotes = (await _codeRepoService.GetReleaseHistory(repoKey))?.Any() == true;
+            return instance;
         }
     }
 }
