@@ -12,16 +12,14 @@
                 <h5>@release.Name<span class="float-right">@(release.PublishedAt.ToString("dd MMMM yyyy"))</span></h5>
             </a>
             @(Html.Raw(release.Body))
-            <div class="ml-5">
+            <div style="margin-top: -16px;">
                 @foreach (var asset in release.Assets)
                 {
-                    <div class="float-left mr-3">
-                        <a href="@(asset.DownloadUrl)" class="btn btn-secondary">
-                            @(asset.Name)
-                            <br />
-                            @(asset.DownloadCount) Downloads
-                        </a>
-                    </div>
+                    <a href="@(asset.DownloadUrl)" class="btn btn-secondary">
+                        @(asset.Name)
+                        <br />
+                        @(asset.DownloadCount) Downloads
+                    </a>
                 }
                 <div class="clearfix"></div>
             </div>
