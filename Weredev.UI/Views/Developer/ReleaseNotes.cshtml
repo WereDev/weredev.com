@@ -5,23 +5,50 @@
 
 <div class="text-left mt-3" id="release-notes">
     <h4>@(Model.RepoName)</h4>
+    <div class="row text-primary mb-2 d-none d-lg-flex">
+        <div class="col-3">Version</div>
+        <div class="col-3">Release Date</div>
+        <div class="col-3">Installer</div>
+        <div class="col-3">Portable</div>
+    </div>
     @foreach(var release in Model.Releases)
     {
-        <div class="mt-3 clear">
-            <a href="@(release.Url)">
-                <h5>@release.Name<span class="float-right">@(release.PublishedAt.ToString("dd MMMM yyyy"))</span></h5>
-            </a>
-            @(Html.Raw(release.Body))
-            <div style="margin-top: -16px;">
-                @foreach (var asset in release.Assets)
+        var exe = release.Assets?.FirstOrDefault(x => x.DownloadUrl.EndsWith(".exe") || x.DownloadUrl.EndsWith(".msi"));
+        var zip = release.Assets?.FirstOrDefault(x => x.DownloadUrl.EndsWith(".zip"));
+
+        <div class="row mb-1g-1 mb-md-3">
+            <div class="col-lg-3 col-12">@(Model.RepoName) @(release.Name)</div>
+            <div class="col-lg-3 col-12">@(release.PublishedAt.ToString("dd MMMM yyyy"))</div>
+            <div class="col-lg-3 col-12">
+                @if(exe != null)
                 {
-                    <a href="@(asset.DownloadUrl)" class="btn btn-secondary">
-                        @(asset.Name)
-                        <br />
-                        @(asset.DownloadCount) Downloads
+                    <a href="@(exe.DownloadUrl)">
+                        @(exe.Name)
                     </a>
                 }
-                <div class="clearfix"></div>
+            </div>
+            <div class="col-lg-3 col-12">
+                @if(zip != null)
+                {
+                    <a href="@(zip.DownloadUrl)">
+                        @(zip.Name)
+                    </a>
+                }
+            </div>
+            <div class="col-lg-6 col-12 mt-2">
+                @Html.Raw(release.Body)
+            </div>
+            <div class="col-3 d-none d-lg-flex">
+                @if(exe != null)
+                {
+                    <text>@(exe.DownloadCount) Downloads</text>
+                }
+            </div>
+            <div class="col-3 d-none d-lg-flex">
+                @if(zip != null)
+                {
+                    <text>@(zip.DownloadCount) Downloads</text>
+                }
             </div>
         </div>
     }
