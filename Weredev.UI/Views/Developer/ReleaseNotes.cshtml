@@ -5,11 +5,11 @@
 
 <div class="text-left mt-3" id="release-notes">
     <h4>@(Model.RepoName)</h4>
-    <div class="row text-primary mb-2 d-none d-lg-flex">
-        <div class="col-3">Version</div>
-        <div class="col-3">Release Date</div>
-        <div class="col-3">Installer</div>
-        <div class="col-3">Portable</div>
+    <div class="row mt-4 mb-2 d-none d-lg-flex">
+        <div class="col-3"><h6>Version</h6></div>
+        <div class="col-3"><h6>Release Date</h6></div>
+        <div class="col-3"><h6>Installer</h6></div>
+        <div class="col-3"><h6>Portable</h6></div>
     </div>
     @foreach(var release in Model.Releases)
     {

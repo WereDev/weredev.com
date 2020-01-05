@@ -14,12 +14,12 @@
             </a>
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link @Html.SetActive(action: "ReadMe")" asp-action="ReadMe" asp-route-repokey="@(ViewContext.RouteData.Values["repokey"])" >Readme</a>
+                    <a class="nav-link text-primary @Html.SetActive(action: "ReadMe")" asp-action="ReadMe" asp-route-repokey="@(ViewContext.RouteData.Values["repokey"])" >Readme</a>
                 </li>
                 @if(Model.HasReleaseNotes)
                 {
                     <li class="nav-item">
-                        <a class="nav-link @Html.SetActive(action: "ReleaseNotes")" asp-action="ReleaseNotes" asp-route-repokey="@(ViewContext.RouteData.Values["repokey"])">Releases</a>
+                        <a class="nav-link text-primary @Html.SetActive(action: "ReleaseNotes")" asp-action="ReleaseNotes" asp-route-repokey="@(ViewContext.RouteData.Values["repokey"])">Releases</a>
                     </li>
                 }
                 <li class="nav-item mr-0 ml-auto">
