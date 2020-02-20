@@ -27,8 +27,7 @@ jobs:
       with:
         hosts: '${{ secrets.HOSTWINDS_USER }}@${{ secrets.HOSTWINDS_SERVER}}'
         privateKey: ${{ secrets.HOSTWINDS_PRIVATE_KEY }}
-        command: |
-          rm /var/www/weredev.gz.tar
+        command: rm /var/www/weredev.gz.tar -f
     - name: copy file via ssh key
       uses: appleboy/scp-action@master
       env:
