@@ -20,8 +20,7 @@ jobs:
     - run: dotnet restore ./Weredev.UI
     - run: dotnet build ./Weredev.UI
     - run: dotnet publish ./Weredev.UI --configuration Release --output ./publish
-    - run: cd ./publish
-    - run: tar -cvf weredev.gz.tar *
+    - run: cd ./publish && tar -cvf weredev.gz.tar *
     - name: Execute SSH commmands on remote server
       uses: JimCronqvist/action-ssh@master
       with:
