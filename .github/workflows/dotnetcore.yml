@@ -16,12 +16,27 @@ jobs:
       with:
         # SDK version to use. Example: 2.2.104
         dotnet-version: 3.1.101
+    - run: DOTNET_CLI_TELEMETRY_OPTOUT=true
     - run: dotnet restore ./Weredev.UI
     - run: dotnet build ./Weredev.UI
     - run: dotnet publish ./Weredev.UI --configuration Release --output ./publish
+    - run: cd ./publish
+    - run: tar -cvf weredev.gz.tar *
     - name: Execute SSH commmands on remote server
       uses: JimCronqvist/action-ssh@master
       with:
         hosts: '${{ secrets.HOSTWINDS_USER }}@${{ secrets.HOSTWINDS_SERVER}}'
         privateKey: ${{ secrets.HOSTWINDS_PRIVATE_KEY }}
-        command: ls -lah
+        command: |
+          rm /var/www/weredev.gz.tar
+    - name: copy file via ssh key
+      uses: appleboy/scp-action@master
+      env:
+        HOST: ${{ secrets.HOSTWINDS_SERVER }}
+        USERNAME: ${{ secrets.HOSTWINDS_USER }}
+        PORT: 22
+        KEY: ${{ secrets.HOSTWINDS_PRIVATE_KEY }}
+      with:
+        source: "./publish/weredev.gz.tar"
+        target: "/var/www/"
+    
