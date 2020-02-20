@@ -37,15 +37,17 @@ jobs:
       with:
         source: "./weredev.gz.tar"
         target: "/var/www/"
-    - name: Execute SSH commmands on remote server
-      uses: JimCronqvist/action-ssh@master
+    - name: multiple command
+      uses: appleboy/ssh-action@master
       with:
-        hosts: '${{ secrets.HOSTWINDS_USER }}@${{ secrets.HOSTWINDS_SERVER}}'
-        privateKey: ${{ secrets.HOSTWINDS_PRIVATE_KEY }}
-        command: 
+        host: ${{ secrets.HOSTWINDS_SERVER }}
+        username: ${{ secrets.HOSTWINDS_USER }}
+        key: ${{ secrets.HOSTWINDS_PRIVATE_KEY }}
+        port: '22'
+        script: |
           rm /var/www/weredev.com.new -rf
           mkdir /var/www/weredev.com.new
           tar -xvf /var/www/weredev.gz.tar -C /var/www/weredev.com.new
-          [[ -d /var/www/weredev.com ]] && mv /var/www/weredev.com /var/www/weredev.com.$(date +"%Y%m%d.%H%M%S")
+          [[ -d /var/www/weredev.com ]] && mv /var/www/weredev.com /var/www/weredev.com.$(date +"%Y%m%d.%H%M%S") 
           mv /var/www/weredev.com.new /var/www/weredev.com
     
