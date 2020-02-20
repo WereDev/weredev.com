@@ -8,18 +8,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Remote SSH Commands
-      uses: fifsky/ssh-action@v0.0.4
+    - name: Execute SSH commmands on remote server
+      uses: JimCronqvist/action-ssh@master
       with:
-        # Command to execute on the remote server.
-        command: ls -a
-        # Hostname or IP address of the server.
-        host: ${{ secrets.HOSTWINDS_SERVER }}
-        # Username for authentication.
-        user: ${{ secrets.HOSTWINDS_USER }}
-        # Port number of the server.
-        port: 22
-        # File Location or string that contains a private key for either key-based or hostbased user authentication (OpenSSH format)
-        key: ${{ secrets.HOSTWINDS_PRIVATE_KEY }} 
-        # SSH parameters for example: -tt.
-        # args: # optional
+        hosts: '${{ secrets.HOSTWINDS_USER }}@${{ secrets.HOSTWINDS_SERVER}}'
+        privateKey: ${{ secrets.HOSTWINDS_PRIVATE_KEY }}
+        command: ls -lah
