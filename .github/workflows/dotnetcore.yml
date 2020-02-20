@@ -20,7 +20,7 @@ jobs:
     - run: dotnet restore ./Weredev.UI
     - run: dotnet build ./Weredev.UI
     - run: dotnet publish ./Weredev.UI --configuration Release --output ./publish
-    - run: cd ./publish && tar -cvf weredev.gz.tar *
+    - run: cd ./publish && tar -czvf ../weredev.gz.tar *
     - name: Execute SSH commmands on remote server
       uses: JimCronqvist/action-ssh@master
       with:
@@ -35,6 +35,6 @@ jobs:
         PORT: 22
         KEY: ${{ secrets.HOSTWINDS_PRIVATE_KEY }}
       with:
-        source: "./publish/weredev.gz.tar"
+        source: "./weredev.gz.tar"
         target: "/var/www/"
     
