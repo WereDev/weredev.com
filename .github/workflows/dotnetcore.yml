@@ -16,7 +16,9 @@ jobs:
       with:
         # SDK version to use. Example: 2.2.104
         dotnet-version: 3.1.101
-    - run: DOTNET_CLI_TELEMETRY_OPTOUT=true
+    - run: |
+        sed -i 's/{{Flickr.ApiKey}}/${{ secrets.FLICKR_API_KEY }}/g' ./Weredev.UI/appsettings.json
+        sed -i 's/{{Flickr.UserId}}/${{ secrets.FLICKR_USER_ID }}/g' ./Weredev.UI/appsettings.json
     - run: dotnet restore ./Weredev.UI
     - run: dotnet build ./Weredev.UI
     - run: dotnet publish ./Weredev.UI --configuration Release --output ./publish
@@ -43,4 +45,3 @@ jobs:
           tar -xvf /var/www/weredev.gz.tar -C /var/www/weredev.com.new
           [[ -d /var/www/weredev.com ]] && mv /var/www/weredev.com /var/www/weredev.com.$(date +"%Y%m%d.%H%M%S") 
           mv /var/www/weredev.com.new /var/www/weredev.com
-    
