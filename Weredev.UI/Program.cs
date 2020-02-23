@@ -17,13 +17,16 @@ namespace Weredev.UI
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
                     config.SetBasePath(Directory.GetCurrentDirectory());
-                    config.AddJsonFile(Path.Combine(Directory.GetCurrentDirectory(), "../weredev.com.config"), optional: false, reloadOnChange: true);
+
+                    if (hostingContext.HostingEnvironment.EnvironmentName == "Development")
+                        config.AddUserSecrets<Startup>();
                 })
                 .UseKestrel(serverOptions =>
                 {
                     // Set properties and call methods on options
                 })
-                .UseIISIntegration()
+
+                // .UseIISIntegration()
                 .UseStartup<Startup>();
     }
 }

@@ -10,15 +10,36 @@ steps:
     version: '3.1.100'
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
+- task: CmdLine@2
+  inputs:
+    script: |
+      sed -i 's/{{Flickr.ApiKey}}/$(FLICKR_API_KEY)/g' Weredev.UI/appsettings.json
+      sed -i 's/{{Flickr.UserId}}/$(FLICKR_USER_ID)/g' Weredev.UI/appsettings.json
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
 - script: dotnet restore Weredev.UI/Weredev.UI.csproj
   displayName: "Restore .Net dependencies"
 
 - script: dotnet build Weredev.UI/Weredev.UI.csproj
   displayName: "Build"
 
-- script: dotnet publish --output $(Build.ArtifactStagingDirectory) Weredev.UI/Weredev.UI.csproj
+- script: dotnet publish Weredev.UI/Weredev.UI.csproj --output $(Build.ArtifactStagingDirectory) --configuration Release
   displayName: "Publish"
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
-- task: PublishBuildArtifacts@1
+- task: CopyFilesOverSSH@0
+  inputs:
+    sshEndpoint: 'Hostwinds SSH'
+    sourceFolder: '$(Build.ArtifactStagingDirectory)'
+    contents: '**'
+    targetFolder: '/var/www/weredev.com.new'
+    cleanTargetFolder: true
+    failOnEmptySource: true
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'Hostwinds SSH'
+    runOptions: 'commands'
+    commands: 'cd /var/cicd && ./update-site.sh weredev.com'
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
