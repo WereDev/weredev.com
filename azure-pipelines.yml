@@ -42,3 +42,4 @@ steps:
     sshEndpoint: 'Hostwinds SSH'
     runOptions: 'commands'
     commands: 'cd /var/cicd && ./update-site.sh weredev.com'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
