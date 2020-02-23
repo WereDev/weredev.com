@@ -32,9 +32,8 @@ namespace Weredev.UI
                 options.LowercaseUrls = true;
             });
 
-            var flickrApiKey = Configuration.GetValue<string>("Flickr.ApiKey");
-            var flickrUserId = Configuration.GetValue<string>("Flickr.UserId");
             services.AddSingleton<ICacheProvider, HttpCacheProvider>();
+            var (flickrApiKey, flickrUserId) = GetFlickrConfig();
             services.AddSingleton<ITravelImageProvider>(new FlickrProvider(flickrApiKey, flickrUserId));
             services.AddSingleton<IGitHubProvider, GitHubProvider>();
             services.AddSingleton<ITravelService, TravelService>();
@@ -54,8 +53,6 @@ namespace Weredev.UI
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-
             app.UseStaticFiles(new StaticFileOptions
             {
                 OnPrepareResponse = ctx =>
@@ -71,6 +68,14 @@ namespace Weredev.UI
             {
                 endpoints.MapDefaultControllerRoute();
             });
+        }
+
+        private (string, string) GetFlickrConfig()
+        {
+            var flickrSection = Configuration.GetSection("Flickr");
+            var flickrApiKey = flickrSection.GetValue<string>("ApiKey");
+            var flickrUserId = flickrSection.GetValue<string>("UserId");
+            return (flickrApiKey, flickrUserId);
         }
     }
 }
