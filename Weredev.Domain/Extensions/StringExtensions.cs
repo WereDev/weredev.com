@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Weredev.UI.Domain.Extensions
+namespace Weredev.Domain.Extensions
 {
     public static class StringExtensions
     {

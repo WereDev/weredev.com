@@ -1,4 +1,4 @@
-namespace Weredev.UI.Domain.Models.TravelImageProvider
+namespace Weredev.Domain.Models.TravelImageProvider
 {
     public class PhotosetProviderModel
     {

@@ -7,8 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Net.Http.Headers;
 using Weredev.Providers.Flickr;
 using Weredev.Providers.GitHub;
-using Weredev.UI.Domain.Interfaces;
-using Weredev.UI.Domain.Services;
+using Weredev.Domain.Interfaces;
+using Weredev.Domain.Services;
 
 namespace Weredev.UI
 {

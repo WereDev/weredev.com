@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using Weredev.UI.Domain.Models.Traveler;
+using Weredev.Domain.Models.Traveler;
 
 namespace Weredev.UI.Models.WorldTraveler
 {

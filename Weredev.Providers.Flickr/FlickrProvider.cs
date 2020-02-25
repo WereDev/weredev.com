@@ -6,8 +6,8 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Weredev.Providers.Flickr.Mappers;
-using Weredev.UI.Domain.Interfaces;
-using Weredev.UI.Domain.Models.TravelImageProvider;
+using Weredev.Domain.Interfaces;
+using Weredev.Domain.Models.TravelImageProvider;
 
 namespace Weredev.Providers.Flickr
 {

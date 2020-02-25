@@ -6,8 +6,8 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
-using Weredev.UI.Domain.Interfaces;
-using Weredev.UI.Domain.Models.Developer;
+using Weredev.Domain.Interfaces;
+using Weredev.Domain.Models.Developer;
 
 namespace Weredev.Providers.GitHub
 {

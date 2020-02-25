@@ -1,6 +1,6 @@
 using System;
 
-namespace Weredev.UI.Domain.Models.Developer
+namespace Weredev.Domain.Models.Developer
 {
     public class ReleaseNotesDomainModel
     {

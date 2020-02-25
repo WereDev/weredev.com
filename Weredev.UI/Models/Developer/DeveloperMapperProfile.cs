@@ -1,5 +1,5 @@
 using AutoMapper;
-using Weredev.UI.Domain.Models.Developer;
+using Weredev.Domain.Models.Developer;
 
 namespace Weredev.UI.Models.Developer
 {

@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Weredev.UI.Domain.Models.Traveler;
-using Weredev.UI.Domain.Models.TravelImageProvider;
+using Weredev.Domain.Models.Traveler;
+using Weredev.Domain.Models.TravelImageProvider;
 
-namespace Weredev.UI.Domain.Mappers
+namespace Weredev.Domain.Mappers
 {
     public static class TravelServiceMapper
     {

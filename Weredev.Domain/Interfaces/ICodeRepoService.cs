@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using Weredev.UI.Domain.Models.Developer;
+using Weredev.Domain.Models.Developer;
 
-namespace Weredev.UI.Domain.Interfaces
+namespace Weredev.Domain.Interfaces
 {
     public interface ICodeRepoService
     {

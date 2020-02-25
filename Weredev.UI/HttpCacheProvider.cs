@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Caching.Memory;
 using System;
-using Weredev.UI.Domain.Interfaces;
+using Weredev.Domain.Interfaces;
 
 namespace Weredev.UI
 {

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\Weredev.UI.Domain\Weredev.UI.Domain.csproj" />
+    <ProjectReference Include="..\Weredev.Domain\Weredev.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

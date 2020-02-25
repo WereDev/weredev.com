@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using Weredev.UI.Domain.Models.TravelImageProvider;
+using Weredev.Domain.Models.TravelImageProvider;
 
-namespace Weredev.UI.Domain.Interfaces
+namespace Weredev.Domain.Interfaces
 {
     public interface ITravelImageProvider
     {

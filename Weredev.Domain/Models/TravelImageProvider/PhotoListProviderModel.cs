@@ -1,29 +1,27 @@
 using System;
 
-namespace Weredev.UI.Domain.Models.Traveler
+namespace Weredev.Domain.Models.TravelImageProvider
 {
-    public class AlbumDomainModel
+    public class PhotoListProviderModel
     {
-        public string Description { get; set; }
+        public string Id { get; set; }
 
-        public string IconUrl { get; set; }
+        public string Primary { get; set; }
 
-        public string CountryKey { get; set; }
+        public int Page { get; set; }
 
-        public string CountryName { get; set; }
+        public int PerPage { get; set; }
 
-        public string CityKey { get; set; }
+        public int Pages { get; set; }
 
-        public string CityName { get; set; }
-
-        public string AlbumKey { get; set; }
-
-        public string AlbumName { get; set; }
+        public int Total { get; set; }
 
         public Photo[] Photos { get; set; }
 
         public class Photo
         {
+            public string Id { get; set; }
+
             public string Name { get; set; }
 
             public string[] Tags { get; set; }
@@ -34,9 +32,9 @@ namespace Weredev.UI.Domain.Models.Traveler
 
             public DateTime? DateTaken { get; set; }
 
-            public int Rotation { get; set; }
+            public string Title { get; set; }
 
-            public string Description { get; set; }
+            public int Rotation { get; set; }
 
             public class PhotoScale
             {

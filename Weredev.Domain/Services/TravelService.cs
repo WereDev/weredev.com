@@ -1,12 +1,12 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Weredev.UI.Domain.Interfaces;
-using Weredev.UI.Domain.Mappers;
-using Weredev.UI.Domain.Models.Traveler;
-using Weredev.UI.Domain.Models.TravelImageProvider;
+using Weredev.Domain.Interfaces;
+using Weredev.Domain.Mappers;
+using Weredev.Domain.Models.Traveler;
+using Weredev.Domain.Models.TravelImageProvider;
 
-namespace Weredev.UI.Domain.Services
+namespace Weredev.Domain.Services
 {
     public class TravelService : ITravelService
     {

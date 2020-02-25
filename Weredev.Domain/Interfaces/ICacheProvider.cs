@@ -1,8 +1,6 @@
 using System;
-using System.Threading.Tasks;
-using Weredev.UI.Domain.Models.Traveler;
 
-namespace Weredev.UI.Domain.Interfaces
+namespace Weredev.Domain.Interfaces
 {
     public interface ICacheProvider
     {

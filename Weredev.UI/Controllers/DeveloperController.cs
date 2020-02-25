@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Weredev.UI.Domain.Interfaces;
+using Weredev.Domain.Interfaces;
 using Weredev.UI.Models.Developer;
 using MarkdownSharp;
 using System.Linq;

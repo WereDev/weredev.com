@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Weredev.Providers.Flickr\Weredev.Providers.Flickr.csproj" />
+    <ProjectReference Include="..\Weredev.Domain\Weredev.Domain.csproj" />
   </ItemGroup>
 
   <Target Name="CopyAppConfig" BeforeTargets="Build">

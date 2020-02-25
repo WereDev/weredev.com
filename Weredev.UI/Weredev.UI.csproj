@@ -30,7 +30,7 @@
     <None Include="$(ScssRoot)**" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Weredev.UI.Domain\Weredev.UI.Domain.csproj" />
+    <ProjectReference Include="..\Weredev.Domain\Weredev.Domain.csproj" />
     <ProjectReference Include="..\Weredev.Providers.Flickr\Weredev.Providers.Flickr.csproj" />
     <ProjectReference Include="..\Weredev.Providers.GitHub\Weredev.Providers.GitHub.csproj" />
   </ItemGroup>

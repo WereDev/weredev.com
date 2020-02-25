@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Weredev.UI.Domain.Models.Traveler
+namespace Weredev.Domain.Models.Traveler
 {
     public class CityDomainModel
     {

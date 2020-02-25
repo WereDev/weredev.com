@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Weredev.UI.Domain.Interfaces;
+using Weredev.Domain.Interfaces;
 using Weredev.UI.Models.WorldTraveler;
 
 namespace Weredev.UI.Controllers

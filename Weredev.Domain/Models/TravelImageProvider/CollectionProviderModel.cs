@@ -1,6 +1,6 @@
-using Weredev.UI.Domain.Extensions;
+using Weredev.Domain.Extensions;
 
-namespace Weredev.UI.Domain.Models.TravelImageProvider
+namespace Weredev.Domain.Models.TravelImageProvider
 {
     public class CollectionProviderModel
     {

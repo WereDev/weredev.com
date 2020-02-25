@@ -1,6 +1,6 @@
 using System.Linq;
 using Weredev.Providers.Flickr.Models;
-using Weredev.UI.Domain.Models.TravelImageProvider;
+using Weredev.Domain.Models.TravelImageProvider;
 
 namespace Weredev.Providers.Flickr.Mappers
 {

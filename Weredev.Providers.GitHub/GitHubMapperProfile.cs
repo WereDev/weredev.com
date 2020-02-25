@@ -1,6 +1,6 @@
 using AutoMapper;
 using Weredev.Providers.GitHub.Models;
-using Weredev.UI.Domain.Models.Developer;
+using Weredev.Domain.Models.Developer;
 
 namespace Weredev.Providers.GitHub
 {
