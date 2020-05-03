@@ -1,9 +1,13 @@
+@using Weredev.UI.Controllers
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>weredev | @ViewData["Title"]</title>
+    <meta name="description" content="@ViewData[BaseController.MetaDescription]" />
+    <meta name="keywords" content="@ViewData[BaseController.MetaKeywords], weredev, geek, developer, world traveler" />
+    <title>weredev | @ViewData[BaseController.MetaTitle]</title>
     <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/lumen/bootstrap.min.css" rel="stylesheet" integrity="sha384-715VMUUaOfZR3/rWXZJ9agJ/udwSXGEigabzUbJm2NR4/v5wpDy8c14yedZN6NL7" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/site.css" asp-append-version="true">
     @RenderSection("stylesheets", required: false)
@@ -13,7 +17,7 @@
     <div>
         <header class="app-header text-center">
             <div class="header-image">
-                <img src="/images/header.jpg" style="width: 100%" />
+                <img src="/images/header.jpg" style="width: 100%" alt="header" />
             </div>
             <h1 class="app-title">
                 <a href="/">weredev</a> 

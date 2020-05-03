@@ -15,7 +15,7 @@
             @{
                 var imageUrl = "/images/countries/" + country.CountryKey.ToLower() + ".png";
             }
-            <a asp-action="@nameof(WorldTravelerController.ListCities)" asp-route-countrykey="@country.CountryKey"><img src='@imageUrl' class='border border-dark' /></a>
+            <a asp-action="@nameof(WorldTravelerController.ListCities)" asp-route-countrykey="@country.CountryKey"><img src='@imageUrl' class='border border-dark' alt="@(country.CountryName)" /></a>
             <h3 class='mt-1'>
                 <a asp-action="@nameof(WorldTravelerController.ListCities)" asp-route-countrykey="@country.CountryKey">@(country.CountryName)</a>
             </h3>

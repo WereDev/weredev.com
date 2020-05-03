@@ -35,6 +35,13 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+.nav-item a {
+  height: 39px;
+  &:hover {
+    height: 44px;
+  }
+}
+
 .album-grid {
   & .album-item {
     float: left;

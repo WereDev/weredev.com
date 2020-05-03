@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Weredev.Domain.Interfaces;
@@ -24,6 +25,8 @@ namespace Weredev.UI.Controllers
                 return NotFound();
 
             SetTitle("world traveler");
+            SetKeywords();
+            SetDescription("I love to travel the world and take a few pictures along the way.");
 
             var countriesResponse = new ListCountriesResponse(countries);
             return View(countriesResponse);
@@ -49,6 +52,8 @@ namespace Weredev.UI.Controllers
             }
 
             SetTitle($"world traveler | {country.Name.ToLower()}");
+            SetKeywords(country.Name);
+            SetDescription($"Pictures of my time in {country.Name}.");
 
             var citiesResponse = new ListCitiesResponse(country);
             return View(citiesResponse);
@@ -75,6 +80,8 @@ namespace Weredev.UI.Controllers
             }
 
             SetTitle($"world traveler | {city.CountryName.ToLower()} | {city.CityName.ToLower()}");
+            SetKeywords(city.CountryName, city.CityName);
+            SetDescription($"Pictures of my time in {city.CityName}, {city.CountryName}. {city.Description}");
 
             var response = new ListAlbumsResponse(city);
 
@@ -89,9 +96,30 @@ namespace Weredev.UI.Controllers
                 return NotFound();
 
             SetTitle($"world traveler | {album.CountryName.ToLower()} | {album.CityName.ToLower()} | {album.AlbumName.ToLower()}");
+            SetKeywords(album.AlbumName, album.CityName, album.CountryName);
+            SetDescription($"Pictures of {album.AlbumName} in {album.CityName}, {album.CountryName}.  {album.Description}");
 
             var response = new ListPhotosResponse(album);
             return View(response);
+        }
+
+        protected override void SetKeywords(params string[] otherKeywords)
+        {
+            var keywords = new List<string>();
+
+            if (otherKeywords?.Length > 0)
+                keywords.AddRange(otherKeywords);
+
+            keywords.AddRange(new string[]
+            {
+                "world traveler",
+                "travel",
+                "photos",
+                "photography",
+                "Flickr",
+            });
+            
+            base.SetKeywords(keywords.ToArray());
         }
     }
 }

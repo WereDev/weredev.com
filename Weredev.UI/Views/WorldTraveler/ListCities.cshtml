@@ -13,7 +13,7 @@
         <div class="col-lg-6 col-sm-12 mt-3 list-row">
             <div class="col-lg-4 col-sm-12 list-cell-image">
                 <a asp-action="@nameof(WorldTravelerController.ListAlbums)" asp-route-countrykey="@Model.CountryKey"
-                    asp-route-citykey="@city.CityKey"><img src='@(city.IconUrl)' class='border border-dark' /></a>
+                    asp-route-citykey="@city.CityKey"><img src='@(city.IconUrl)' class='border border-dark' alt="@(city.CityName)" /></a>
             </div>
             <div class="col-lg-8 col-sm-12 list-cell-name">
                 <h4 class='mt-1'><a asp-action="@nameof(WorldTravelerController.ListAlbums)" asp-route-countrykey="@Model.CountryKey"

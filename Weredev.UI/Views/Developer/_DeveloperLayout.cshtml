@@ -12,6 +12,10 @@
             <a asp-action="Index">
                 <h2>developer</h2>
             </a>
+            @if(!string.IsNullOrEmpty(Model.RepoName))
+            {
+                <h3>@(Model.RepoName.ToLower())</h3>
+            }
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link text-primary @Html.SetActive(action: "ReadMe")" asp-action="ReadMe" asp-route-repokey="@(ViewContext.RouteData.Values["repokey"])" >Readme</a>
@@ -27,6 +31,22 @@
                         ><img src="/images/developer/github.png" alt="github"
                     /></a>
                 </li>
+                @if(Model.ShowBuyMeACoffee)
+                {
+                    <li class="nav-item mr-0 ml-0">
+                        @* BEGIN - Buy me a coffee *@
+                        <style>
+                            .bmc-button img{ height: 20px !important;width: 14px !important; }
+                            .bmc-button{ text-decoration: none !important;
+                                font-size: 16px !important;letter-spacing: 0.6px !important;
+                                font-family:'Cookie', cursive !important; }
+                        </style><link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"
+                        ><a class="bmc-button nav-link" target="_blank" href="https://www.buymeacoffee.com/weredev"
+                            ><img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy me a coffee?"
+                            ><span style="margin-left:10px;">Buy me a coffee?</span></a>
+                        @* END - Buy me a coffee *@
+                    </li>
+                }
             </ul>
         }
         @RenderBody()
