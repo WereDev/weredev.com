@@ -15,6 +15,7 @@ steps:
     script: |
       sed -i 's/{{Flickr.ApiKey}}/$(FLICKR_API_KEY)/g' Weredev.UI/appsettings.json
       sed -i 's/{{Flickr.UserId}}/$(FLICKR_USER_ID)/g' Weredev.UI/appsettings.json
+      sed -i 's,{{Sumologic.Url}},$(SUMOLOGIC_URL),g' Weredev.UI/appsettings.json
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
 - script: dotnet restore Weredev.UI/Weredev.UI.csproj
