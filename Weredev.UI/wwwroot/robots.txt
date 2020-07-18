@@ -1,0 +1,4 @@
+User-agent: *
+host: weredev.com
+crawl-delay: 1
+Disallow: 
