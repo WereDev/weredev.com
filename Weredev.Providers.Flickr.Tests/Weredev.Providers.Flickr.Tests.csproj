@@ -33,7 +33,7 @@
     <ProjectReference Include="..\Weredev.Domain\Weredev.Domain.csproj" />
   </ItemGroup>
 
-  <Target Name="CopyAppConfig" BeforeTargets="Build">
+  <Target Name="CopyAppConfig" BeforeTargets="Build" Condition="Exists('..\weredev.com.config')">
     <Copy SourceFiles="..\weredev.com.config" DestinationFiles="$(OutDir)\weredev.com.config" />
   </Target>
 
