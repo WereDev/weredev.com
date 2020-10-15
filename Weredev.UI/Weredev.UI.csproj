@@ -11,7 +11,7 @@
     <UserSecretsId>20b2f0af-4335-4b16-b522-41419ac144aa</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.0.0" />
+    <PackageReference Include="AutoMapper" Version="10.1.0" />
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="MarkdownSharp" Version="2.0.5" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
