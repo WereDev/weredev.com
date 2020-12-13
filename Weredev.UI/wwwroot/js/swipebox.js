@@ -24,13 +24,13 @@
 				loopAtEnd: false,
 				autoplayVideos: false,
 				queryStringData: {},
-				toggleClassOnLoad: ''
+				toggleClassOnLoad: '',
+				selector: null
 			},
 
 			plugin = this,
 			elements = [], // slides array [ { href:'...', title:'...' }, ...],
 			$elem,
-			selector = elem.selector,
 			isMobile = navigator.userAgent.match( /(iPad)|(iPhone)|(iPod)|(Android)|(PlayBook)|(BB10)|(BlackBerry)|(Opera Mini)|(IEMobile)|(webOS)|(MeeGo)/i ),
 			isTouch = isMobile !== null || document.createTouch !== undefined || ( 'ontouchstart' in window ) || ( 'onmsgesturechange' in window ) || navigator.msMaxTouchPoints,
 			supportSVG = !! document.createElementNS && !! document.createElementNS( 'http://www.w3.org/2000/svg', 'svg').createSVGRect,
@@ -76,7 +76,7 @@
 
 			} else {
 
-				$( document ).on( 'click', selector, function( event ) {
+				$( elem ).on( 'click', plugin.settings.selector, function( event ) {
 
 					// console.log( isTouch );
 
@@ -85,10 +85,12 @@
 						return false;
 					}
 
-					if ( ! $.isArray( elem ) ) {
-						ui.destroy();
-						$elem = $( selector );
-						ui.actions();
+					ui.destroy();
+
+					if ( plugin.settings.selector === null ) {
+						$elem = $( elem );
+					} else {
+						$elem = $( elem ).find( plugin.settings.selector );
 					}
 
 					elements = [];
@@ -106,9 +108,7 @@
 					}
 
 					if ( relVal && relVal !== '' && relVal !== 'nofollow' ) {
-						$elem = $( selector ).filter( '[' + relType + '="' + relVal + '"]' );
-					} else {
-						$elem = $( selector );
+						$elem = $elem.filter( '[' + relType + '="' + relVal + '"]' );
 					}
 
 					$elem.each( function() {
@@ -127,9 +127,7 @@
 
 						elements.push( {
 							href: href,
-                            title: title,
-							style: $(this).data("style"),
-							class: $(this).data("class")
+							title: title
 						} );
 					} );
 
@@ -183,13 +181,8 @@
 					$( '#swipebox-bottom-bar, #swipebox-top-bar' ).remove();
 				}
 
-				$.each( elements,  function(index, value) {
-					var divElement = $('<div class="slide"></div>');
-
-					divElement.attr( 'style', elements[index].style);
-					divElement.addClass(elements[index].class);
-
-					$( '#swipebox-slider' ).append(divElement);
+				$.each( elements,  function() {
+					$( '#swipebox-slider' ).append( '<div class="slide"></div>' );
 				} );
 
 				$this.setDim();
@@ -616,10 +609,10 @@
 					slider.animate( { left : ( -index*100 )+'%' } );
 				}
 
-                $( '#swipebox-slider .slide' ).removeClass( 'current' );
+				$( '#swipebox-slider .slide' ).removeClass( 'current' );
 				$( '#swipebox-slider .slide' ).eq( index ).addClass( 'current' );
-                this.setTitle( index );
-                
+				this.setTitle( index );
+
 				if ( isFirst ) {
 					slider.fadeIn();
 				}
