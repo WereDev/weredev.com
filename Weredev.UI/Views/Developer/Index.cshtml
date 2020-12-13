@@ -34,11 +34,26 @@
 </div>
 <div class="row mt-4">
     <div class="col-lg-4 col-sm-6 col-xs-12 list-cell-image right-xs-center">
+        <a asp-action="vscode-copyrawvalue">
+            <img src='/images/developer/copyrawvalue.png' class='border border-dark' alt="VSCode Copy Raw Value" />
+        </a>
+    </div>
+    <div class="col-lg-4 col-sm-6 cool-sx-12 list-cell-name left-xs-center">
+        <h4 class='mt-1'><a asp-action="vscode-copyrawvalue">Copy Raw Value</a></h4>
+        <div class="list-cell-name-description">
+            This is a little VSCode extension that I wrote to be able to copy the raw value of a string while
+            debugging.  The normal Copy Value escapes the string, which is just annoying.  This provides an
+            option to get the unescaped or raw value.
+        </div>
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-lg-4 order-lg-2 col-sm-6 order-sm-2 col-xs-12 order-xs-1 list-cell-image left-xs-center">
         <a asp-action="weredev">
             <img src='/images/developer/weredev256.png' class='border border-dark' alt="weredev.com" />
         </a>
     </div>
-    <div class="col-lg-4 col-sm-6 cool-sx-12 list-cell-name left-xs-center">
+    <div class="col-lg-4 offset-lg-4 order-lg-1 col-sm-6 order-sm-1 col-xs-12 order-xs-2 list-cell-name right-xs-center">
         <h4 class='mt-1'><a asp-action="weredev.com">weredev.com</a></h4>
         <div class="list-cell-name-description">
             You already know what this is.  You're looking at it!

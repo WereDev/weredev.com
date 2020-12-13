@@ -31,8 +31,8 @@ namespace Weredev.UI.Controllers
         public IActionResult Index()
         {
             SetTitle("developer");
-            SetKeywords("wu10man", "weredev.com");
-            SetDescription("Showcasing some of the stuff I've tinkered with.");
+            SetKeywords(new string[] { "wu10man", "weredev.com", "thornless", "copy raw value", "vscode" });
+            SetDescription("Showcasing some of the software stuff I've tinkered with writing.");
             return View();
         }
 
@@ -40,7 +40,7 @@ namespace Weredev.UI.Controllers
         public async Task<IActionResult> Readme(string repoKey)
         {
             SetTitle($"developer | {repoKey}");
-            SetKeywords(repoKey);
+            SetKeywords(repoKey, "readme");
             SetDescription(repoKey);
 
             var markdown = await _codeRepoService.GetReadmeMarkdown(repoKey);
@@ -85,7 +85,9 @@ namespace Weredev.UI.Controllers
             {
                 "wu10man" => "Windows 10 has decided that users are no longer smart enough to control their own updates, so I wrote this to grant that control back.",
                 "weredev.com" => "Information and code on the very site that you're looking at.",
-                _ => string.Empty,
+                "vscode-copyvawvalue" => "VSCode extension to copy the raw value of a string while debugging.",
+                "thornless" => "Create character names, towns, and such for use with RPGs.",
+                _ => repoKey,
             };
 
             base.SetDescription(description);
@@ -139,7 +141,28 @@ namespace Weredev.UI.Controllers
                     "automapper",
                     "markdownsharp",
                 },
-                _ => new List<string>(),
+                "thornless" => new List<string>
+                {
+                    "thornless",
+                    "d&d",
+                    "dnd",
+                    "dungeons and dragons",
+                    "pathfinder",
+                    "rpg",
+                    "role playing game",
+                    "character name",
+                    "market name",
+                    "town generator",
+                },
+                "vscode-copyrawvalue" => new List<string>
+                {
+                    "vscode",
+                    "visual studio code",
+                    "copy value",
+                    "copy raw value",
+                    "extension",
+                },
+                _ => new List<string>() { repoKey },
             };
 
             if (additionalKeywords?.Length > 0)

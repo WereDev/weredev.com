@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using Weredev.Domain.Interfaces;
@@ -53,10 +54,9 @@ namespace Weredev.Providers.GitHub
                     return null;
                 case HttpStatusCode.OK:
                     var responseModel = await ProcessResponse<Models.GetReadmeMarkdownResponse>(response);
-                    var encodedMarkup = responseModel.Content.Replace('\n', '\n');
-                    var bytes = Convert.FromBase64String(encodedMarkup);
-                    var decodedMarkup = Encoding.UTF8.GetString(bytes);
-                    return decodedMarkup;
+                    var markdown = GetMarkdown(responseModel);
+                    var inflatedMarkdown = InflateRelativeUrls(markdown, repoKey);
+                    return inflatedMarkdown;
                 default:
                     throw new HttpRequestException($"Error getting Readme.md from GitHub {repoKey}: {response.StatusCode}");
             }
@@ -94,6 +94,39 @@ namespace Weredev.Providers.GitHub
                 return null;
             var deserialized = JsonSerializer.Deserialize<T>(responseContent, _jsonSerializerOptions);
             return deserialized;
+        }
+
+        private string GetMarkdown(Models.GetReadmeMarkdownResponse responseModel)
+        {
+            var encodedMarkup = responseModel.Content.Replace('\n', '\n');
+            var bytes = Convert.FromBase64String(encodedMarkup);
+            var decodedMarkdown = Encoding.UTF8.GetString(bytes);
+            return decodedMarkdown;
+        }
+
+        private string InflateRelativeUrls(string markdown, string repoKey)
+        {
+            var inflatedMarkdown = markdown;
+
+            var regex = new Regex(@"(\[)([^[\]]*)(\]\()([^\(\)]*)(\))", RegexOptions.Multiline | RegexOptions.ECMAScript);
+            var matches = regex.Matches(markdown);
+
+            foreach (Match match in matches)
+            {
+                var url = match.Groups[4].Value;
+                if (!url.ToLower().StartsWith("http"))
+                {
+                    var expandedUrl = url;
+                    if (!expandedUrl.StartsWith("/"))
+                        expandedUrl = "/" + expandedUrl;
+                    expandedUrl = $"https://raw.githubusercontent.com/WereDev/{repoKey}/master{expandedUrl}";
+                    var matchString = match.Value;
+                    var newString = matchString.Replace(url, expandedUrl);
+                    inflatedMarkdown = inflatedMarkdown.Replace(matchString, newString);
+                }
+            }
+
+            return inflatedMarkdown;
         }
     }
 }

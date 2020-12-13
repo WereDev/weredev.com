@@ -29,5 +29,15 @@ namespace Weredev.Providers.GitHub.Tests
             Assert.NotNull(content);
             Assert.IsTrue(content.Contains('*'));
         }
+
+        [Test]
+        [Explicit]
+        public async Task GetReadmeMarkdown_WhenHasRelativeUrl_InflatesUrl()
+        {
+            var provider = new GitHubProvider();
+            var content = await provider.GetReadmeMarkdown("vscode-copyrawvalue");
+            Assert.NotNull(content);
+            Assert.IsTrue(content.Contains(@"https://raw.githubusercontent.com/WereDev/vscode-copyrawvalue/master/resources/demo.gif?raw=true"));
+        }
     }
 }
