@@ -85,7 +85,7 @@ namespace Weredev.UI.Controllers
             {
                 "wu10man" => "Windows 10 has decided that users are no longer smart enough to control their own updates, so I wrote this to grant that control back.",
                 "weredev.com" => "Information and code on the very site that you're looking at.",
-                "vscode-copyvawvalue" => "VSCode extension to copy the raw value of a string while debugging.",
+                "vscode-copyrawvalue" => "VSCode extension to copy the raw value of a string while debugging.",
                 "thornless" => "Create character names, towns, and such for use with RPGs.",
                 _ => repoKey,
             };
