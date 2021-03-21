@@ -12,6 +12,8 @@ namespace Weredev.Providers.Flickr.Models
 
             public int Rotation { get; set; }
 
+            public OwnerInfo Owner { get; set; }
+
             public ContentModel Title { get; set; }
 
             public ContentModel Description { get; set; }
@@ -20,10 +22,15 @@ namespace Weredev.Providers.Flickr.Models
 
             public TagsModel Tags { get; set; }
 
+            public UrlContent Urls { get; set; }
+
             public class ContentModel
             {
                 [JsonPropertyName("_content")]
                 public string Content { get; set; }
+
+                [JsonPropertyName("type")]
+                public string ContentType { get; set; }
             }
 
             public class DatesModel
@@ -39,6 +46,16 @@ namespace Weredev.Providers.Flickr.Models
                 {
                     public string Raw { get; set; }
                 }
+            }
+
+            public class OwnerInfo
+            {
+                public string NsId { get; set; }
+            }
+
+            public class UrlContent
+            {
+                public ContentModel[] Url { get; set; }
             }
         }
     }

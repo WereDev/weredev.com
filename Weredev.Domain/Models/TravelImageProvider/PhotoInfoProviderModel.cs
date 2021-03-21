@@ -13,5 +13,7 @@ namespace Weredev.Domain.Models.TravelImageProvider
         public DateTime DateTaken { get; set; }
 
         public string[] Tags { get; set; }
+
+        public string PhotoPageUrl { get; set; }
     }
 }

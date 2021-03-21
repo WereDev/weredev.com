@@ -120,20 +120,27 @@ namespace Weredev.Domain.Services
             if (photoset == null)
             {
                 photoset = await _travelImageProvider.ListPhotos(photosetId);
-                Parallel.ForEach(photoset.Photos, (photo) => SetPhotoDetails(ref photo));
+                var tasks = new Task[photoset.Photos.Length];
+                for (int i = 0; i < tasks.Length; i++)
+                {
+                    tasks[i] = SetPhotoDetails(photosetId, photoset.Photos[i]);
+                }
+                
+                await Task.WhenAll(tasks);
                 _cacheProvider.Set(cacheKey, photoset);
             }
 
             return photoset;
         }
 
-        private void SetPhotoDetails(ref PhotoListProviderModel.Photo photo)
+        private async Task SetPhotoDetails(string photosetId, PhotoListProviderModel.Photo photo)
         {
-            var details = _travelImageProvider.GetPhotoInfo(photo.Id, photo.Secret).Result;
+            var details = await _travelImageProvider.GetPhotoInfo(photosetId, photo.Id, photo.Secret);
             photo.DateTaken = details.DateTaken;
             photo.Rotation = details.Rotation;
             photo.Tags = details.Tags;
             photo.Title = details.Title;
+            photo.PhotoPageUrl = details.PhotoPageUrl;
         }
     }
 }

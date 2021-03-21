@@ -38,6 +38,8 @@ namespace Weredev.Domain.Models.Traveler
 
             public string Description { get; set; }
 
+            public string PhotoPageUrl { get; set; }
+
             public class PhotoScale
             {
                 public enum ScaleType

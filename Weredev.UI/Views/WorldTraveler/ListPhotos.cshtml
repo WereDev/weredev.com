@@ -23,8 +23,8 @@
         var rotationClass = "rot-" + photo.Rotatation.ToString();
 
         <div class="col col-12 col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a class="album-item swipebox" href="@(originalPhoto.Url)" title="@(photo.Description)" data-class="@(rotationClass)">
-                <img src="@(mediumPhoto.Url)" class="album-image" alt="test" style="left: -@(mediumPhoto.Width / 2)px;" alt="@(photo.Name)" />
+            <a class="album-item swipebox" href="@(originalPhoto.Url)" title="@(photo.Description)" data-class="@(rotationClass)" data-external-link="@(photo.PhotoPageUrl)">
+                <img src="@(mediumPhoto.Url)" class="album-image" style="left: -@(mediumPhoto.Width / 2)px;" alt="@(photo.Name)" />
             </a>
         </div>
     }

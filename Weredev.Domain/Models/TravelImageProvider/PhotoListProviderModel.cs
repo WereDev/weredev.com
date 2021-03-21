@@ -36,6 +36,8 @@ namespace Weredev.Domain.Models.TravelImageProvider
 
             public int Rotation { get; set; }
 
+            public string PhotoPageUrl { get; set; }
+
             public class PhotoScale
             {
                 public enum ScaleType

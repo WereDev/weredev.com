@@ -31,6 +31,7 @@
 			plugin = this,
 			elements = [], // slides array [ { href:'...', title:'...' }, ...],
 			$elem,
+			selector = elem.selector,
 			isMobile = navigator.userAgent.match( /(iPad)|(iPhone)|(iPod)|(Android)|(PlayBook)|(BB10)|(BlackBerry)|(Opera Mini)|(IEMobile)|(webOS)|(MeeGo)/i ),
 			isTouch = isMobile !== null || document.createTouch !== undefined || ( 'ontouchstart' in window ) || ( 'onmsgesturechange' in window ) || navigator.msMaxTouchPoints,
 			supportSVG = !! document.createElementNS && !! document.createElementNS( 'http://www.w3.org/2000/svg', 'svg').createSVGRect,
@@ -46,8 +47,11 @@
 						</div>\
 						<div id="swipebox-bottom-bar">\
 							<div id="swipebox-arrows">\
-								<a id="swipebox-prev"></a>\
-								<a id="swipebox-next"></a>\
+								<div><a id="swipebox-prev"></a></div>\
+								<div id="swipebox-external-link">\
+								See it on:<br />\
+								<a id="swipebox-external-link-url" target="_external" style="background-image: url(\'/images/flickr_small.png\')"></a></div>\
+								<div><a id="swipebox-next"></a></div>\
 							</div>\
 						</div>\
 						<a id="swipebox-close"></a>\
@@ -85,7 +89,11 @@
 						return false;
 					}
 
-					ui.destroy();
+					// if ( ! $.isArray( elem ) ) {
+					 	ui.destroy();
+					// 	$elem = $( selector );
+					// 	ui.actions();
+					// }
 
 					if ( plugin.settings.selector === null ) {
 						$elem = $( elem );
@@ -109,7 +117,11 @@
 
 					if ( relVal && relVal !== '' && relVal !== 'nofollow' ) {
 						$elem = $elem.filter( '[' + relType + '="' + relVal + '"]' );
-					}
+					} 
+					// else {
+					// 	debugger;
+					// 	$elem = $( selector );
+					// }
 
 					$elem.each( function() {
 
@@ -127,8 +139,11 @@
 
 						elements.push( {
 							href: href,
-							title: title
-						} );
+                            title: title,
+							style: $(this).data("style"),
+							class: $(this).data("class"),
+							externalLink: $(this).data("external-link"),
+						} );id="swipebox-external-link"
 					} );
 
 					index = $elem.index( $( this ) );
@@ -181,8 +196,13 @@
 					$( '#swipebox-bottom-bar, #swipebox-top-bar' ).remove();
 				}
 
-				$.each( elements,  function() {
-					$( '#swipebox-slider' ).append( '<div class="slide"></div>' );
+				$.each( elements,  function(index, value) {
+					var divElement = $('<div class="slide"></div>');
+
+					divElement.attr( 'style', elements[index].style);
+					divElement.addClass(elements[index].class);
+
+					$( '#swipebox-slider' ).append(divElement);
 				} );
 
 				$this.setDim();
@@ -609,10 +629,11 @@
 					slider.animate( { left : ( -index*100 )+'%' } );
 				}
 
-				$( '#swipebox-slider .slide' ).removeClass( 'current' );
+                $( '#swipebox-slider .slide' ).removeClass( 'current' );
 				$( '#swipebox-slider .slide' ).eq( index ).addClass( 'current' );
-				this.setTitle( index );
-
+                this.setTitle( index );
+				this.setExternalLink( index );
+                
 				if ( isFirst ) {
 					slider.fadeIn();
 				}
@@ -719,6 +740,24 @@
 					$( '#swipebox-title' ).append( title );
 				} else {
 					$( '#swipebox-top-bar' ).hide();
+				}
+			},
+
+			/**
+			 * Set set external link in bottom bar
+			 */
+			 setExternalLink : function ( index ) {
+				var externalLink = null;
+
+				if ( elements[ index ] !== undefined ) {
+					externalLink = elements[ index ].externalLink;
+				}
+
+				if ( externalLink ) {
+					$( '#swipebox-external-link' ).show();
+					$( '#swipebox-external-link-url' ).attr( "href", externalLink );
+				} else {
+					$( '#swipebox-external-link' ).hide();
 				}
 			},
 

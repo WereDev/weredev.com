@@ -61,7 +61,7 @@ namespace Weredev.Providers.Flickr.Mappers
             return photo;
         }
 
-        public static PhotoInfoProviderModel ToProviderModel(this PhotosetsGetInfoResponse response)
+        public static PhotoInfoProviderModel ToProviderModel(this PhotosetsGetInfoResponse response, string photosetId)
         {
             var info = response.Photo;
 
@@ -69,14 +69,15 @@ namespace Weredev.Providers.Flickr.Mappers
             {
                 Id = info.Id,
                 Title = info.Title.Content,
+                Rotation = info.Rotation,
             };
 
             if (DateTime.TryParse(info.Dates.Taken, out var dateTaken))
                 model.DateTaken = dateTaken;
 
-            model.Rotation = info.Rotation;
-
             model.Tags = info.Tags?.Tags?.Select(x => x.Raw)?.ToArray();
+
+            model.PhotoPageUrl = $"https://www.flickr.com/photos/{info.Owner.NsId}/{info.Id}/in/album-{photosetId}/";
 
             return model;
         }

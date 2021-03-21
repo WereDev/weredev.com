@@ -11,6 +11,6 @@ namespace Weredev.Domain.Interfaces
 
         Task<PhotoListProviderModel> ListPhotos(string photosetId);
 
-        Task<PhotoInfoProviderModel> GetPhotoInfo(string photoId, string secret);
+        Task<PhotoInfoProviderModel> GetPhotoInfo(string photosetId, string photoId, string secret);
     }
 }
