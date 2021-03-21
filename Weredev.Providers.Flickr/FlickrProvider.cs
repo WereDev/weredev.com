@@ -85,7 +85,7 @@ namespace Weredev.Providers.Flickr
             return model;
         }
 
-        public async Task<PhotoInfoProviderModel> GetPhotoInfo(string photoId, string secret)
+        public async Task<PhotoInfoProviderModel> GetPhotoInfo(string photosetId, string photoId, string secret)
         {
             if (string.IsNullOrWhiteSpace(photoId))
                 throw new ArgumentNullException(nameof(photoId));
@@ -99,7 +99,7 @@ namespace Weredev.Providers.Flickr
             };
 
             var photoInfo = await ExecuteFlickrRequestAsync<Models.PhotosetsGetInfoResponse>(_FlickrGetPhotoInfo, parameters);
-            var model = photoInfo.ToProviderModel();
+            var model = photoInfo.ToProviderModel(photosetId);
             return model;
         }
 

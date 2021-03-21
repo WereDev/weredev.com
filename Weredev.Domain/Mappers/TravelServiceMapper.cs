@@ -96,6 +96,7 @@ namespace Weredev.Domain.Mappers
                 Secret = photo.Secret,
                 Tags = photo.Tags,
                 Rotation = photo.Rotation,
+                PhotoPageUrl = photo.PhotoPageUrl,
             };
         }
     }

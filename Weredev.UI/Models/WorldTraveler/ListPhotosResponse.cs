@@ -41,6 +41,7 @@ namespace Weredev.UI.Models.WorldTraveler
                 Secret = photo.Secret;
                 Tags = photo.Tags;
                 Rotatation = photo.Rotation;
+                PhotoPageUrl = photo.PhotoPageUrl;
             }
 
             public string Name { get; set; }
@@ -54,6 +55,8 @@ namespace Weredev.UI.Models.WorldTraveler
             public DateTime? DateTaken { get; set; }
 
             public int Rotatation { get; set; }
+
+            public string PhotoPageUrl { get; set; }
 
             public string Description
             {
