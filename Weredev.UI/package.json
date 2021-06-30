@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "bootstrap": "4.6.0",
-    "nodemon": "2.0.7",
+    "nodemon": "2.0.8",
     "node-sass": "5.0.0"
   }
 }
